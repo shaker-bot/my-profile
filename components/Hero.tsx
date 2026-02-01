@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Linkedin, Phone } from "lucide-react";
+import { Mail, MapPin, Linkedin, Phone, Github } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -16,14 +17,15 @@ export default function Hero() {
             className="relative"
           >
             <div className="w-64 h-64 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-1 shadow-2xl">
-              <div className="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
-                <svg
-                  className="w-32 h-32 text-gray-400 dark:text-gray-500"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
+              <div className="w-full h-full rounded-full overflow-hidden">
+                <Image
+                  src="/IMG-1327.jpg"
+                  alt="Abhishek Mathews"
+                  width={256}
+                  height={256}
+                  className="w-full h-full object-cover object-right"
+                  priority
+                />
               </div>
             </div>
             {/* Animated ring */}
@@ -94,6 +96,15 @@ export default function Hero() {
                 <Linkedin className="w-5 h-5" />
                 <span>LinkedIn</span>
               </a>
+              <a
+                href="https://github.com/shaker-bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <Github className="w-5 h-5" />
+                <span>GitHub</span>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -103,7 +114,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          onClick={() =>
+            document
+              .getElementById("experience")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
