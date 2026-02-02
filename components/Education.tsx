@@ -15,6 +15,7 @@ const education = [
     degree: "BS in Computer Science",
     institution: "George Mason University",
     location: "Fairfax, VA, USA",
+    gpa: "3.42",
     date: "08/2013 - 05/2017",
   },
 ];

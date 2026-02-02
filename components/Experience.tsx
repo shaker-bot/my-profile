@@ -6,15 +6,16 @@ import { Briefcase } from "lucide-react";
 const experiences = [
   {
     company: "Capital One",
+    location: "McLean, VA, USA",
     period: "03/2019 - 04/2025",
     role: "Senior Software Engineer",
     achievements: [
-      "Streamlined high risk issue resolution by creating just-in-time AWS access feature, resulting in 50% faster issue resolution time.",
+      "Led architecting and implementation of high risk issue resolution by creating just-in-time AWS access feature, resulting in fifty percent faster issue resolution time.",
       "Collaborated with team to improve app functionality, leading redesign of Auth and data access and achieving 20% decrease in user complaints.",
       "Implemented compliant database deployments by integrating with internal CI/CD tooling, reducing manual work by 50% and increasing data security.",
       "Released controlled deployment acceleration feature which runs on thousands of developer pipelines to save hundreds of hours and decreasing deployment time by 40%",
       "Overhauled user entitlement access in an internal CLI tooling in order to improve data retrieval/filtering around AWS IAM entitlements, especially for users with thousands of results",
-      "Used application to greatly increase off-hour cost-savings for thousands of AWS resources",
+      "Led refactor and implementation of EC2/ECS off-hours solution that optimized cost for AWS resources across thousands of non-production accounts.",
       "Implemented Cloud Custodian policies and visual emails to drive compliance and cost objectives",
       "Architected Off-Hours solution for database management in order to gain more cloud cost-savings.",
       "Designed and implemented a proof of concept solution to assist developers in producing IAM policies that used least-privilege principles based on their applications usage in non-production environments.",
@@ -23,7 +24,7 @@ const experiences = [
   },
   {
     company: "Extend",
-    location: "USA",
+    location: "USA, Remote",
     period: "07/2021 - 07/2022",
     role: "Senior Software Engineer",
     achievements: [

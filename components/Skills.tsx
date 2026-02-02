@@ -7,43 +7,60 @@ const skillCategories = [
   {
     title: "Programming Languages",
     icon: Code2,
-    skills: ["Python", "TypeScript", "Golang", "Java"],
+    skills: [
+      { name: "Python", proficiency: 5 },
+      { name: "TypeScript", proficiency: 5 },
+      { name: "Golang", proficiency: 3 },
+      { name: "Java", proficiency: 4 },
+    ],
     color: "blue",
   },
   {
     title: "Cloud Platforms",
     icon: Cloud,
-    skills: ["Amazon Web Services (AWS)"],
+    skills: [{ name: "Amazon Web Services (AWS)", proficiency: 5 }],
     color: "orange",
   },
   {
     title: "Developer Tools",
     icon: Wrench,
-    skills: ["Github", "AI Tooling (Cursor, VSCode+CoPilot, Claude Code, etc.)"],
+    skills: [
+      { name: "Github", proficiency: 5 },
+      { name: "AI Tooling (Cursor, VSCode+CoPilot, Claude Code, etc.)", proficiency: 4 },
+    ],
     color: "purple",
   },
   {
     title: "DevOps Tools",
     icon: Wrench,
-    skills: ["AWS CDK", "Terraform", "Jenkins", "Docker/Kubernetes"],
+    skills: [
+      { name: "AWS CDK", proficiency: 5 },
+      { name: "Terraform", proficiency: 4 },
+      { name: "Jenkins", proficiency: 4 },
+      { name: "Docker/Kubernetes", proficiency: 4 },
+    ],
     color: "green",
   },
   {
     title: "Databases",
     icon: Database,
-    skills: ["NoSQL (DynamoDB/MongoDB)", "MySQL", "PostgreSQL"],
+    skills: [
+      { name: "NoSQL (DynamoDB/MongoDB)", proficiency: 4 },
+      { name: "MySQL", proficiency: 4 },
+      { name: "PostgreSQL", proficiency: 4 },
+    ],
     color: "red",
   },
   {
     title: "Soft Skills",
     icon: Users,
     skills: [
-      "Problem Solving",
-      "Engineering Mentorship",
-      "Communication",
-      "Teamwork",
-      "Leadership",
-      "Adaptability/Flexible",
+      { name: "Problem Solving", proficiency: 5 },
+      { name: "Engineering Mentorship", proficiency: 5 },
+      { name: "Communication", proficiency: 5 },
+      { name: "Teamwork", proficiency: 5 },
+      { name: "Leadership", proficiency: 4 },
+      { name: "Adaptability/Flexible", proficiency: 5 },
     ],
     color: "pink",
   },
@@ -75,7 +92,31 @@ export default function Skills() {
               Skills & Expertise
             </h2>
           </div>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded"></div>
+          <div className="w-24 h-1 bg-blue-600 mx-auto rounded mb-4"></div>
+          <div className="flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+            <span>Proficiency:</span>
+            {[
+              { label: "Beginner", level: 1 },
+              { label: "Intermediate", level: 3 },
+              { label: "Expert", level: 5 },
+            ].map(({ label, level }) => (
+              <div key={label} className="flex items-center gap-1">
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        i < level
+                          ? "bg-blue-500"
+                          : "bg-gray-300 dark:bg-gray-600"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -100,18 +141,32 @@ export default function Skills() {
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   {category.title}
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-3">
                   {category.skills.map((skill, skillIndex) => (
-                    <motion.span
+                    <motion.div
                       key={skillIndex}
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: index * 0.1 + skillIndex * 0.05 }}
                       viewport={{ once: true }}
-                      className="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+                      className="flex items-center justify-between gap-2"
                     >
-                      {skill}
-                    </motion.span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">
+                        {skill.name}
+                      </span>
+                      <div className="flex gap-1">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className={`w-2 h-2 rounded-full ${
+                              i < skill.proficiency
+                                ? `bg-gradient-to-r ${colorClasses[category.color as keyof typeof colorClasses]}`
+                                : "bg-gray-300 dark:bg-gray-600"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
