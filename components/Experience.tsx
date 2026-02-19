@@ -7,7 +7,7 @@ const experiences = [
   {
     company: "Capital One",
     location: "McLean, VA, USA",
-    period: "07/2021 - 04/2025",
+    period: "09/2022 - 04/2025",
     role: "Senior Software Engineer",
     badge: "Platform & Developer Tools",
     badgeColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
@@ -19,21 +19,6 @@ const experiences = [
       "Overhauled user entitlement access in an internal CLI tooling in order to improve data retrieval/filtering around AWS IAM entitlements, especially for users with thousands of results",
     ],
     technologies: "Python, FastAPI, AWS Lambda, AWS DynamoDB, AWS RDS, Jenkins, Golang, Typescript, Angular, AWS IAM, Boto3, PostgreSQL, YAML, React, Redux, GraphQL",
-  },
-  {
-    company: "Capital One",
-    location: "McLean, VA, USA",
-    period: "03/2019 - 07/2021",
-    role: "Senior Software Engineer",
-    badge: "Cloud Cost & Compliance",
-    badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-    achievements: [
-      "Led refactor and implementation of EC2/ECS off-hours solution that optimized cost for AWS resources across thousands of non-production accounts.",
-      "Implemented Cloud Custodian policies and visual emails to drive compliance and cost objectives",
-      "Architected Off-Hours solution for database management in order to gain more cloud cost-savings.",
-      "Designed and implemented a proof of concept solution to assist developers in producing IAM policies that used least-privilege principles based on their applications usage in non-production environments.",
-    ],
-    technologies: "Python, AWS Lambda, AWS DynamoDB, AWS RDS, AWS IAM, Boto3, Cloud Custodian, YAML",
   },
   {
     company: "Extend",
@@ -49,6 +34,21 @@ const experiences = [
       "Brought new engineers up to speed with technology stack, architecture, and deployment patterns",
     ],
     technologies: "Typescript, NodeJS, AWS Lambda, AWS SQS, AWS DynamoDB/Table Streams, React/Redux, Chakra UI, AWS Cognito, Github Actions",
+  },
+  {
+    company: "Capital One",
+    location: "McLean, VA, USA",
+    period: "03/2019 - 07/2021",
+    role: "Senior Software Engineer",
+    badge: "Cloud Cost & Compliance",
+    badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+    achievements: [
+      "Led refactor and implementation of EC2/ECS off-hours solution that optimized cost for AWS resources across thousands of non-production accounts.",
+      "Implemented Cloud Custodian policies and visual emails to drive compliance and cost objectives",
+      "Architected Off-Hours solution for database management in order to gain more cloud cost-savings.",
+      "Designed and implemented a proof of concept solution to assist developers in producing IAM policies that used least-privilege principles based on their applications usage in non-production environments.",
+    ],
+    technologies: "Python, AWS Lambda, AWS DynamoDB, AWS RDS, AWS IAM, Boto3, Cloud Custodian, YAML",
   },
   {
     company: "Cloudreach",
