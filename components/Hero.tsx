@@ -1,15 +1,71 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Linkedin, Phone, Github } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github, FileDown } from "lucide-react";
 import Image from "next/image";
+
+const titles = [
+  "Senior Software Engineer",
+  "Cloud Infrastructure Engineer",
+  "Full-Stack Developer",
+  "DevOps Practitioner",
+];
+
+function TypewriterText() {
+  const [titleIndex, setTitleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = titles[titleIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!deleting && displayed.length < current.length) {
+      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
+    } else if (!deleting && displayed.length === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 2000);
+    } else if (deleting && displayed.length > 0) {
+      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
+    } else if (deleting && displayed.length === 0) {
+      setDeleting(false);
+      setTitleIndex((i) => (i + 1) % titles.length);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayed, deleting, titleIndex]);
+
+  return (
+    <h2 className="text-2xl md:text-3xl text-blue-600 dark:text-blue-400 font-semibold mb-6 h-10">
+      {displayed}
+      <span className="animate-pulse">|</span>
+    </h2>
+  );
+}
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4">
-      <div className="max-w-6xl w-full py-20">
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 overflow-hidden">
+      {/* Floating background blobs */}
+      <motion.div
+        className="absolute top-20 left-10 w-72 h-72 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30"
+        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-80 h-80 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30"
+        animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-200 dark:bg-indigo-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20"
+        animate={{ x: [0, 20, -20, 0], y: [0, -20, 20, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="relative max-w-6xl w-full py-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Profile Picture Placeholder */}
+          {/* Profile Picture */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -28,18 +84,10 @@ export default function Hero() {
                 />
               </div>
             </div>
-            {/* Animated ring */}
             <motion.div
               className="absolute inset-0 rounded-full border-4 border-blue-500"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.2, 0.5],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.2, 0.5] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
           </motion.div>
 
@@ -53,9 +101,7 @@ export default function Hero() {
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
                 Abhishek Mathews
               </h1>
-              <h2 className="text-2xl md:text-3xl text-blue-600 dark:text-blue-400 font-semibold mb-6">
-                Senior Software Engineer
-              </h2>
+              <TypewriterText />
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">
                 Senior Software Engineer with 7+ years of experience leading the design and delivery of
                 high-impact systems, specializing in cloud infrastructure, DevOps, and full-stack development.
@@ -67,7 +113,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex flex-wrap gap-4 justify-center md:justify-start text-gray-700 dark:text-gray-300"
+              className="flex flex-wrap gap-4 justify-center md:justify-start text-gray-700 dark:text-gray-300 mb-8"
             >
               <a
                 href="mailto:abhishekd.mathews@gmail.com"
@@ -75,13 +121,6 @@ export default function Hero() {
               >
                 <Mail className="w-5 h-5" />
                 <span>abhishekd.mathews@gmail.com</span>
-              </a>
-              <a
-                href="tel:+17039646517"
-                className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <Phone className="w-5 h-5" />
-                <span>+1 703-964-6517</span>
               </a>
               <div className="flex items-center gap-2">
                 <MapPin className="w-5 h-5" />
@@ -106,6 +145,22 @@ export default function Hero() {
                 <span>GitHub</span>
               </a>
             </motion.div>
+
+            {/* Resume Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              <a
+                href="/resume.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg hover:shadow-blue-500/40 transition-all hover:-translate-y-0.5"
+              >
+                <FileDown className="w-5 h-5" />
+                Download Resume
+              </a>
+            </motion.div>
           </div>
         </div>
 
@@ -115,11 +170,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
-          onClick={() =>
-            document
-              .getElementById("experience")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
+          onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

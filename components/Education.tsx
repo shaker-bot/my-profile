@@ -9,7 +9,7 @@ const education = [
     institution: "Georgia Institute of Technology",
     location: "Atlanta, GA, USA",
     gpa: "3.71",
-    date: "08/2022",
+    date: "08/2017 - 08/2022",
   },
   {
     degree: "BS in Computer Science",

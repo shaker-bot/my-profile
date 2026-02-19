@@ -7,26 +7,41 @@ const experiences = [
   {
     company: "Capital One",
     location: "McLean, VA, USA",
-    period: "03/2019 - 04/2025",
+    period: "07/2021 - 04/2025",
     role: "Senior Software Engineer",
+    badge: "Platform & Developer Tools",
+    badgeColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
     achievements: [
       "Led architecting and implementation of high risk issue resolution by creating just-in-time AWS access feature, resulting in fifty percent faster issue resolution time.",
       "Collaborated with team to improve app functionality, leading redesign of Auth and data access and achieving 20% decrease in user complaints.",
       "Implemented compliant database deployments by integrating with internal CI/CD tooling, reducing manual work by 50% and increasing data security.",
       "Released controlled deployment acceleration feature which runs on thousands of developer pipelines to save hundreds of hours and decreasing deployment time by 40%",
       "Overhauled user entitlement access in an internal CLI tooling in order to improve data retrieval/filtering around AWS IAM entitlements, especially for users with thousands of results",
+    ],
+    technologies: "Python, FastAPI, AWS Lambda, AWS DynamoDB, AWS RDS, Jenkins, Golang, Typescript, Angular, AWS IAM, Boto3, PostgreSQL, YAML, React, Redux, GraphQL",
+  },
+  {
+    company: "Capital One",
+    location: "McLean, VA, USA",
+    period: "03/2019 - 07/2021",
+    role: "Senior Software Engineer",
+    badge: "Cloud Cost & Compliance",
+    badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+    achievements: [
       "Led refactor and implementation of EC2/ECS off-hours solution that optimized cost for AWS resources across thousands of non-production accounts.",
       "Implemented Cloud Custodian policies and visual emails to drive compliance and cost objectives",
       "Architected Off-Hours solution for database management in order to gain more cloud cost-savings.",
       "Designed and implemented a proof of concept solution to assist developers in producing IAM policies that used least-privilege principles based on their applications usage in non-production environments.",
     ],
-    technologies: "Python, FastAPI, AWS Lambda, AWS DynamoDB, AWS RDS, Jenkins, Golang, Typescript, Angular, AWS IAM, Boto3, PostgreSQL, YAML, React, Redux, GraphQL",
+    technologies: "Python, AWS Lambda, AWS DynamoDB, AWS RDS, AWS IAM, Boto3, Cloud Custodian, YAML",
   },
   {
     company: "Extend",
     location: "USA, Remote",
     period: "07/2021 - 07/2022",
     role: "Senior Software Engineer",
+    badge: "Consumer Application",
+    badgeColor: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
     achievements: [
       "Designed and Released Customer-Facing Portal For Purchased Warranty Experience",
       "Helped design and build authentication flow along with the security team",
@@ -40,6 +55,8 @@ const experiences = [
     location: "Reston, VA, USA",
     period: "06/2018 - 03/2019",
     role: "Cloud Systems Developer",
+    badge: "Consulting",
+    badgeColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
     achievements: [
       "Executed Cloud Infrastructure standups for a large Financial Organization",
       "Supported front door tickets and requests to build out one-off resources",
@@ -82,19 +99,26 @@ export default function Experience() {
               <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[10px] top-0"></div>
 
               <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      {exp.company}
-                      {exp.location && (
-                        <span className="text-lg font-normal text-gray-600 dark:text-gray-400"> • {exp.location}</span>
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {exp.company}
+                        {exp.location && (
+                          <span className="text-lg font-normal text-gray-600 dark:text-gray-400"> • {exp.location}</span>
+                        )}
+                      </h3>
+                      {exp.badge && (
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${exp.badgeColor}`}>
+                          {exp.badge}
+                        </span>
                       )}
-                    </h3>
+                    </div>
                     <p className="text-xl text-blue-600 dark:text-blue-400 font-semibold">
                       {exp.role}
                     </p>
                   </div>
-                  <span className="text-gray-600 dark:text-gray-400 font-medium">
+                  <span className="text-gray-600 dark:text-gray-400 font-medium whitespace-nowrap">
                     {exp.period}
                   </span>
                 </div>
