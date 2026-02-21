@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const navLinks = [
+const sectionLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Education", href: "#education" },
@@ -15,6 +17,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     setMounted(true);
@@ -47,15 +51,36 @@ export default function Navbar() {
         </button>
 
         <div className="flex items-center gap-6">
-          {navLinks.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => scrollTo(link.href)}
-              className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
-            >
-              {link.label}
-            </button>
-          ))}
+          {isHome
+            ? sectionLinks.map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => scrollTo(link.href)}
+                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
+                >
+                  {link.label}
+                </button>
+              ))
+            : sectionLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={`/${link.href}`}
+                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+          <Link
+            href="/hobbies"
+            className={`text-sm font-medium transition-colors hidden sm:block ${
+              pathname === "/hobbies"
+                ? "text-blue-600 dark:text-blue-400"
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+            }`}
+          >
+            Hobbies
+          </Link>
 
           <AnimatePresence mode="wait">
             {mounted && (

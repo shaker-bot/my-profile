@@ -7,6 +7,17 @@ jest.mock("next-themes", () => ({
   useTheme: () => ({ theme: "light", setTheme: mockSetTheme }),
 }));
 
+jest.mock("next/navigation", () => ({
+  usePathname: jest.fn(() => "/"),
+}));
+
+jest.mock("next/link", () => ({
+  __esModule: true,
+  default: ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>{children}</a>
+  ),
+}));
+
 jest.mock("framer-motion", () => {
   const React = require("react");
   return {
@@ -24,9 +35,12 @@ jest.mock("framer-motion", () => {
   };
 });
 
-describe("Navbar", () => {
+const { usePathname } = require("next/navigation");
+
+describe("Navbar – home page (/)", () => {
   beforeEach(() => {
     mockSetTheme.mockClear();
+    usePathname.mockReturnValue("/");
   });
 
   it("renders the AM monogram", () => {
@@ -34,11 +48,18 @@ describe("Navbar", () => {
     expect(screen.getByText("AM")).toBeInTheDocument();
   });
 
-  it("renders all navigation links", () => {
+  it("renders section navigation buttons on the home page", () => {
     render(<Navbar />);
     expect(screen.getByText("Experience")).toBeInTheDocument();
     expect(screen.getByText("Skills")).toBeInTheDocument();
     expect(screen.getByText("Education")).toBeInTheDocument();
+  });
+
+  it("renders the Hobbies link on the home page", () => {
+    render(<Navbar />);
+    const hobbiesLink = screen.getByRole("link", { name: "Hobbies" });
+    expect(hobbiesLink).toBeInTheDocument();
+    expect(hobbiesLink).toHaveAttribute("href", "/hobbies");
   });
 
   it("renders the dark mode toggle button after mount", async () => {
@@ -61,7 +82,7 @@ describe("Navbar", () => {
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
   });
 
-  it("scrolls to the experience section when Experience link is clicked", () => {
+  it("scrolls to the experience section when Experience button is clicked", () => {
     document.body.innerHTML = '<section id="experience"></section>';
     render(<Navbar />);
     fireEvent.click(screen.getByText("Experience"));
@@ -79,5 +100,25 @@ describe("Navbar", () => {
     });
 
     expect(nav.className).toContain("shadow-md");
+  });
+});
+
+describe("Navbar – hobbies page (/hobbies)", () => {
+  beforeEach(() => {
+    mockSetTheme.mockClear();
+    usePathname.mockReturnValue("/hobbies");
+  });
+
+  it("renders section links as anchors pointing to home page sections", () => {
+    render(<Navbar />);
+    const expLink = screen.getByRole("link", { name: "Experience" });
+    expect(expLink).toHaveAttribute("href", "/#experience");
+  });
+
+  it("renders the Hobbies link as active (highlighted) on the hobbies page", () => {
+    render(<Navbar />);
+    const hobbiesLink = screen.getByRole("link", { name: "Hobbies" });
+    expect(hobbiesLink).toHaveAttribute("href", "/hobbies");
+    expect(hobbiesLink.className).toContain("text-blue-600");
   });
 });

@@ -33,7 +33,7 @@ describe("Experience", () => {
 
   it("renders the Capital One Platform & Developer Tools period", () => {
     render(<Experience />);
-    expect(screen.getByText("07/2021 - 04/2025")).toBeInTheDocument();
+    expect(screen.getByText("09/2022 - 04/2025")).toBeInTheDocument();
   });
 
   it("renders the Capital One Cloud Cost & Compliance period", () => {

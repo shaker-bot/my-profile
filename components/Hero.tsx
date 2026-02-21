@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Linkedin, Github, FileDown } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github } from "lucide-react";
 import Image from "next/image";
 
 const titles = [
@@ -146,21 +146,6 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Resume Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              <a
-                href="/resume.pdf"
-                download
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg hover:shadow-blue-500/40 transition-all hover:-translate-y-0.5"
-              >
-                <FileDown className="w-5 h-5" />
-                Download Resume
-              </a>
-            </motion.div>
           </div>
         </div>
 

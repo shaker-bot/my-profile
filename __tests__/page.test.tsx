@@ -1,6 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import Home from "@/app/page";
 
+jest.mock("next/navigation", () => ({
+  usePathname: jest.fn(() => "/"),
+}));
+
+jest.mock("next/link", () => ({
+  __esModule: true,
+  default: ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>{children}</a>
+  ),
+}));
+
+// Mock next-themes (used by Navbar)
+jest.mock("next-themes", () => ({
+  useTheme: () => ({ theme: "light", setTheme: jest.fn() }),
+}));
+
 // Mock framer-motion
 jest.mock("framer-motion", () => ({
   motion: {

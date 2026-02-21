@@ -59,14 +59,6 @@ describe("Hero", () => {
     expect(githubLink).toHaveAttribute("href", "https://github.com/shaker-bot");
   });
 
-  it("renders the Download Resume button", () => {
-    render(<Hero />);
-    const resumeBtn = screen.getByRole("link", { name: /download resume/i });
-    expect(resumeBtn).toBeInTheDocument();
-    expect(resumeBtn).toHaveAttribute("href", "/resume.pdf");
-    expect(resumeBtn).toHaveAttribute("download");
-  });
-
   it("renders the location", () => {
     render(<Hero />);
     expect(screen.getByText("McLean, VA")).toBeInTheDocument();
