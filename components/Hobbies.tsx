@@ -32,9 +32,9 @@ const hobbies: Hobby[] = [
     tagBg: "bg-violet-100 dark:bg-violet-900/40",
     tagText: "text-violet-700 dark:text-violet-300",
     items: [
-      { title: "Game Title", subtitle: "Genre · Year", tag: "Playing" },
-      { title: "Game Title", subtitle: "Genre · Year", tag: "Completed" },
-      { title: "Game Title", subtitle: "Genre · Year", tag: "Backlog" },
+      { title: "League of Legends", subtitle: "MOBA · 2009", tag: "Playing" },
+      { title: "Valorant", subtitle: "Tactical FPS · 2020", tag: "Playing" },
+      { title: "Absolum", subtitle: "Roguelite Beat 'em Up · 2025", tag: "Backlog" },
     ],
   },
   {
@@ -47,9 +47,9 @@ const hobbies: Hobby[] = [
     tagBg: "bg-sky-100 dark:bg-sky-900/40",
     tagText: "text-sky-700 dark:text-sky-300",
     items: [
-      { title: "Show Title", subtitle: "Network · Year", tag: "Watching" },
-      { title: "Show Title", subtitle: "Network · Year", tag: "Completed" },
-      { title: "Show Title", subtitle: "Network · Year", tag: "On Hold" },
+      { title: "Law & Order: SVU", subtitle: "NBC · 1999", tag: "Watching" },
+      { title: "Young Sherlock", subtitle: "Prime Video · 2026", tag: "Watching" },
+      { title: "Superstore", subtitle: "NBC · 2015", tag: "Completed" },
     ],
   },
   {
