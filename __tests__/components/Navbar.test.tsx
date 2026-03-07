@@ -30,10 +30,23 @@ jest.mock("framer-motion", () => {
         const { initial, animate, exit, transition, ...rest } = props;
         return <button {...rest} ref={ref}>{children}</button>;
       }),
+      span: React.forwardRef(({ children, ...props }: any, ref: any) => {
+        const { initial, animate, exit, transition, layoutId, ...rest } = props;
+        return <span {...rest} ref={ref}>{children}</span>;
+      }),
     },
     AnimatePresence: ({ children }: any) => <>{children}</>,
   };
 });
+
+// Mock IntersectionObserver (not available in jsdom)
+const mockObserve = jest.fn();
+const mockDisconnect = jest.fn();
+(global as any).IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: mockObserve,
+  unobserve: jest.fn(),
+  disconnect: mockDisconnect,
+}));
 
 const { usePathname } = require("next/navigation");
 

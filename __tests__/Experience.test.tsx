@@ -39,9 +39,11 @@ describe("Experience", () => {
   });
 
   it("renders Capital One experience", () => {
-    expect(screen.getByText("Capital One")).toBeInTheDocument();
+    const capitalOnes = screen.getAllByText("Capital One");
+    expect(capitalOnes.length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText(/McLean, VA, USA/)).toBeInTheDocument();
-    expect(screen.getByText("03/2019 - 04/2025")).toBeInTheDocument();
+    expect(screen.getByText("09/2022 - 04/2025")).toBeInTheDocument();
+    expect(screen.getByText("03/2019 - 07/2021")).toBeInTheDocument();
   });
 
   it("renders Capital One role", () => {
@@ -62,12 +64,10 @@ describe("Experience", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders Capital One technologies", () => {
-    expect(
-      screen.getByText(
-        /Python, FastAPI, AWS Lambda, AWS DynamoDB/
-      )
-    ).toBeInTheDocument();
+  it("renders Capital One technologies as individual pills", () => {
+    expect(screen.getByText("Python")).toBeInTheDocument();
+    expect(screen.getByText("FastAPI")).toBeInTheDocument();
+    expect(screen.getByText("AWS Lambda")).toBeInTheDocument();
   });
 
   it("renders Extend experience", () => {
@@ -103,9 +103,9 @@ describe("Experience", () => {
   });
 
   it("does not render technologies section for Cloudreach (empty technologies)", () => {
-    // Cloudreach has empty technologies string, so "Technologies Used:" should only appear twice
+    // Cloudreach has empty technologies; Capital One x2 + Extend = 3 entries with technologies
     const techLabels = screen.getAllByText("Technologies Used:");
-    expect(techLabels).toHaveLength(2);
+    expect(techLabels).toHaveLength(3);
   });
 
   it("renders all three experiences", () => {

@@ -16,6 +16,7 @@ const sectionLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -26,6 +27,23 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isHome) return;
+    const ids = sectionLinks.map((l) => l.href.slice(1));
+    const observers: IntersectionObserver[] = [];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, [isHome]);
 
   const scrollTo = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
@@ -52,15 +70,29 @@ export default function Navbar() {
 
         <div className="flex items-center gap-6">
           {isHome
-            ? sectionLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollTo(link.href)}
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
-                >
-                  {link.label}
-                </button>
-              ))
+            ? sectionLinks.map((link) => {
+                const id = link.href.slice(1);
+                const isActive = activeSection === id;
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollTo(link.href)}
+                    className={`relative text-sm font-medium transition-colors hidden sm:block ${
+                      isActive
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+                      />
+                    )}
+                  </button>
+                );
+              })
             : sectionLinks.map((link) => (
                 <Link
                   key={link.href}

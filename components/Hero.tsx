@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Linkedin, Github } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github, Download, ArrowDown } from "lucide-react";
 import Image from "next/image";
 
 const titles = [
@@ -108,6 +108,30 @@ export default function Hero() {
               </p>
             </motion.div>
 
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
+              className="flex flex-wrap gap-3 justify-center md:justify-start mb-6"
+            >
+              <a
+                href="https://4y8e8soqjtsaruy1.public.blob.vercel-storage.com/AbhishekM_Updated_Resume_IntroUpdate.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
+              >
+                <Download className="w-4 h-4" />
+                Download Resume
+              </a>
+              <button
+                onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all hover:-translate-y-0.5"
+              >
+                View My Work
+              </button>
+            </motion.div>
+
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -146,6 +170,17 @@ export default function Hero() {
               </a>
             </motion.div>
 
+            {/* Scroll nudge — visible on mobile where the bottom indicator is easy to miss */}
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+              className="mt-2 inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors md:hidden"
+            >
+              <ArrowDown className="w-4 h-4" />
+              See my experience
+            </motion.button>
           </div>
         </div>
 

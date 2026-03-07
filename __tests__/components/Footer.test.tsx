@@ -51,9 +51,18 @@ describe("Footer", () => {
     expect(screen.getByText(/Abhishek Mathews\. All rights reserved\./i)).toBeInTheDocument();
   });
 
+  it("renders the GitHub link with an accessible label", () => {
+    render(<Footer />);
+    const githubLink = screen.getByRole("link", { name: /github profile/i });
+    expect(githubLink).toBeInTheDocument();
+    expect(githubLink).toHaveAttribute("href", "https://github.com/shaker-bot");
+    expect(githubLink).toHaveAttribute("target", "_blank");
+    expect(githubLink).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
   it("icon links have aria-hidden icons to avoid duplicate labels", () => {
     const { container } = render(<Footer />);
     const hiddenIcons = container.querySelectorAll("svg[aria-hidden='true']");
-    expect(hiddenIcons.length).toBeGreaterThanOrEqual(2);
+    expect(hiddenIcons.length).toBeGreaterThanOrEqual(3);
   });
 });

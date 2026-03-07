@@ -13,6 +13,7 @@ jest.mock("framer-motion", () => {
       div: makeMotion("div"),
       section: makeMotion("section"),
       a: makeMotion("a"),
+      button: makeMotion("button"),
     },
     AnimatePresence: ({ children }: any) => <>{children}</>,
   };
@@ -73,5 +74,18 @@ describe("Hero", () => {
   it("renders the typewriter cursor", () => {
     render(<Hero />);
     expect(screen.getByText("|")).toBeInTheDocument();
+  });
+
+  it("renders the Download Resume CTA linking to Vercel Blob", () => {
+    render(<Hero />);
+    const resumeLink = screen.getByRole("link", { name: /download resume/i });
+    expect(resumeLink).toBeInTheDocument();
+    expect(resumeLink).toHaveAttribute("href", expect.stringContaining("blob.vercel-storage.com"));
+    expect(resumeLink).toHaveAttribute("target", "_blank");
+  });
+
+  it("renders the View My Work button", () => {
+    render(<Hero />);
+    expect(screen.getByRole("button", { name: /view my work/i })).toBeInTheDocument();
   });
 });

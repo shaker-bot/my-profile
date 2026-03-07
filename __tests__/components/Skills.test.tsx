@@ -72,18 +72,29 @@ describe("Skills", () => {
     expect(screen.getByText("Terraform")).toBeInTheDocument();
   });
 
-  it("renders proficiency labels", () => {
+  it("renders the WIP tag on the section heading", () => {
     render(<Skills />);
-    const expertLabels = screen.getAllByText("Expert");
-    expect(expertLabels.length).toBeGreaterThan(0);
-    const advancedLabels = screen.getAllByText("Advanced");
-    expect(advancedLabels.length).toBeGreaterThan(0);
+    expect(screen.getByText("WIP")).toBeInTheDocument();
   });
 
-  it("renders animated progress bars for skills", () => {
-    const { container } = render(<Skills />);
-    // Each skill has a progress bar div with inline width style applied by framer-motion
-    const progressBars = container.querySelectorAll(".rounded-full.bg-gradient-to-r");
-    expect(progressBars.length).toBeGreaterThan(0);
+  it("renders skills as pill badges, not progress bars", () => {
+    render(<Skills />);
+    expect(screen.getByText("Python")).toBeInTheDocument();
+    expect(screen.queryByText("Expert")).not.toBeInTheDocument();
+    expect(screen.queryByText("Advanced")).not.toBeInTheDocument();
+  });
+
+  it("renders Docker and Kubernetes as separate pills", () => {
+    render(<Skills />);
+    expect(screen.getByText("Docker")).toBeInTheDocument();
+    expect(screen.getByText("Kubernetes")).toBeInTheDocument();
+  });
+
+  it("renders developer tools pills", () => {
+    render(<Skills />);
+    expect(screen.getByText("GitHub")).toBeInTheDocument();
+    expect(screen.getByText("Cursor")).toBeInTheDocument();
+    expect(screen.getByText("GitHub Copilot")).toBeInTheDocument();
+    expect(screen.getByText("Claude Code")).toBeInTheDocument();
   });
 });

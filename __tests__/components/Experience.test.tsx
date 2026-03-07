@@ -89,4 +89,21 @@ describe("Experience", () => {
     const techLabels = screen.getAllByText("Technologies Used:");
     expect(techLabels.length).toBeGreaterThan(0);
   });
+
+  it("renders technologies as individual pill badges", () => {
+    render(<Experience />);
+    expect(screen.getByText("Python")).toBeInTheDocument();
+    expect(screen.getByText("FastAPI")).toBeInTheDocument();
+    expect(screen.getByText("AWS Lambda")).toBeInTheDocument();
+  });
+
+  it("renders tenure duration for each role", () => {
+    render(<Experience />);
+    // Capital One 09/2022–04/2025 = 2 yrs 7 mo
+    expect(screen.getByText("2 yrs 7 mo")).toBeInTheDocument();
+    // Extend 07/2021–07/2022 = 1 yr
+    expect(screen.getByText("1 yr")).toBeInTheDocument();
+    // Cloudreach 06/2018–03/2019 = 9 mo
+    expect(screen.getByText("9 mo")).toBeInTheDocument();
+  });
 });

@@ -7,56 +7,37 @@ const skillCategories = [
   {
     title: "Programming Languages",
     icon: Code2,
-    skills: [
-      { name: "Python", proficiency: 5 },
-      { name: "TypeScript", proficiency: 5 },
-      { name: "Java", proficiency: 4 },
-      { name: "Golang", proficiency: 3 },
-    ],
-    color: "blue",
-    bar: "from-blue-500 to-cyan-500",
+    skills: ["Python", "TypeScript", "Java", "Golang"],
+    gradient: "from-blue-500 to-cyan-500",
+    pill: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
   },
   {
     title: "Cloud Platforms",
     icon: Cloud,
-    skills: [
-      { name: "Amazon Web Services (AWS)", proficiency: 5 },
-    ],
-    color: "orange",
-    bar: "from-orange-500 to-amber-500",
+    skills: ["Amazon Web Services (AWS)"],
+    gradient: "from-orange-500 to-amber-500",
+    pill: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
   },
   {
     title: "DevOps Tools",
     icon: Wrench,
-    skills: [
-      { name: "AWS CDK", proficiency: 5 },
-      { name: "Terraform", proficiency: 4 },
-      { name: "Jenkins", proficiency: 4 },
-      { name: "Docker / Kubernetes", proficiency: 4 },
-    ],
-    color: "green",
-    bar: "from-green-500 to-emerald-500",
+    skills: ["AWS CDK", "Terraform", "Jenkins", "Docker", "Kubernetes"],
+    gradient: "from-green-500 to-emerald-500",
+    pill: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
   },
   {
     title: "Developer Tools",
     icon: Wrench,
-    skills: [
-      { name: "Github", proficiency: 5 },
-      { name: "AI Tooling (Cursor, Copilot, Claude Code)", proficiency: 4 },
-    ],
-    color: "purple",
-    bar: "from-purple-500 to-indigo-500",
+    skills: ["GitHub", "Cursor", "GitHub Copilot", "Claude Code"],
+    gradient: "from-purple-500 to-indigo-500",
+    pill: "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300",
   },
   {
     title: "Databases",
     icon: Database,
-    skills: [
-      { name: "NoSQL (DynamoDB / MongoDB)", proficiency: 4 },
-      { name: "PostgreSQL", proficiency: 4 },
-      { name: "MySQL", proficiency: 4 },
-    ],
-    color: "red",
-    bar: "from-red-500 to-rose-500",
+    skills: ["DynamoDB", "MongoDB", "PostgreSQL", "MySQL"],
+    gradient: "from-red-500 to-rose-500",
+    pill: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
   },
 ];
 
@@ -76,6 +57,9 @@ export default function Skills() {
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
               Skills & Expertise
             </h2>
+            <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-700 self-center">
+              WIP
+            </span>
           </div>
           <div className="w-24 h-1 bg-blue-600 mx-auto rounded"></div>
         </motion.div>
@@ -92,33 +76,20 @@ export default function Skills() {
                 viewport={{ once: true }}
                 className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2"
               >
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-r ${category.bar} mb-4`}>
+                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-r ${category.gradient} mb-4`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-5">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   {category.title}
                 </h3>
-                <div className="flex flex-col gap-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex}>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          {skill.name}
-                        </span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {skill.proficiency === 5 ? "Expert" : skill.proficiency === 4 ? "Advanced" : skill.proficiency === 3 ? "Intermediate" : "Beginner"}
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                        <motion.div
-                          className={`h-full rounded-full bg-gradient-to-r ${category.bar}`}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${(skill.proficiency / 5) * 100}%` }}
-                          transition={{ duration: 0.8, delay: index * 0.1 + skillIndex * 0.08, ease: "easeOut" }}
-                          viewport={{ once: true }}
-                        />
-                      </div>
-                    </div>
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className={`text-sm font-medium px-3 py-1.5 rounded-full ${category.pill}`}
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </motion.div>

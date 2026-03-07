@@ -38,23 +38,19 @@ describe("Skills", () => {
     expect(section).toBeInTheDocument();
   });
 
-  it("renders proficiency legend", () => {
-    expect(screen.getByText("Proficiency:")).toBeInTheDocument();
-    expect(screen.getByText("Beginner")).toBeInTheDocument();
-    expect(screen.getByText("Intermediate")).toBeInTheDocument();
-    expect(screen.getByText("Expert")).toBeInTheDocument();
-  });
-
   it("renders all skill category titles", () => {
     expect(screen.getByText("Programming Languages")).toBeInTheDocument();
     expect(screen.getByText("Cloud Platforms")).toBeInTheDocument();
     expect(screen.getByText("Developer Tools")).toBeInTheDocument();
     expect(screen.getByText("DevOps Tools")).toBeInTheDocument();
     expect(screen.getByText("Databases")).toBeInTheDocument();
-    expect(screen.getByText("Soft Skills")).toBeInTheDocument();
   });
 
-  it("renders programming language skills", () => {
+  it("does not render a Soft Skills category", () => {
+    expect(screen.queryByText("Soft Skills")).not.toBeInTheDocument();
+  });
+
+  it("renders programming language skills as pills", () => {
     expect(screen.getByText("Python")).toBeInTheDocument();
     expect(screen.getByText("TypeScript")).toBeInTheDocument();
     expect(screen.getByText("Golang")).toBeInTheDocument();
@@ -62,46 +58,38 @@ describe("Skills", () => {
   });
 
   it("renders cloud platform skills", () => {
-    expect(
-      screen.getByText("Amazon Web Services (AWS)")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Amazon Web Services (AWS)")).toBeInTheDocument();
   });
 
-  it("renders developer tools", () => {
-    expect(screen.getByText("Github")).toBeInTheDocument();
-    expect(
-      screen.getByText(/AI Tooling/)
-    ).toBeInTheDocument();
+  it("renders developer tools as individual pills", () => {
+    expect(screen.getByText("GitHub")).toBeInTheDocument();
+    expect(screen.getByText("Cursor")).toBeInTheDocument();
+    expect(screen.getByText("GitHub Copilot")).toBeInTheDocument();
+    expect(screen.getByText("Claude Code")).toBeInTheDocument();
   });
 
-  it("renders devops tools", () => {
+  it("renders devops tools as individual pills", () => {
     expect(screen.getByText("AWS CDK")).toBeInTheDocument();
     expect(screen.getByText("Terraform")).toBeInTheDocument();
     expect(screen.getByText("Jenkins")).toBeInTheDocument();
-    expect(screen.getByText("Docker/Kubernetes")).toBeInTheDocument();
+    expect(screen.getByText("Docker")).toBeInTheDocument();
+    expect(screen.getByText("Kubernetes")).toBeInTheDocument();
   });
 
-  it("renders database skills", () => {
-    expect(screen.getByText("NoSQL (DynamoDB/MongoDB)")).toBeInTheDocument();
+  it("renders database skills as individual pills", () => {
+    expect(screen.getByText("DynamoDB")).toBeInTheDocument();
+    expect(screen.getByText("MongoDB")).toBeInTheDocument();
     expect(screen.getByText("MySQL")).toBeInTheDocument();
     expect(screen.getByText("PostgreSQL")).toBeInTheDocument();
   });
 
-  it("renders soft skills", () => {
-    expect(screen.getByText("Problem Solving")).toBeInTheDocument();
-    expect(screen.getByText("Engineering Mentorship")).toBeInTheDocument();
-    expect(screen.getByText("Communication")).toBeInTheDocument();
-    expect(screen.getByText("Teamwork")).toBeInTheDocument();
-    expect(screen.getByText("Leadership")).toBeInTheDocument();
-    expect(screen.getByText("Adaptability/Flexible")).toBeInTheDocument();
+  it("renders WIP tag on the section heading", () => {
+    expect(screen.getByText("WIP")).toBeInTheDocument();
   });
 
-  it("renders proficiency dots for each skill", () => {
-    // Each skill has 5 dots (filled + empty = 5)
-    // Total skills: 4 + 1 + 2 + 4 + 3 + 6 = 20 skills
-    // Plus 3 legend entries with 5 dots each = 15
-    // Total dot containers = 20 + 3 = 23 flex gap-1/gap-0.5 containers
-    const allDots = document.querySelectorAll(".rounded-full.w-2.h-2, .rounded-full.w-1\\.5.h-1\\.5");
-    expect(allDots.length).toBeGreaterThan(0);
+  it("does not render proficiency labels", () => {
+    expect(screen.queryByText("Expert")).not.toBeInTheDocument();
+    expect(screen.queryByText("Advanced")).not.toBeInTheDocument();
+    expect(screen.queryByText("Beginner")).not.toBeInTheDocument();
   });
 });

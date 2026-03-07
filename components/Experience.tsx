@@ -3,6 +3,24 @@
 import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
 
+function calcTenure(period: string): string {
+  const parts = period.split(" - ");
+  if (parts.length !== 2) return "";
+  const parseDate = (s: string) => {
+    const [m, y] = s.trim().split("/");
+    return new Date(parseInt(y), parseInt(m) - 1);
+  };
+  const start = parseDate(parts[0]);
+  const end = parts[1].trim().toLowerCase() === "present" ? new Date() : parseDate(parts[1]);
+  const totalMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const parts2 = [];
+  if (years > 0) parts2.push(`${years} yr${years > 1 ? "s" : ""}`);
+  if (months > 0) parts2.push(`${months} mo`);
+  return parts2.join(" ");
+}
+
 const experiences = [
   {
     company: "Capital One",
@@ -118,9 +136,16 @@ export default function Experience() {
                       {exp.role}
                     </p>
                   </div>
-                  <span className="text-gray-600 dark:text-gray-400 font-medium whitespace-nowrap">
-                    {exp.period}
-                  </span>
+                  <div className="flex flex-col items-start md:items-end gap-0.5 shrink-0">
+                    <span className="text-gray-600 dark:text-gray-400 font-medium whitespace-nowrap">
+                      {exp.period}
+                    </span>
+                    {calcTenure(exp.period) && (
+                      <span className="text-xs text-gray-400 dark:text-gray-500">
+                        {calcTenure(exp.period)}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <ul className="space-y-2 mb-4">
@@ -140,9 +165,16 @@ export default function Experience() {
                     <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
                       Technologies Used:
                     </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {exp.technologies}
-                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {exp.technologies.split(",").map((tech) => (
+                        <span
+                          key={tech.trim()}
+                          className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                        >
+                          {tech.trim()}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

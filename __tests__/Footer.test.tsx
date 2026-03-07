@@ -66,13 +66,13 @@ describe("Footer", () => {
     expect(emailLink).toBeInTheDocument();
   });
 
-  it("renders the 'Built with' text", () => {
-    expect(
-      screen.getByText(/Built with/)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/using Next\.js & TypeScript/)
-    ).toBeInTheDocument();
+  it("renders GitHub link with correct URL", () => {
+    const githubLink = document.querySelector(
+      'a[href="https://github.com/shaker-bot"]'
+    );
+    expect(githubLink).toBeInTheDocument();
+    expect(githubLink).toHaveAttribute("target", "_blank");
+    expect(githubLink).toHaveAttribute("rel", "noopener noreferrer");
   });
 
   it("renders copyright with current year", () => {

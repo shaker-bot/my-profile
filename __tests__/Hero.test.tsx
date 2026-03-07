@@ -16,6 +16,12 @@ jest.mock("framer-motion", () => ({
     }: React.PropsWithChildren<Record<string, unknown>>) => (
       <a {...filterDomProps(props)}>{children}</a>
     ),
+    button: ({
+      children,
+      ...props
+    }: React.PropsWithChildren<Record<string, unknown>>) => (
+      <button {...filterDomProps(props)}>{children}</button>
+    ),
   },
   AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
 }));
@@ -78,11 +84,6 @@ describe("Hero", () => {
     );
   });
 
-  it("renders the phone link", () => {
-    const phoneLink = screen.getByText("+1 703-964-6517");
-    expect(phoneLink.closest("a")).toHaveAttribute("href", "tel:+17039646517");
-  });
-
   it("renders the location", () => {
     expect(screen.getByText("McLean, VA")).toBeInTheDocument();
   });
@@ -105,6 +106,16 @@ describe("Hero", () => {
     );
     expect(githubLink).toHaveAttribute("target", "_blank");
     expect(githubLink).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("renders the Download Resume CTA linking to Vercel Blob", () => {
+    const resumeLink = screen.getByRole("link", { name: /download resume/i });
+    expect(resumeLink).toHaveAttribute("href", expect.stringContaining("blob.vercel-storage.com"));
+    expect(resumeLink).toHaveAttribute("target", "_blank");
+  });
+
+  it("renders the View My Work button", () => {
+    expect(screen.getByRole("button", { name: /view my work/i })).toBeInTheDocument();
   });
 
   it("renders scroll indicator that scrolls to experience section", () => {
