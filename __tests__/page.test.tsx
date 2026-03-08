@@ -18,44 +18,35 @@ jest.mock("next-themes", () => ({
 }));
 
 // Mock framer-motion
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({
-      children,
-      ...props
-    }: React.PropsWithChildren<Record<string, unknown>>) => {
+jest.mock("framer-motion", () => {
+  const React = require("react");
+  const makeMotion = (tag: string) =>
+    React.forwardRef(({ children, ...props }: any, ref: any) => {
       const {
-        initial,
-        animate,
-        exit,
-        transition,
-        whileInView,
-        whileHover,
-        whileTap,
-        viewport,
-        ...domProps
+        initial, animate, exit, transition, whileInView,
+        whileHover, whileTap, viewport, variants, custom,
+        layoutId, ...rest
       } = props;
-      return <div {...domProps}>{children}</div>;
+      return React.createElement(tag, { ...rest, ref }, children);
+    });
+  return {
+    motion: {
+      div: makeMotion("div"),
+      a: makeMotion("a"),
+      button: makeMotion("button"),
+      nav: makeMotion("nav"),
+      span: makeMotion("span"),
+      section: makeMotion("section"),
     },
-    a: ({
-      children,
-      ...props
-    }: React.PropsWithChildren<Record<string, unknown>>) => {
-      const {
-        initial,
-        animate,
-        exit,
-        transition,
-        whileInView,
-        whileHover,
-        whileTap,
-        viewport,
-        ...domProps
-      } = props;
-      return <a {...domProps}>{children}</a>;
-    },
-  },
-  AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+    AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+  };
+});
+
+// Mock IntersectionObserver (not available in jsdom, used by Navbar)
+(global as any).IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
 }));
 
 // Mock next/image

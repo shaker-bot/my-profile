@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
+import ParticleBackground from "@/components/ParticleBackground";
 
 export const metadata: Metadata = {
   title: "Abhishek Mathews - Senior Software Engineer",
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider>
+          <ParticleBackground />
           {children}
         </ThemeProvider>
       </body>
