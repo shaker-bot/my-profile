@@ -74,8 +74,9 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2"
+                className="relative bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2"
               >
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${category.gradient}`} />
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-r ${category.gradient} mb-4`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>

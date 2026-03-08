@@ -108,8 +108,9 @@ describe("Experience", () => {
     expect(techLabels).toHaveLength(3);
   });
 
-  it("renders all three experiences", () => {
-    expect(screen.getByText("Capital One")).toBeInTheDocument();
+  it("renders all four experiences (Capital One appears twice)", () => {
+    const capitalOnes = screen.getAllByText("Capital One");
+    expect(capitalOnes.length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText("Extend")).toBeInTheDocument();
     expect(screen.getByText("Cloudreach")).toBeInTheDocument();
   });

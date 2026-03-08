@@ -60,8 +60,10 @@ describe("Hero", () => {
     expect(screen.getByText("Abhishek Mathews")).toBeInTheDocument();
   });
 
-  it("renders the job title", () => {
-    expect(screen.getByText("Senior Software Engineer")).toBeInTheDocument();
+  it("renders the typewriter cursor", () => {
+    // TypewriterText starts with an empty string and types progressively;
+    // the blinking cursor "|" is always present regardless of current title.
+    expect(screen.getByText("|")).toBeInTheDocument();
   });
 
   it("renders the professional summary", () => {

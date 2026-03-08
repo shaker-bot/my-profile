@@ -62,6 +62,16 @@ export default function Hero() {
         animate={{ x: [0, 20, -20, 0], y: [0, -20, 20, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
+      <motion.div
+        className="absolute top-10 right-1/3 w-56 h-56 bg-teal-200 dark:bg-teal-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20"
+        animate={{ x: [0, -18, 12, 0], y: [0, 15, -10, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-10 left-1/3 w-60 h-60 bg-amber-200 dark:bg-amber-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-15"
+        animate={{ x: [0, 22, 0], y: [0, -18, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <div className="relative max-w-6xl w-full py-20">
         <div className="flex flex-col md:flex-row items-center gap-12">
@@ -98,7 +108,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-violet-600 to-blue-600 bg-clip-text text-transparent">
                 Abhishek Mathews
               </h1>
               <TypewriterText />
