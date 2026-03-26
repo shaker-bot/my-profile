@@ -24,9 +24,9 @@ export default function Footer() {
               aria-label="LinkedIn profile"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors text-sm font-semibold"
+              className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-200 text-sm font-semibold"
             >
-              <Linkedin className="w-5 h-5" aria-hidden="true" />
+              <Linkedin className="w-5 h-5 transition-transform duration-200 group-hover/btn:-translate-y-0.5" aria-hidden="true" />
               LinkedIn
             </motion.a>
             <motion.a
@@ -36,9 +36,9 @@ export default function Footer() {
               aria-label="GitHub profile"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors text-sm font-semibold"
+              className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-700 hover:bg-slate-600 hover:-translate-y-0.5 transition-all duration-200 text-sm font-semibold"
             >
-              <Github className="w-5 h-5" aria-hidden="true" />
+              <Github className="w-5 h-5 transition-transform duration-200 group-hover/btn:-translate-y-0.5" aria-hidden="true" />
               GitHub
             </motion.a>
             <motion.a
@@ -46,9 +46,9 @@ export default function Footer() {
               aria-label="Send email"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-600 hover:bg-slate-500 transition-colors text-sm font-semibold"
+              className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-600 hover:bg-slate-500 hover:-translate-y-0.5 transition-all duration-200 text-sm font-semibold"
             >
-              <Mail className="w-5 h-5" aria-hidden="true" />
+              <Mail className="w-5 h-5 transition-transform duration-200 group-hover/btn:-translate-y-0.5" aria-hidden="true" />
               Email
             </motion.a>
           </div>

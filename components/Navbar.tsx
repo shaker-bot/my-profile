@@ -63,9 +63,10 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="text-lg font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="group relative text-lg font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
         >
           AM
+          <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
         </button>
 
         <div className="flex items-center gap-6">
@@ -77,18 +78,20 @@ export default function Navbar() {
                   <button
                     key={link.href}
                     onClick={() => scrollTo(link.href)}
-                    className={`relative text-sm font-medium transition-colors hidden sm:block ${
+                    className={`group relative text-sm font-medium transition-colors duration-200 hidden sm:block ${
                       isActive
                         ? "text-blue-600 dark:text-blue-400"
                         : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
                     }`}
                   >
                     {link.label}
-                    {isActive && (
+                    {isActive ? (
                       <motion.span
                         layoutId="nav-underline"
                         className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-sm"
                       />
+                    ) : (
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
                     )}
                   </button>
                 );
@@ -97,21 +100,25 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={`/${link.href}`}
-                  className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
+                  className="group relative text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 hidden sm:block"
                 >
                   {link.label}
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
                 </Link>
               ))}
 
           <Link
             href="/hobbies"
-            className={`text-sm font-medium transition-colors hidden sm:block ${
+            className={`group relative text-sm font-medium transition-colors duration-200 hidden sm:block ${
               pathname === "/hobbies"
                 ? "text-blue-600 dark:text-blue-400"
                 : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
             }`}
           >
             Hobbies
+            {pathname !== "/hobbies" && (
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
+            )}
           </Link>
 
           <AnimatePresence mode="wait">

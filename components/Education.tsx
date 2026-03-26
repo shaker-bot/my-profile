@@ -60,7 +60,7 @@ export default function Education() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+              className="group/edu relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1 border border-transparent hover:border-violet-200 dark:hover:border-violet-800"
             >
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                 {edu.degree}
@@ -108,7 +108,7 @@ export default function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-blue-600 to-violet-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="group/cert bg-gradient-to-br from-blue-600 to-violet-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl hover:shadow-blue-600/25 transition-all duration-200 hover:scale-105 hover:-translate-y-1"
             >
               <h3 className="text-xl font-bold mb-2">{cert.name}</h3>
               <p className="text-blue-100">{cert.issuer}</p>

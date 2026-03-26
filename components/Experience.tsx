@@ -112,11 +112,11 @@ export default function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="relative pl-8 border-l-4 border-blue-600 dark:border-blue-400"
+              className="group/card relative pl-8 border-l-4 border-blue-600 dark:border-blue-400 hover:border-blue-700 dark:hover:border-blue-300 transition-colors duration-200"
             >
-              <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-sm -left-[10px] top-0"></div>
+              <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-sm -left-[10px] top-0 transition-transform duration-200 group-hover/card:scale-125"></div>
 
-              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -169,7 +169,7 @@ export default function Experience() {
                       {exp.technologies.split(",").map((tech) => (
                         <span
                           key={tech.trim()}
-                          className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
+                          className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-150 cursor-default"
                         >
                           {tech.trim()}
                         </span>

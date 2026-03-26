@@ -70,9 +70,9 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative"
+            className="relative group/photo"
           >
-            <div className="w-64 h-64 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 p-1 shadow-2xl">
+            <div className="w-64 h-64 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 p-1 shadow-2xl transition-shadow duration-300 group-hover/photo:shadow-blue-300/50 dark:group-hover/photo:shadow-blue-700/50 group-hover/photo:shadow-[0_0_40px_rgba(59,130,246,0.4)]">
               <div className="w-full h-full rounded-2xl overflow-hidden">
                 <Image
                   src="/IMG-1327.jpg"
@@ -119,14 +119,14 @@ export default function Hero() {
                 href="https://4y8e8soqjtsaruy1.public.blob.vercel-storage.com/AbhishekM_Updated_Resume_IntroUpdate.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:shadow-blue-600/25 transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 <Download className="w-4 h-4" />
                 Download Resume
               </a>
               <button
                 onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 View My Work
               </button>
@@ -141,10 +141,10 @@ export default function Hero() {
             >
               <a
                 href="mailto:abhishekd.mathews@gmail.com"
-                className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="group/link flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               >
-                <Mail className="w-5 h-5" />
-                <span>abhishekd.mathews@gmail.com</span>
+                <Mail className="w-5 h-5 transition-transform duration-200 group-hover/link:-translate-y-0.5" />
+                <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-200 group-hover/link:after:w-full">abhishekd.mathews@gmail.com</span>
               </a>
               <div className="flex items-center gap-2">
                 <MapPin className="w-5 h-5" />
@@ -154,19 +154,19 @@ export default function Hero() {
                 href="https://linkedin.com/in/mathewsabhishek"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="group/link flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               >
-                <Linkedin className="w-5 h-5" />
-                <span>LinkedIn</span>
+                <Linkedin className="w-5 h-5 transition-transform duration-200 group-hover/link:-translate-y-0.5" />
+                <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-200 group-hover/link:after:w-full">LinkedIn</span>
               </a>
               <a
                 href="https://github.com/shaker-bot"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="group/link flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               >
-                <Github className="w-5 h-5" />
-                <span>GitHub</span>
+                <Github className="w-5 h-5 transition-transform duration-200 group-hover/link:-translate-y-0.5" />
+                <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-200 group-hover/link:after:w-full">GitHub</span>
               </a>
             </motion.div>
 

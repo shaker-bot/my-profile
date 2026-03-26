@@ -74,10 +74,10 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="relative bg-slate-50 dark:bg-slate-900 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2"
+                className="group/card relative bg-slate-50 dark:bg-slate-900 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-2"
               >
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${category.gradient}`} />
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${category.gradient} mb-4`}>
+                <div className={`absolute top-0 left-0 right-0 h-1 group-hover/card:h-1.5 bg-gradient-to-r ${category.gradient} transition-all duration-200`} />
+                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${category.gradient} mb-4 transition-transform duration-200 group-hover/card:scale-110`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">

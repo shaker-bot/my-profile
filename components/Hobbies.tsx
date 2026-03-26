@@ -201,10 +201,10 @@ export default function Hobbies() {
                         key={hobby.title}
                         variants={gridItem}
                         onClick={() => openHobby(hobby)}
-                        className={`text-left rounded-xl p-6 ${hobby.bg} border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
+                        className={`group/hobby text-left rounded-xl p-6 ${hobby.bg} border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
                       >
                         <div
-                          className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${hobby.color} mb-4 shadow`}
+                          className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${hobby.color} mb-4 shadow transition-transform duration-200 group-hover/hobby:scale-110`}
                         >
                           <Icon className="w-6 h-6 text-white" />
                         </div>
@@ -214,7 +214,7 @@ export default function Hobbies() {
                         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                           {hobby.description}
                         </p>
-                        <p className="mt-4 text-xs font-medium text-slate-400 dark:text-slate-500">
+                        <p className="mt-4 text-xs font-medium text-slate-400 dark:text-slate-500 transition-all duration-200 group-hover/hobby:text-slate-600 dark:group-hover/hobby:text-slate-300 group-hover/hobby:translate-x-1">
                           Tap to explore →
                         </p>
                       </motion.button>
@@ -237,9 +237,9 @@ export default function Hobbies() {
                   <button
                     onClick={goBack}
                     aria-label="Back to all hobbies"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors font-medium text-slate-700 dark:text-slate-300"
+                    className="group/back inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 font-medium text-slate-700 dark:text-slate-300"
                   >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover/back:-translate-x-1" />
                     All Hobbies
                   </button>
                   <span className="text-slate-300 dark:text-slate-600">/</span>
@@ -276,7 +276,7 @@ export default function Hobbies() {
                     <motion.div
                       key={i}
                       variants={listItem}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-sm"
+                      className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
                     >
                       <span className="text-xl font-bold text-slate-200 dark:text-slate-700 w-7 shrink-0 text-center select-none tabular-nums">
                         {i + 1}
