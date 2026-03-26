@@ -5,7 +5,7 @@ import { Linkedin, Mail, Github } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-white py-12 px-4">
+    <footer className="text-white py-12 px-4" style={{ background: '#040810' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,7 +14,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h3 className="text-2xl font-bold mb-6">Let&apos;s Connect</h3>
+          <h3 className="font-display text-2xl font-bold mb-6 tracking-tight">Let&apos;s Connect</h3>
 
           <div className="flex justify-center gap-4 mb-8">
             <motion.a

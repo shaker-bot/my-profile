@@ -97,7 +97,7 @@ export default function Experience() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Briefcase className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
               Work Experience
             </h2>
           </div>
@@ -169,7 +169,7 @@ export default function Experience() {
                       {exp.technologies.split(",").map((tech) => (
                         <span
                           key={tech.trim()}
-                          className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-150 cursor-default"
+                          className="font-mono text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-150 cursor-default"
                         >
                           {tech.trim()}
                         </span>

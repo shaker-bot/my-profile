@@ -36,24 +36,24 @@ function TypewriterText() {
   }, [displayed, deleting, titleIndex]);
 
   return (
-    <h2 className="text-2xl md:text-3xl text-blue-600 dark:text-blue-400 font-semibold mb-6 h-10">
+    <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 h-10" style={{ color: 'var(--accent)' }}>
       {displayed}
-      <span className="animate-pulse">|</span>
+      <span className="animate-pulse opacity-70">|</span>
     </h2>
   );
 }
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-4 overflow-hidden">
-      {/* Floating background blobs — blue/violet/indigo only for brand coherence */}
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8f7f4] via-white to-blue-50 dark:from-[#070c1a] dark:via-[#0a1020] dark:to-[#070c1a] px-4 overflow-hidden">
+      {/* Floating background blobs */}
       <motion.div
         className="absolute top-20 left-10 w-72 h-72 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-25"
         animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-80 h-80 bg-violet-300 dark:bg-violet-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20"
+        className="absolute bottom-20 right-10 w-80 h-80 bg-amber-200 dark:bg-amber-900/60 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20"
         animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -72,7 +72,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="relative group/photo"
           >
-            <div className="w-64 h-64 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 p-1 shadow-2xl transition-shadow duration-300 group-hover/photo:shadow-blue-300/50 dark:group-hover/photo:shadow-blue-700/50 group-hover/photo:shadow-[0_0_40px_rgba(59,130,246,0.4)]">
+            <div className="w-64 h-64 rounded-2xl bg-gradient-to-br from-blue-500 to-amber-500 p-1 shadow-2xl transition-shadow duration-300 group-hover/photo:shadow-blue-300/50 dark:group-hover/photo:shadow-blue-700/50 group-hover/photo:shadow-[0_0_40px_rgba(59,130,246,0.4)]">
               <div className="w-full h-full rounded-2xl overflow-hidden">
                 <Image
                   src="/IMG-1327.jpg"
@@ -98,11 +98,11 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-violet-600 to-blue-600 bg-clip-text text-transparent">
+              <h1 className="font-display text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 dark:from-blue-400 dark:via-blue-300 dark:to-indigo-400 bg-clip-text text-transparent tracking-tight">
                 Abhishek Mathews
               </h1>
               <TypewriterText />
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl">
+              <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl leading-relaxed">
                 Senior Software Engineer with 7+ years of experience leading the design and delivery of
                 high-impact systems, specializing in cloud infrastructure, DevOps, and full-stack development.
               </p>
@@ -170,7 +170,7 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Scroll nudge — visible on mobile where the bottom indicator is easy to miss */}
+            {/* Scroll nudge — visible on mobile */}
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
