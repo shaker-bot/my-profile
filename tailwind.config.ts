@@ -12,6 +12,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        surface: "var(--surface)",
+        "surface-alt": "var(--surface-alt)",
+        border: "var(--border)",
+        muted: "var(--muted)",
+        primary: "var(--primary)",
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',

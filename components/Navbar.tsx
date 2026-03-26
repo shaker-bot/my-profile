@@ -56,14 +56,14 @@ export default function Navbar() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md"
-          : "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm"
+          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md"
+          : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="text-lg font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="text-lg font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
         >
           AM
         </button>
@@ -80,14 +80,14 @@ export default function Navbar() {
                     className={`relative text-sm font-medium transition-colors hidden sm:block ${
                       isActive
                         ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                        : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
                     }`}
                   >
                     {link.label}
                     {isActive && (
                       <motion.span
                         layoutId="nav-underline"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-sm"
                       />
                     )}
                   </button>
@@ -97,7 +97,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={`/${link.href}`}
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
+                  className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden sm:block"
                 >
                   {link.label}
                 </Link>
@@ -108,7 +108,7 @@ export default function Navbar() {
             className={`text-sm font-medium transition-colors hidden sm:block ${
               pathname === "/hobbies"
                 ? "text-blue-600 dark:text-blue-400"
-                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
             }`}
           >
             Hobbies
@@ -123,13 +123,13 @@ export default function Navbar() {
                 exit={{ opacity: 0, rotate: 90 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 aria-label="Toggle dark mode"
               >
                 {theme === "dark" ? (
                   <Sun className="w-4 h-4 text-yellow-400" />
                 ) : (
-                  <Moon className="w-4 h-4 text-gray-600" />
+                  <Moon className="w-4 h-4 text-slate-600" />
                 )}
               </motion.button>
             )}
