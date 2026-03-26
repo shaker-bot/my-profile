@@ -54,14 +54,14 @@ export default function Skills() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Code2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
               Skills & Expertise
             </h2>
             <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 self-center">
               WIP
             </span>
           </div>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded-sm"></div>
+          <div className="w-24 h-1 mx-auto rounded-sm" style={{ background: 'var(--accent)' }}></div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -87,7 +87,7 @@ export default function Skills() {
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className={`text-sm font-medium px-3 py-1.5 rounded-md ${category.pill}`}
+                      className={`font-mono text-xs font-medium px-3 py-1.5 rounded-md ${category.pill}`}
                     >
                       {skill}
                     </span>

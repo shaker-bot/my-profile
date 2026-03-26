@@ -45,7 +45,7 @@ export default function Education() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <GraduationCap className="w-8 h-8 text-violet-600 dark:text-violet-400" />
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
               Education
             </h2>
           </div>
@@ -93,7 +93,7 @@ export default function Education() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Award className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
               Certifications
             </h2>
           </div>
