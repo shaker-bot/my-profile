@@ -27,7 +27,7 @@ const hobbies: Hobby[] = [
     title: "Video Games",
     description:
       "From RPGs to competitive shooters — always up for a good story or a ranked grind.",
-    color: "from-violet-400 to-purple-600",
+    color: "from-violet-500 to-purple-600",
     bg: "bg-violet-50 dark:bg-violet-900/20",
     tagBg: "bg-violet-100 dark:bg-violet-900/40",
     tagText: "text-violet-700 dark:text-violet-300",
@@ -42,7 +42,7 @@ const hobbies: Hobby[] = [
     title: "TV Shows",
     description:
       "A sucker for a well-written series. Always mid-rewatch of something and mid-watch of three other things.",
-    color: "from-sky-400 to-cyan-600",
+    color: "from-sky-500 to-cyan-600",
     bg: "bg-sky-50 dark:bg-sky-900/20",
     tagBg: "bg-sky-100 dark:bg-sky-900/40",
     tagText: "text-sky-700 dark:text-sky-300",
@@ -57,7 +57,7 @@ const hobbies: Hobby[] = [
     title: "Reading",
     description:
       "Fiction, tech, and everything in between. Currently working through a backlog of sci-fi classics.",
-    color: "from-blue-400 to-indigo-600",
+    color: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50 dark:bg-blue-900/20",
     tagBg: "bg-blue-100 dark:bg-blue-900/40",
     tagText: "text-blue-700 dark:text-blue-300",
@@ -72,7 +72,7 @@ const hobbies: Hobby[] = [
     title: "Music",
     description:
       "Listening across genres and occasionally picking up a guitar to make noise.",
-    color: "from-purple-400 to-violet-600",
+    color: "from-purple-500 to-violet-600",
     bg: "bg-purple-50 dark:bg-purple-900/20",
     tagBg: "bg-purple-100 dark:bg-purple-900/40",
     tagText: "text-purple-700 dark:text-purple-300",
@@ -87,7 +87,7 @@ const hobbies: Hobby[] = [
     title: "Side Projects",
     description:
       "Building things for fun — tools, experiments, and the occasional over-engineered solution to a simple problem.",
-    color: "from-rose-400 to-pink-600",
+    color: "from-rose-500 to-pink-600",
     bg: "bg-rose-50 dark:bg-rose-900/20",
     tagBg: "bg-rose-100 dark:bg-rose-900/40",
     tagText: "text-rose-700 dark:text-rose-300",
@@ -152,7 +152,7 @@ export default function Hobbies() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 pt-28 pb-20">
+    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-4 pt-28 pb-20">
       <div className="max-w-6xl mx-auto">
 
         {/* Page header — always visible */}
@@ -163,14 +163,14 @@ export default function Hobbies() {
           className="mb-14 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-5xl font-bold text-slate-900 dark:text-white">
               Beyond the Code
             </h1>
-            <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300 border border-yellow-300 dark:border-yellow-700 self-center">
+            <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 self-center">
               WIP
             </span>
           </div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
             A few things I enjoy when I&apos;m not in front of a terminal.
           </p>
         </motion.div>
@@ -201,20 +201,20 @@ export default function Hobbies() {
                         key={hobby.title}
                         variants={gridItem}
                         onClick={() => openHobby(hobby)}
-                        className={`text-left rounded-2xl p-6 ${hobby.bg} border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
+                        className={`group/hobby text-left rounded-xl p-6 ${hobby.bg} border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
                       >
                         <div
-                          className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${hobby.color} mb-4 shadow`}
+                          className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${hobby.color} mb-4 shadow transition-transform duration-200 group-hover/hobby:scale-110`}
                         >
                           <Icon className="w-6 h-6 text-white" />
                         </div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                        <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
                           {hobby.title}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                           {hobby.description}
                         </p>
-                        <p className="mt-4 text-xs font-medium text-gray-400 dark:text-gray-500">
+                        <p className="mt-4 text-xs font-medium text-slate-400 dark:text-slate-500 transition-all duration-200 group-hover/hobby:text-slate-600 dark:group-hover/hobby:text-slate-300 group-hover/hobby:translate-x-1">
                           Tap to explore →
                         </p>
                       </motion.button>
@@ -233,17 +233,17 @@ export default function Hobbies() {
                 exit="exit"
               >
                 {/* Back navigation / breadcrumb */}
-                <div className="flex items-center gap-2 mb-8 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-2 mb-8 text-sm text-slate-500 dark:text-slate-400">
                   <button
                     onClick={goBack}
                     aria-label="Back to all hobbies"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300"
+                    className="group/back inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 font-medium text-slate-700 dark:text-slate-300"
                   >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover/back:-translate-x-1" />
                     All Hobbies
                   </button>
-                  <span className="text-gray-300 dark:text-gray-600">/</span>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">
+                  <span className="text-slate-300 dark:text-slate-600">/</span>
+                  <span className="text-slate-700 dark:text-slate-300 font-medium">
                     {selected.title}
                   </span>
                 </div>
@@ -256,10 +256,10 @@ export default function Hobbies() {
                     <selected.icon className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
                       {selected.title}
                     </h2>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
                       {selected.description}
                     </p>
                   </div>
@@ -276,24 +276,24 @@ export default function Hobbies() {
                     <motion.div
                       key={i}
                       variants={listItem}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 shadow-sm"
+                      className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
                     >
-                      <span className="text-xl font-bold text-gray-200 dark:text-gray-700 w-7 shrink-0 text-center select-none tabular-nums">
+                      <span className="text-xl font-bold text-slate-200 dark:text-slate-700 w-7 shrink-0 text-center select-none tabular-nums">
                         {i + 1}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-gray-900 dark:text-white truncate">
+                        <p className="font-semibold text-slate-900 dark:text-white truncate">
                           {hobbyItem.title}
                         </p>
                         {hobbyItem.subtitle && (
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-slate-500 dark:text-slate-400">
                             {hobbyItem.subtitle}
                           </p>
                         )}
                       </div>
                       {hobbyItem.tag && (
                         <span
-                          className={`text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${selected.tagBg} ${selected.tagText}`}
+                          className={`text-xs font-semibold px-2.5 py-1 rounded-md shrink-0 ${selected.tagBg} ${selected.tagText}`}
                         >
                           {hobbyItem.tag}
                         </span>

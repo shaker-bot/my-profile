@@ -86,7 +86,7 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 px-4 bg-white dark:bg-gray-800">
+    <section id="experience" className="py-20 px-4 bg-slate-50 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -97,11 +97,11 @@ export default function Experience() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Briefcase className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white">
               Work Experience
             </h2>
           </div>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded"></div>
+          <div className="w-24 h-1 bg-blue-600 mx-auto rounded-sm"></div>
         </motion.div>
 
         <div className="space-y-12">
@@ -112,22 +112,22 @@ export default function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="relative pl-8 border-l-4 border-blue-600 dark:border-blue-400"
+              className="group/card relative pl-8 border-l-4 border-blue-600 dark:border-blue-400 hover:border-blue-700 dark:hover:border-blue-300 transition-colors duration-200"
             >
-              <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full -left-[10px] top-0"></div>
+              <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-sm -left-[10px] top-0 transition-transform duration-200 group-hover/card:scale-125"></div>
 
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                         {exp.company}
                         {exp.location && (
-                          <span className="text-lg font-normal text-gray-600 dark:text-gray-400"> • {exp.location}</span>
+                          <span className="text-lg font-normal text-slate-500 dark:text-slate-400"> • {exp.location}</span>
                         )}
                       </h3>
                       {exp.badge && (
-                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${exp.badgeColor}`}>
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-md ${exp.badgeColor}`}>
                           {exp.badge}
                         </span>
                       )}
@@ -137,11 +137,11 @@ export default function Experience() {
                     </p>
                   </div>
                   <div className="flex flex-col items-start md:items-end gap-0.5 shrink-0">
-                    <span className="text-gray-600 dark:text-gray-400 font-medium whitespace-nowrap">
+                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
                       {exp.period}
                     </span>
                     {calcTenure(exp.period) && (
-                      <span className="text-xs text-gray-400 dark:text-gray-500">
+                      <span className="text-xs text-slate-400 dark:text-slate-500">
                         {calcTenure(exp.period)}
                       </span>
                     )}
@@ -152,7 +152,7 @@ export default function Experience() {
                   {exp.achievements.map((achievement, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-gray-700 dark:text-gray-300"
+                      className="flex items-start gap-2 text-slate-700 dark:text-slate-300"
                     >
                       <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
                       <span>{achievement}</span>
@@ -161,15 +161,15 @@ export default function Experience() {
                 </ul>
 
                 {exp.technologies && (
-                  <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
+                  <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">
                       Technologies Used:
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {exp.technologies.split(",").map((tech) => (
                         <span
                           key={tech.trim()}
-                          className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                          className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-150 cursor-default"
                         >
                           {tech.trim()}
                         </span>

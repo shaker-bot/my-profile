@@ -2,15 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Design Tokens
+  ─────────────
+  Primary:   blue-600  (#2563eb) / blue-500  (#3b82f6) dark
+  Accent:    violet-600 (#7c3aed) / violet-500 (#8b5cf6) dark
+  Neutrals:  slate-* (blue-tinted grays — harmonise with the blue primary)
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #f8fafc;   /* slate-50  */
+  --foreground: #0f172a;   /* slate-900 */
+  --surface:    #ffffff;
+  --surface-alt: #f1f5f9;  /* slate-100 */
+  --border:     #e2e8f0;   /* slate-200 */
+  --muted:      #94a3b8;   /* slate-400 */
+  --primary:    #2563eb;   /* blue-600  */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background:  #0f172a; /* slate-900 */
+    --foreground:  #f1f5f9; /* slate-100 */
+    --surface:     #1e293b; /* slate-800 */
+    --surface-alt: #0f172a; /* slate-900 */
+    --border:      #334155; /* slate-700 */
+    --muted:       #64748b; /* slate-500 */
+    --primary:     #3b82f6; /* blue-500  */
   }
 }
 
@@ -40,10 +58,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #64748b; /* slate-500 */
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #475569; /* slate-600 */
 }
