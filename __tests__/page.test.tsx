@@ -39,6 +39,7 @@ jest.mock("framer-motion", () => {
       section: makeMotion("section"),
     },
     AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+    useReducedMotion: () => false,
   };
 });
 

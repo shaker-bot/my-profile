@@ -112,7 +112,8 @@ export default function Hobbies() {
 
   return (
     <section
-      className="relative min-h-screen px-6 md:px-10 pt-28 md:pt-32 pb-24"
+      aria-labelledby="hobbies-heading"
+      className="relative min-h-screen px-5 sm:px-6 md:px-10 pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-24"
       style={{ borderTop: "1px solid var(--rule)" }}
     >
       <div className="max-w-7xl mx-auto">
@@ -141,7 +142,10 @@ export default function Hobbies() {
           className="grid grid-cols-12 gap-8 mb-14 items-end"
         >
           <div className="col-span-12 md:col-span-8">
-            <h1 className="hd-display text-[3.5rem] sm:text-[5rem] md:text-[6.5rem] text-[color:var(--foreground)]">
+            <h1
+              id="hobbies-heading"
+              className="hd-display text-[2.75rem] min-[400px]:text-[3.5rem] sm:text-[5rem] md:text-[6.5rem] text-[color:var(--foreground)]"
+            >
               Beyond the Code
             </h1>
           </div>
@@ -178,10 +182,11 @@ export default function Hobbies() {
                         key={hobby.title}
                         variants={listItem}
                         onClick={() => openHobby(hobby)}
-                        className="group relative text-left p-8 transition-colors hover:bg-[color:var(--surface)]"
+                        aria-label={`Read more about ${hobby.title}`}
+                        className="group relative text-left p-6 sm:p-8 min-h-[44px] transition-colors hover:bg-[color:var(--surface)] focus-visible:bg-[color:var(--surface)]"
                         style={{ background: "var(--background)" }}
                       >
-                        <div className="flex items-start justify-between mb-6">
+                        <div className="flex items-start justify-between mb-5 sm:mb-6">
                           <span className="kicker">
                             Column&nbsp;№ {String(index + 1).padStart(2, "0")}
                           </span>
@@ -194,19 +199,19 @@ export default function Hobbies() {
                         </div>
 
                         <div className="flex items-center gap-3 mb-3">
-                          <Icon className="w-5 h-5 text-[color:var(--muted)]" />
-                          <h3 className="font-display text-[1.9rem] md:text-[2.2rem] leading-[1.02] tracking-[-0.02em] text-[color:var(--foreground)] group-hover:text-[color:var(--signal)] transition-colors">
+                          <Icon className="w-5 h-5 text-[color:var(--muted)]" aria-hidden="true" />
+                          <h3 className="font-display text-[1.6rem] sm:text-[1.9rem] md:text-[2.2rem] leading-[1.02] tracking-[-0.02em] text-[color:var(--foreground)] group-hover:text-[color:var(--signal)] transition-colors">
                             {hobby.title}
                           </h3>
                         </div>
 
-                        <p className="text-[0.95rem] leading-relaxed text-[color:var(--muted)] mb-8 max-w-sm">
+                        <p className="text-[0.95rem] leading-relaxed text-[color:var(--muted)] mb-6 sm:mb-8 max-w-sm">
                           {hobby.description}
                         </p>
 
                         <p className="kicker flex items-center gap-2 transition-colors group-hover:text-[color:var(--signal)]">
                           Read More
-                          <span className="inline-shift">→</span>
+                          <span className="inline-shift" aria-hidden="true">→</span>
                         </p>
 
                         <span

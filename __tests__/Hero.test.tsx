@@ -22,8 +22,15 @@ jest.mock("framer-motion", () => ({
     }: React.PropsWithChildren<Record<string, unknown>>) => (
       <button {...filterDomProps(props)}>{children}</button>
     ),
+    span: ({
+      children,
+      ...props
+    }: React.PropsWithChildren<Record<string, unknown>>) => (
+      <span {...filterDomProps(props)}>{children}</span>
+    ),
   },
   AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+  useReducedMotion: () => false,
 }));
 
 // Mock next/image

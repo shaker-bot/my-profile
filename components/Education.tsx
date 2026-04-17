@@ -28,7 +28,8 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="relative py-24 md:py-28 px-6 md:px-10"
+      aria-labelledby="education-heading"
+      className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
       style={{ borderTop: "1px solid var(--rule)" }}
     >
       <div className="max-w-7xl mx-auto">
@@ -38,11 +39,14 @@ export default function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="grid grid-cols-12 gap-8 mb-14 items-end"
+          className="grid grid-cols-12 gap-6 sm:gap-8 mb-10 sm:mb-14 items-end"
         >
           <div className="col-span-12 md:col-span-7">
             <div className="kicker mb-3">§ 03 · Formation &amp; Credentials</div>
-            <h2 className="font-display has-dot text-6xl md:text-7xl leading-[0.9] tracking-[-0.035em] text-[color:var(--foreground)]">
+            <h2
+              id="education-heading"
+              className="font-display has-dot text-[2.75rem] sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.035em] text-[color:var(--foreground)]"
+            >
               Education
             </h2>
           </div>
@@ -71,10 +75,12 @@ export default function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               viewport={{ once: true, amount: 0.2 }}
-              className="group p-8 md:p-10 relative"
-              style={{
-                borderRight: index === 0 ? "1px solid var(--rule)" : "none",
-              }}
+              className={`group p-6 md:p-10 relative ${
+                index === 0
+                  ? "border-b md:border-b-0 md:border-r"
+                  : ""
+              }`}
+              style={{ borderColor: "var(--rule)" }}
             >
               <div className="flex items-center justify-between mb-4">
                 <span className="kicker">
@@ -126,10 +132,13 @@ export default function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mt-20 mb-10"
+          className="mt-16 sm:mt-20 mb-8 sm:mb-10"
         >
           <div className="kicker mb-3">§ 03b · Commendations</div>
-          <h2 className="font-display has-dot text-5xl md:text-6xl leading-[0.92] tracking-[-0.035em] text-[color:var(--foreground)]">
+          <h2
+            id="certifications-heading"
+            className="font-display has-dot text-[2.25rem] sm:text-5xl md:text-6xl leading-[0.92] tracking-[-0.035em] text-[color:var(--foreground)]"
+          >
             Certifications
           </h2>
         </motion.div>

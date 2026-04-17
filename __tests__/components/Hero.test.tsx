@@ -14,8 +14,10 @@ jest.mock("framer-motion", () => {
       section: makeMotion("section"),
       a: makeMotion("a"),
       button: makeMotion("button"),
+      span: makeMotion("span"),
     },
     AnimatePresence: ({ children }: any) => <>{children}</>,
+    useReducedMotion: () => false,
   };
 });
 

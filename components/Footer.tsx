@@ -8,7 +8,8 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative pt-20 pb-10 px-6 md:px-10"
+      aria-labelledby="footer-heading"
+      className="relative pt-16 sm:pt-20 pb-8 sm:pb-10 px-5 sm:px-6 md:px-10"
       style={{
         borderTop: "1px solid var(--rule)",
         background: "var(--foreground)",
@@ -21,7 +22,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="grid grid-cols-12 gap-8"
+          className="grid grid-cols-12 gap-8 sm:gap-10"
         >
           {/* ── Signature ── */}
           <div className="col-span-12 lg:col-span-7">
@@ -31,7 +32,10 @@ export default function Footer() {
             >
               § 04 · Colophon
             </div>
-            <h3 className="hd-signature text-[4rem] sm:text-[5.5rem] md:text-[7rem] text-[color:var(--signal)]">
+            <h3
+              id="footer-heading"
+              className="hd-signature text-[2.75rem] min-[400px]:text-[3.5rem] sm:text-[5.5rem] md:text-[7rem] text-[color:var(--signal)]"
+            >
               Let&apos;s Connect
             </h3>
             <p
@@ -69,10 +73,10 @@ export default function Footer() {
                   aria-label="LinkedIn profile"
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="group flex items-center justify-between py-4"
+                  className="group flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4 min-h-[44px]"
                 >
                   <span className="flex items-center gap-4">
-                    <Linkedin className="w-4 h-4" />
+                    <Linkedin className="w-4 h-4" aria-hidden="true" />
                     <span className="font-display text-2xl md:text-3xl leading-none group-hover:italic group-hover:text-[color:var(--signal)] transition-colors">
                       LinkedIn
                     </span>
@@ -90,10 +94,10 @@ export default function Footer() {
                   aria-label="GitHub profile"
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="group flex items-center justify-between py-4"
+                  className="group flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4 min-h-[44px]"
                 >
                   <span className="flex items-center gap-4">
-                    <Github className="w-4 h-4" />
+                    <Github className="w-4 h-4" aria-hidden="true" />
                     <span className="font-display text-2xl md:text-3xl leading-none group-hover:italic group-hover:text-[color:var(--signal)] transition-colors">
                       GitHub
                     </span>
@@ -109,16 +113,16 @@ export default function Footer() {
                   aria-label="Send email"
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="group flex items-center justify-between py-4"
+                  className="group flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4 min-h-[44px]"
                 >
                   <span className="flex items-center gap-4">
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-4 h-4" aria-hidden="true" />
                     <span className="font-display text-2xl md:text-3xl leading-none group-hover:italic group-hover:text-[color:var(--signal)] transition-colors">
                       Email
                     </span>
                   </span>
-                  <span className="font-mono-tight text-xs opacity-70">
-                    abhishekd.mathews@gmail.com →
+                  <span className="font-mono-tight text-xs opacity-70 break-all">
+                    abhishekd.mathews@gmail.com&nbsp;→
                   </span>
                 </motion.a>
               </li>

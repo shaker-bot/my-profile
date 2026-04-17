@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Mail, MapPin, Linkedin, Github, Download, ArrowDown } from "lucide-react";
 import Image from "next/image";
 
@@ -13,11 +13,13 @@ const titles = [
 ];
 
 function TypewriterText() {
+  const reduceMotion = useReducedMotion();
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const current = titles[titleIndex];
     let timeout: ReturnType<typeof setTimeout>;
 
@@ -33,34 +35,47 @@ function TypewriterText() {
     }
 
     return () => clearTimeout(timeout);
-  }, [displayed, deleting, titleIndex]);
+  }, [displayed, deleting, titleIndex, reduceMotion]);
 
   return (
     <h2 className="font-mono-tight text-base md:text-lg text-[color:var(--foreground)]">
       <span className="kicker mr-2 text-[color:var(--muted)]">// currently</span>
-      <span className="text-[color:var(--signal)]">{displayed}</span>
-      <span className="caret-blink ml-0.5 text-[color:var(--signal)]">|</span>
+      <span className="sr-only">{titles.join(", ")}</span>
+      {reduceMotion ? (
+        <span className="text-[color:var(--signal)]">{titles[0]}</span>
+      ) : (
+        <>
+          <span aria-hidden="true" className="text-[color:var(--signal)]">{displayed}</span>
+          <span aria-hidden="true" className="caret-blink ml-0.5 text-[color:var(--signal)]">|</span>
+        </>
+      )}
     </h2>
   );
 }
 
 export default function Hero() {
   return (
-    <section className="relative pt-28 md:pt-32 pb-24 px-6 md:px-10 overflow-hidden">
+    <section
+      aria-labelledby="hero-heading"
+      className="relative pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-24 px-5 sm:px-6 md:px-10 overflow-hidden"
+    >
       <div className="relative mx-auto max-w-7xl">
         {/* ── Masthead strip ── */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center justify-between mb-10 pb-3"
+          className="flex items-center justify-between gap-3 mb-8 sm:mb-10 pb-3"
           style={{ borderBottom: "1px solid var(--rule)" }}
         >
-          <span className="kicker">Vol. VII · No. 26 · McLean, VA</span>
+          <span className="kicker truncate">
+            Vol. VII · No. 26
+            <span className="hidden min-[400px]:inline"> · McLean, VA</span>
+          </span>
           <span className="kicker hidden sm:inline">
             §&nbsp;00 — Curriculum&nbsp;Vitæ
           </span>
-          <span className="kicker">Est.&nbsp;2018</span>
+          <span className="kicker shrink-0">Est.&nbsp;2018</span>
         </motion.div>
 
         {/* ── Main grid ── */}
@@ -73,7 +88,10 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.05 }}
             >
               <div className="kicker mb-4">§ 00 · Mastheads &amp; matters</div>
-              <h1 className="hd-signature text-[3.25rem] sm:text-[5rem] md:text-[6.5rem] lg:text-[8rem] text-[color:var(--foreground)] text-balance">
+              <h1
+                id="hero-heading"
+                className="hd-signature text-[2.75rem] min-[400px]:text-[3.25rem] sm:text-[5rem] md:text-[6.5rem] lg:text-[8rem] text-[color:var(--foreground)] text-balance break-words"
+              >
                 Abhishek Mathews
               </h1>
 
@@ -110,24 +128,25 @@ export default function Hero() {
               className="mt-10 flex flex-wrap items-center gap-3"
             >
               <a
-                href="https://4y8e8soqjtsaruy1.public.blob.vercel-storage.com/AbhishekM_Updated_Resume_IntroUpdate.pdf"
+                href="https://4y8e8soqjtsaruy1.public.blob.vercel-storage.com/AbhishekM_Resume_03132026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 rounded-none font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--background)] transition-transform hover:-translate-y-0.5"
+                aria-label="Download resume PDF (opens in a new tab)"
+                className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 min-h-[44px] rounded-none font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--background)] transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
                 style={{ background: "var(--signal)" }}
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4" aria-hidden="true" />
                 Download Resume
-                <span className="inline-shift">→</span>
+                <span className="inline-shift" aria-hidden="true">→</span>
               </a>
 
               <button
                 onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--foreground)] transition-colors hover:text-[color:var(--signal)]"
+                className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 min-h-[44px] font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--foreground)] transition-colors hover:text-[color:var(--signal)]"
                 style={{ border: "1px solid var(--foreground)" }}
               >
                 View My Work
-                <span className="inline-shift">↓</span>
+                <span className="inline-shift" aria-hidden="true">↓</span>
               </button>
             </motion.div>
 
@@ -139,20 +158,20 @@ export default function Hero() {
               className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 max-w-2xl"
               style={{ borderTop: "1px solid var(--rule)", paddingTop: "1rem" }}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-baseline gap-3 min-w-0">
                 <span className="kicker w-14 shrink-0">E-mail</span>
                 <a
                   href="mailto:abhishekd.mathews@gmail.com"
-                  className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                  className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)] break-all"
                 >
-                  <Mail className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" />
+                  <Mail className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
                   abhishekd.mathews@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <span className="kicker w-14 shrink-0">Loc.</span>
                 <span className="font-mono-tight text-[0.88rem] text-[color:var(--foreground)]">
-                  <MapPin className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" />
+                  <MapPin className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
                   McLean, VA
                 </span>
               </div>
@@ -164,7 +183,7 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
                 >
-                  <Linkedin className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" />
+                  <Linkedin className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
                   LinkedIn
                 </a>
               </div>
@@ -176,7 +195,7 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
                 >
-                  <Github className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" />
+                  <Github className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
                   GitHub
                 </a>
               </div>
@@ -201,7 +220,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="relative lg:sticky lg:top-28"
+              className="relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none mx-auto lg:mx-0 lg:sticky lg:top-28"
             >
               <div className="kicker mb-3 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--signal)" }} />

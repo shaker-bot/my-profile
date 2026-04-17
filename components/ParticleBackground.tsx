@@ -10,7 +10,7 @@
   preserve the existing import in app/layout.tsx.
 */
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const RegisterMark = ({ className }: { className: string }) => (
   <svg
@@ -30,6 +30,7 @@ const RegisterMark = ({ className }: { className: string }) => (
 );
 
 export default function ParticleBackground() {
+  const reduceMotion = useReducedMotion();
   return (
     <div
       className="fixed inset-0 pointer-events-none overflow-hidden"
@@ -60,8 +61,8 @@ export default function ParticleBackground() {
       <motion.div
         className="absolute bottom-8 right-10 w-1.5 h-1.5 rounded-full"
         style={{ background: "var(--signal)" }}
-        animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.3, 1] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        animate={reduceMotion ? undefined : { opacity: [0.3, 1, 0.3], scale: [1, 1.3, 1] }}
+        transition={reduceMotion ? undefined : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
   );

@@ -83,7 +83,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative py-24 md:py-28 px-6 md:px-10"
+      aria-labelledby="experience-heading"
+      className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
       style={{ borderTop: "1px solid var(--rule)" }}
     >
       <div className="max-w-7xl mx-auto">
@@ -93,11 +94,14 @@ export default function Experience() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="grid grid-cols-12 gap-8 mb-16 items-end"
+          className="grid grid-cols-12 gap-6 sm:gap-8 mb-12 sm:mb-16 items-end"
         >
           <div className="col-span-12 md:col-span-7">
             <div className="kicker mb-3">§ 01 · Professional Record</div>
-            <h2 className="hd-display text-6xl md:text-7xl text-[color:var(--foreground)]">
+            <h2
+              id="experience-heading"
+              className="hd-display text-[2.75rem] sm:text-6xl md:text-7xl text-[color:var(--foreground)]"
+            >
               Work Experience
             </h2>
           </div>
@@ -118,11 +122,11 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
               viewport={{ once: true, amount: 0.15 }}
-              className="group grid grid-cols-12 gap-6 md:gap-10 py-10 md:py-14"
+              className="group grid grid-cols-12 gap-5 md:gap-10 py-8 sm:py-10 md:py-14"
               style={{ borderBottom: "1px solid var(--rule)" }}
             >
               {/* Index + period */}
-              <div className="col-span-12 md:col-span-3 lg:col-span-3 flex md:flex-col gap-4 md:gap-2 items-start">
+              <div className="col-span-12 md:col-span-3 lg:col-span-3 flex flex-wrap md:flex-col gap-x-4 gap-y-2 md:gap-2 items-start">
                 <div className="font-mono-tight text-[0.72rem] tracking-[0.2em] text-[color:var(--muted)]">
                   ENTRY № {String(index + 1).padStart(2, "0")}
                 </div>
@@ -139,10 +143,10 @@ export default function Experience() {
               {/* Core */}
               <div className="col-span-12 md:col-span-9 lg:col-span-9">
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-1">
-                  <h3 className="font-display text-3xl md:text-4xl leading-[1.05] tracking-[-0.02em] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--signal)]">
+                  <h3 className="font-display text-[1.75rem] sm:text-3xl md:text-4xl leading-[1.05] tracking-[-0.02em] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--signal)] text-pretty">
                     {exp.company}
                     {exp.location && (
-                      <span className="font-display-italic text-lg md:text-xl text-[color:var(--muted)]"> · {exp.location}</span>
+                      <span className="font-display-italic text-base sm:text-lg md:text-xl text-[color:var(--muted)]"> · {exp.location}</span>
                     )}
                   </h3>
                 </div>
@@ -173,23 +177,23 @@ export default function Experience() {
 
                 {exp.technologies && (
                   <div
-                    className="mt-6 pt-5 grid grid-cols-[auto,1fr] gap-4 items-start"
+                    className="mt-6 pt-5 flex flex-col md:grid md:grid-cols-[auto,1fr] gap-3 md:gap-4 md:items-start"
                     style={{ borderTop: "1px dashed var(--rule)" }}
                   >
                     <span className="kicker shrink-0 pt-0.5">
                       Technologies Used:
                     </span>
-                    <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                    <ul className="flex flex-wrap gap-x-2 gap-y-1.5" aria-label="Technologies used">
                       {exp.technologies.split(",").map((tech) => (
-                        <span
+                        <li
                           key={tech.trim()}
                           className="font-mono-tight text-xs text-[color:var(--foreground)] px-2.5 py-1 transition-colors hover:text-[color:var(--signal)]"
                           style={{ border: "1px solid var(--rule)" }}
                         >
                           {tech.trim()}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
               </div>

@@ -22,7 +22,8 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-24 md:py-28 px-6 md:px-10"
+      aria-labelledby="skills-heading"
+      className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
       style={{ borderTop: "1px solid var(--rule)", background: "var(--surface)" }}
     >
       <div className="max-w-7xl mx-auto">
@@ -32,7 +33,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="grid grid-cols-12 gap-8 mb-12 items-end"
+          className="grid grid-cols-12 gap-6 sm:gap-8 mb-10 sm:mb-12 items-end"
         >
           <div className="col-span-12 md:col-span-7">
             <div className="kicker mb-3 flex items-center gap-2">
@@ -44,7 +45,10 @@ export default function Skills() {
                 WIP
               </span>
             </div>
-            <h2 className="hd-display text-6xl md:text-7xl text-[color:var(--foreground)]">
+            <h2
+              id="skills-heading"
+              className="hd-display text-[2.75rem] sm:text-6xl md:text-7xl text-[color:var(--foreground)]"
+            >
               Skills &amp; Expertise
             </h2>
           </div>
@@ -84,7 +88,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: index * 0.06 }}
               viewport={{ once: true }}
-              className="group relative p-7 md:p-8 transition-colors"
+              className="group relative p-6 sm:p-7 md:p-8 transition-colors"
               style={{ background: "var(--surface)" }}
             >
               {/* Folio header */}
