@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Music, Code, Gamepad2, Tv, ArrowLeft } from "lucide-react";
+import { HoverAccent } from "./HoverAccent";
 
 interface HobbyItem {
   title: string;
@@ -214,11 +215,7 @@ export default function Hobbies() {
                           <span className="inline-shift" aria-hidden="true">→</span>
                         </p>
 
-                        <span
-                          className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100"
-                          style={{ background: "var(--signal)" }}
-                          aria-hidden="true"
-                        />
+                        <HoverAccent />
                       </motion.button>
                     );
                   })}

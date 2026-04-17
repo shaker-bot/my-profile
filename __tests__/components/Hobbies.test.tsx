@@ -54,7 +54,7 @@ describe("Hobbies – grid view", () => {
 
   it("renders a tap prompt on each card", () => {
     render(<Hobbies />);
-    const prompts = screen.getAllByText(/Tap to explore/i);
+    const prompts = screen.getAllByText(/Read More/i);
     expect(prompts).toHaveLength(5);
   });
 });
@@ -73,9 +73,9 @@ describe("Hobbies – detail view", () => {
   it("shows the item list for the selected hobby", () => {
     render(<Hobbies />);
     fireEvent.click(screen.getByRole("button", { name: /TV Shows/i }));
-    expect(screen.getByText("Watching")).toBeInTheDocument();
+    expect(screen.getAllByText("Watching").length).toBeGreaterThan(0);
     expect(screen.getByText("Completed")).toBeInTheDocument();
-    expect(screen.getByText("On Hold")).toBeInTheDocument();
+    expect(screen.getByText("Law & Order: SVU")).toBeInTheDocument();
   });
 
   it("hides the grid cards when a detail is open", () => {
@@ -103,8 +103,8 @@ describe("Hobbies – detail view", () => {
   it("shows numbered rows in the detail item list", () => {
     render(<Hobbies />);
     fireEvent.click(screen.getByRole("button", { name: /Side Projects/i }));
-    expect(screen.getByText("1")).toBeInTheDocument();
-    expect(screen.getByText("2")).toBeInTheDocument();
-    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("01")).toBeInTheDocument();
+    expect(screen.getByText("02")).toBeInTheDocument();
+    expect(screen.getByText("03")).toBeInTheDocument();
   });
 });

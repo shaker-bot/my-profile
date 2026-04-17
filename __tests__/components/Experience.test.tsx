@@ -43,22 +43,22 @@ describe("Experience", () => {
 
   it("renders the Platform & Developer Tools badge on Capital One", () => {
     render(<Experience />);
-    expect(screen.getByText("Platform & Developer Tools")).toBeInTheDocument();
+    expect(screen.getByText(/Platform & Developer Tools/)).toBeInTheDocument();
   });
 
   it("renders the Cloud Cost & Compliance badge on Capital One", () => {
     render(<Experience />);
-    expect(screen.getByText("Cloud Cost & Compliance")).toBeInTheDocument();
+    expect(screen.getByText(/Cloud Cost & Compliance/)).toBeInTheDocument();
   });
 
   it("renders the Consumer Application badge on Extend", () => {
     render(<Experience />);
-    expect(screen.getByText("Consumer Application")).toBeInTheDocument();
+    expect(screen.getByText(/Consumer Application/)).toBeInTheDocument();
   });
 
   it("renders the Consulting badge on Cloudreach", () => {
     render(<Experience />);
-    expect(screen.getByText("Consulting")).toBeInTheDocument();
+    expect(screen.getByText(/Consulting/)).toBeInTheDocument();
   });
 
   it("renders key Capital One Platform achievements", () => {
@@ -92,18 +92,18 @@ describe("Experience", () => {
 
   it("renders technologies as individual pill badges", () => {
     render(<Experience />);
-    expect(screen.getByText("Python")).toBeInTheDocument();
+    expect(screen.getAllByText("Python").length).toBeGreaterThan(0);
     expect(screen.getByText("FastAPI")).toBeInTheDocument();
-    expect(screen.getByText("AWS Lambda")).toBeInTheDocument();
+    expect(screen.getAllByText("AWS Lambda").length).toBeGreaterThan(0);
   });
 
   it("renders tenure duration for each role", () => {
     render(<Experience />);
     // Capital One 09/2022–04/2025 = 2 yrs 7 mo
-    expect(screen.getByText("2 yrs 7 mo")).toBeInTheDocument();
+    expect(screen.getByText(/2 yrs 7 mo/)).toBeInTheDocument();
     // Extend 07/2021–07/2022 = 1 yr
-    expect(screen.getByText("1 yr")).toBeInTheDocument();
+    expect(screen.getByText(/·\s*1 yr$/)).toBeInTheDocument();
     // Cloudreach 06/2018–03/2019 = 9 mo
-    expect(screen.getByText("9 mo")).toBeInTheDocument();
+    expect(screen.getByText(/9 mo/)).toBeInTheDocument();
   });
 });

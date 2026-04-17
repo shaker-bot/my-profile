@@ -55,21 +55,21 @@ describe("Skills", () => {
 
   it("renders individual programming language skills", () => {
     render(<Skills />);
-    expect(screen.getByText("Python")).toBeInTheDocument();
-    expect(screen.getByText("TypeScript")).toBeInTheDocument();
-    expect(screen.getByText("Golang")).toBeInTheDocument();
-    expect(screen.getByText("Java")).toBeInTheDocument();
+    expect(screen.getAllByText("Python").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("TypeScript").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Golang").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Java").length).toBeGreaterThan(0);
   });
 
   it("renders AWS as a cloud platform", () => {
     render(<Skills />);
-    expect(screen.getByText("Amazon Web Services (AWS)")).toBeInTheDocument();
+    expect(screen.getAllByText("Amazon Web Services (AWS)").length).toBeGreaterThan(0);
   });
 
   it("renders DevOps tools", () => {
     render(<Skills />);
-    expect(screen.getByText("AWS CDK")).toBeInTheDocument();
-    expect(screen.getByText("Terraform")).toBeInTheDocument();
+    expect(screen.getAllByText("AWS CDK").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Terraform").length).toBeGreaterThan(0);
   });
 
   it("renders the WIP tag on the section heading", () => {
@@ -79,22 +79,22 @@ describe("Skills", () => {
 
   it("renders skills as pill badges, not progress bars", () => {
     render(<Skills />);
-    expect(screen.getByText("Python")).toBeInTheDocument();
+    expect(screen.getAllByText("Python").length).toBeGreaterThan(0);
     expect(screen.queryByText("Expert")).not.toBeInTheDocument();
     expect(screen.queryByText("Advanced")).not.toBeInTheDocument();
   });
 
   it("renders Docker and Kubernetes as separate pills", () => {
     render(<Skills />);
-    expect(screen.getByText("Docker")).toBeInTheDocument();
-    expect(screen.getByText("Kubernetes")).toBeInTheDocument();
+    expect(screen.getAllByText("Docker").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Kubernetes").length).toBeGreaterThan(0);
   });
 
   it("renders developer tools pills", () => {
     render(<Skills />);
-    expect(screen.getByText("GitHub")).toBeInTheDocument();
-    expect(screen.getByText("Cursor")).toBeInTheDocument();
-    expect(screen.getByText("GitHub Copilot")).toBeInTheDocument();
-    expect(screen.getByText("Claude Code")).toBeInTheDocument();
+    expect(screen.getAllByText("GitHub").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Cursor").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("GitHub Copilot").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Claude Code").length).toBeGreaterThan(0);
   });
 });

@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { HoverAccent } from "./HoverAccent";
+import { SectionHeader } from "./SectionHeader";
 
 const education = [
   {
@@ -33,30 +35,14 @@ export default function Education() {
       style={{ borderTop: "1px solid var(--rule)" }}
     >
       <div className="max-w-7xl mx-auto">
-        {/* ── Section head ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-12 gap-6 sm:gap-8 mb-10 sm:mb-14 items-end"
-        >
-          <div className="col-span-12 md:col-span-7">
-            <div className="kicker mb-3">§ 03 · Formation &amp; Credentials</div>
-            <h2
-              id="education-heading"
-              className="font-display has-dot text-[2.75rem] sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.035em] text-[color:var(--foreground)]"
-            >
-              Education
-            </h2>
-          </div>
-          <div className="col-span-12 md:col-span-5 md:text-right">
-            <p className="font-mono-tight text-sm text-[color:var(--muted)] max-w-sm md:ml-auto text-pretty">
-              Degrees in the field, plus a short ledger of credentials
-              earned in the long shadow of cloud computing.
-            </p>
-          </div>
-        </motion.div>
+        <SectionHeader
+          kicker={<>§ 03 · Formation &amp; Credentials</>}
+          heading="Education"
+          headingId="education-heading"
+          headingClassName="font-display has-dot text-[2.75rem] sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.035em] text-[color:var(--foreground)]"
+          description="Degrees in the field, plus a short ledger of credentials earned in the long shadow of cloud computing."
+          className="mb-10 sm:mb-14"
+        />
 
         {/* ── Degree ledger ── */}
         <div
@@ -87,9 +73,7 @@ export default function Education() {
                   Record № {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="font-mono-tight text-xs text-[color:var(--muted)]">
-                  <span>{start}</span>
-                  <span> - </span>
-                  <span>{end}</span>
+                  {start} - {end}
                 </span>
               </div>
 
@@ -116,12 +100,7 @@ export default function Education() {
                 </div>
               )}
 
-              {/* hover accent */}
-              <span
-                className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100"
-                style={{ background: "var(--signal)" }}
-                aria-hidden="true"
-              />
+              <HoverAccent />
             </motion.div>
           );})}
         </div>

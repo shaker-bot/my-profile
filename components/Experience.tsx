@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionHeader } from "./SectionHeader";
 
 function calcTenure(period: string): string {
   const parts = period.split(" - ");
@@ -88,30 +89,13 @@ export default function Experience() {
       style={{ borderTop: "1px solid var(--rule)" }}
     >
       <div className="max-w-7xl mx-auto">
-        {/* ── Section head ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-12 gap-6 sm:gap-8 mb-12 sm:mb-16 items-end"
-        >
-          <div className="col-span-12 md:col-span-7">
-            <div className="kicker mb-3">§ 01 · Professional Record</div>
-            <h2
-              id="experience-heading"
-              className="hd-display text-[2.75rem] sm:text-6xl md:text-7xl text-[color:var(--foreground)]"
-            >
-              Work Experience
-            </h2>
-          </div>
-          <div className="col-span-12 md:col-span-5 md:text-right">
-            <p className="font-mono-tight text-sm text-[color:var(--muted)] max-w-sm md:ml-auto text-pretty">
-              Four postings. 7+ years. Teams in the double digits, systems
-              in the thousands, coffees in the thousands more.
-            </p>
-          </div>
-        </motion.div>
+        <SectionHeader
+          kicker={<>§ 01 · Professional Record</>}
+          heading="Work Experience"
+          headingId="experience-heading"
+          description="Four postings. 7+ years. Teams in the double digits, systems in the thousands, coffees in the thousands more."
+          className="mb-12 sm:mb-16"
+        />
 
         {/* ── Entries ── */}
         <div className="divide-y" style={{ borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)", borderColor: "var(--rule)" }}>

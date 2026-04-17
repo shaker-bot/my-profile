@@ -78,7 +78,8 @@ describe("Home Page", () => {
   });
 
   it("renders the Education section", () => {
-    expect(screen.getByText("Education")).toBeInTheDocument();
+    // "Education" appears in the section heading and the navbar link
+    expect(screen.getAllByText("Education").length).toBeGreaterThan(0);
   });
 
   it("renders the Skills section", () => {
@@ -96,7 +97,7 @@ describe("Home Page", () => {
     // Verify key content from each section exists
     expect(screen.getByText("Abhishek Mathews")).toBeInTheDocument();
     expect(screen.getByText("Work Experience")).toBeInTheDocument();
-    expect(screen.getByText("Education")).toBeInTheDocument();
+    expect(screen.getAllByText("Education").length).toBeGreaterThan(0);
     expect(screen.getByText("Skills & Expertise")).toBeInTheDocument();
     expect(screen.getByText("Let's Connect")).toBeInTheDocument();
   });
