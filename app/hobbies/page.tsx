@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function HobbiesPage() {
   return (
-    <main className="min-h-screen">
+    <main id="main-content" className="min-h-screen">
       <Navbar />
       <Hobbies />
       <Footer />

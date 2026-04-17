@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Mail, MapPin, Linkedin, Github, Download, ArrowDown } from "lucide-react";
 import Image from "next/image";
 
@@ -13,11 +13,13 @@ const titles = [
 ];
 
 function TypewriterText() {
+  const reduceMotion = useReducedMotion();
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const current = titles[titleIndex];
     let timeout: ReturnType<typeof setTimeout>;
 
@@ -33,173 +35,280 @@ function TypewriterText() {
     }
 
     return () => clearTimeout(timeout);
-  }, [displayed, deleting, titleIndex]);
+  }, [displayed, deleting, titleIndex, reduceMotion]);
 
   return (
-    <h2 className="font-display text-2xl md:text-3xl font-bold mb-6 h-10" style={{ color: 'var(--accent)' }}>
-      {displayed}
-      <span className="animate-pulse opacity-70">|</span>
+    <h2 className="font-mono-tight text-base md:text-lg text-[color:var(--foreground)]">
+      <span className="kicker mr-2 text-[color:var(--muted)]">// currently</span>
+      <span className="sr-only">{titles.join(", ")}</span>
+      {reduceMotion ? (
+        <span className="text-[color:var(--signal)]">{titles[0]}</span>
+      ) : (
+        <>
+          <span aria-hidden="true" className="text-[color:var(--signal)]">{displayed}</span>
+          <span aria-hidden="true" className="caret-blink ml-0.5 text-[color:var(--signal)]">|</span>
+        </>
+      )}
     </h2>
   );
 }
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f8f7f4] via-white to-blue-50 dark:from-[#070c1a] dark:via-[#0a1020] dark:to-[#070c1a] px-4 overflow-hidden">
-      {/* Floating background blobs */}
-      <motion.div
-        className="absolute top-20 left-10 w-72 h-72 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-25"
-        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-80 h-80 bg-amber-200 dark:bg-amber-900/60 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20"
-        animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-64 h-64 bg-indigo-200 dark:bg-indigo-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-15"
-        animate={{ x: [0, 20, -20, 0], y: [0, -20, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
+    <section
+      aria-labelledby="hero-heading"
+      className="relative pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-24 px-5 sm:px-6 md:px-10 overflow-hidden"
+    >
+      <div className="relative mx-auto max-w-7xl">
+        {/* ── Masthead strip ── */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-between gap-3 mb-8 sm:mb-10 pb-3"
+          style={{ borderBottom: "1px solid var(--rule)" }}
+        >
+          <span className="kicker truncate">
+            Vol. VII · No. 26
+            <span className="hidden min-[400px]:inline"> · McLean, VA</span>
+          </span>
+          <span className="kicker hidden sm:inline">
+            §&nbsp;00 — Curriculum&nbsp;Vitæ
+          </span>
+          <span className="kicker shrink-0">Est.&nbsp;2018</span>
+        </motion.div>
 
-      <div className="relative max-w-6xl w-full py-20">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Profile Picture */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative group/photo"
-          >
-            <div className="w-64 h-64 rounded-2xl bg-gradient-to-br from-blue-500 to-amber-500 p-1 shadow-2xl transition-shadow duration-300 group-hover/photo:shadow-blue-300/50 dark:group-hover/photo:shadow-blue-700/50 group-hover/photo:shadow-[0_0_40px_rgba(59,130,246,0.4)]">
-              <div className="w-full h-full rounded-2xl overflow-hidden">
-                <Image
-                  src="/IMG-1327.jpg"
-                  alt="Abhishek Mathews"
-                  width={256}
-                  height={256}
-                  className="w-full h-full object-cover object-right"
-                  priority
-                />
-              </div>
-            </div>
+        {/* ── Main grid ── */}
+        <div className="grid grid-cols-12 gap-8 md:gap-10 items-start">
+          {/* ── Left: Masthead headline ── */}
+          <div className="col-span-12 lg:col-span-8 order-2 lg:order-1">
             <motion.div
-              className="absolute inset-0 rounded-2xl border-4 border-blue-500"
-              animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.2, 0.5] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
-
-          {/* Info Section */}
-          <div className="flex-1 text-center md:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
             >
-              <h1 className="font-display text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 dark:from-blue-400 dark:via-blue-300 dark:to-indigo-400 bg-clip-text text-transparent tracking-tight">
+              <div className="kicker mb-4">§ 00 · Mastheads &amp; matters</div>
+              <h1
+                id="hero-heading"
+                className="hd-signature text-[2.75rem] min-[400px]:text-[3.25rem] sm:text-[5rem] md:text-[6.5rem] lg:text-[8rem] text-[color:var(--foreground)] text-balance break-words"
+              >
                 Abhishek Mathews
               </h1>
+
+              <div
+                className="mt-6 mb-5 h-px w-28"
+                style={{ background: "var(--foreground)" }}
+              />
+
               <TypewriterText />
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl leading-relaxed">
+            </motion.div>
+
+            {/* ── Lede ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-8 max-w-2xl"
+            >
+              <p className="text-lg md:text-xl leading-relaxed text-[color:var(--foreground)] text-pretty">
+                <span className="font-display text-4xl mr-1 leading-none align-[-0.15em] text-[color:var(--signal)]">
+                  A
+                </span>
                 Senior Software Engineer with 7+ years of experience leading the design and delivery of
-                high-impact systems, specializing in cloud infrastructure, DevOps, and full-stack development.
+                high-impact systems — specializing in cloud infrastructure, DevOps, and full-stack
+                development that has to <em className="font-display-italic">actually</em> work at scale.
               </p>
             </motion.div>
 
-            {/* CTAs */}
+            {/* ── CTAs ── */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.5 }}
-              className="flex flex-wrap gap-3 justify-center md:justify-start mb-6"
+              transition={{ duration: 0.5, delay: 0.32 }}
+              className="mt-10 flex flex-wrap items-center gap-3"
             >
               <a
-                href="https://4y8e8soqjtsaruy1.public.blob.vercel-storage.com/AbhishekM_Updated_Resume_IntroUpdate.pdf"
+                href="https://4y8e8soqjtsaruy1.public.blob.vercel-storage.com/AbhishekM_Resume_03132026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:shadow-blue-600/25 transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                aria-label="Download resume PDF (opens in a new tab)"
+                className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 min-h-[44px] rounded-none font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--background)] transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
+                style={{ background: "var(--signal)" }}
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4" aria-hidden="true" />
                 Download Resume
+                <span className="inline-shift" aria-hidden="true">→</span>
               </a>
+
               <button
                 onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 min-h-[44px] font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--foreground)] transition-colors hover:text-[color:var(--signal)]"
+                style={{ border: "1px solid var(--foreground)" }}
               >
                 View My Work
+                <span className="inline-shift" aria-hidden="true">↓</span>
               </button>
             </motion.div>
 
-            {/* Contact Info */}
+            {/* ── Contact "colophon" ── */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex flex-wrap gap-4 justify-center md:justify-start text-slate-600 dark:text-slate-300 mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 max-w-2xl"
+              style={{ borderTop: "1px solid var(--rule)", paddingTop: "1rem" }}
             >
-              <a
-                href="mailto:abhishekd.mathews@gmail.com"
-                className="group/link flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-              >
-                <Mail className="w-5 h-5 transition-transform duration-200 group-hover/link:-translate-y-0.5" />
-                <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-200 group-hover/link:after:w-full">abhishekd.mathews@gmail.com</span>
-              </a>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                <span>McLean, VA</span>
+              <div className="flex items-baseline gap-3 min-w-0">
+                <span className="kicker w-14 shrink-0">E-mail</span>
+                <a
+                  href="mailto:abhishekd.mathews@gmail.com"
+                  className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)] break-all"
+                >
+                  <Mail className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
+                  abhishekd.mathews@gmail.com
+                </a>
               </div>
-              <a
-                href="https://linkedin.com/in/mathewsabhishek"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-              >
-                <Linkedin className="w-5 h-5 transition-transform duration-200 group-hover/link:-translate-y-0.5" />
-                <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-200 group-hover/link:after:w-full">LinkedIn</span>
-              </a>
-              <a
-                href="https://github.com/shaker-bot"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-              >
-                <Github className="w-5 h-5 transition-transform duration-200 group-hover/link:-translate-y-0.5" />
-                <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-200 group-hover/link:after:w-full">GitHub</span>
-              </a>
+              <div className="flex items-center gap-3">
+                <span className="kicker w-14 shrink-0">Loc.</span>
+                <span className="font-mono-tight text-[0.88rem] text-[color:var(--foreground)]">
+                  <MapPin className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
+                  McLean, VA
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="kicker w-14 shrink-0">Social</span>
+                <a
+                  href="https://linkedin.com/in/mathewsabhishek"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                >
+                  <Linkedin className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
+                  LinkedIn
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="kicker w-14 shrink-0">Code</span>
+                <a
+                  href="https://github.com/shaker-bot"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline font-mono-tight text-[0.88rem] text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                >
+                  <Github className="inline w-3.5 h-3.5 mr-1.5 align-[-2px]" aria-hidden="true" />
+                  GitHub
+                </a>
+              </div>
             </motion.div>
 
-            {/* Scroll nudge — visible on mobile */}
+            {/* ── Mobile scroll nudge ── */}
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
               onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-              className="mt-2 inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors md:hidden"
+              className="mt-10 inline-flex items-center gap-2 kicker hover:text-[color:var(--signal)] transition-colors md:hidden"
             >
-              <ArrowDown className="w-4 h-4" />
-              See my experience
+              <ArrowDown className="w-3.5 h-3.5" />
+              Continue reading
             </motion.button>
+          </div>
+
+          {/* ── Right: Portrait column ── */}
+          <div className="col-span-12 lg:col-span-4 order-1 lg:order-2">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none mx-auto lg:mx-0 lg:sticky lg:top-28"
+            >
+              <div className="kicker mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--signal)" }} />
+                Plate&nbsp;I — Portrait
+              </div>
+
+              <div className="relative">
+                {/* Corner ticks */}
+                <span className="absolute -top-2 -left-2 w-3 h-3 border-l border-t" style={{ borderColor: "var(--foreground)" }} />
+                <span className="absolute -top-2 -right-2 w-3 h-3 border-r border-t" style={{ borderColor: "var(--foreground)" }} />
+                <span className="absolute -bottom-2 -left-2 w-3 h-3 border-l border-b" style={{ borderColor: "var(--foreground)" }} />
+                <span className="absolute -bottom-2 -right-2 w-3 h-3 border-r border-b" style={{ borderColor: "var(--foreground)" }} />
+
+                <div
+                  className="relative aspect-[4/5] overflow-hidden"
+                  style={{
+                    filter: "contrast(1.02) saturate(0.9)",
+                    boxShadow: "0 0 0 1px var(--rule)",
+                  }}
+                >
+                  <Image
+                    src="/IMG-1327.jpg"
+                    alt="Abhishek Mathews"
+                    fill
+                    sizes="(max-width: 1024px) 60vw, 28vw"
+                    className="object-cover object-right"
+                    priority
+                  />
+                  {/* Halftone/duotone wash */}
+                  <div
+                    className="absolute inset-0 mix-blend-multiply pointer-events-none dark:mix-blend-screen"
+                    style={{
+                      background:
+                        "linear-gradient(200deg, color-mix(in oklab, var(--signal) 22%, transparent) 0%, transparent 55%)",
+                    }}
+                  />
+                </div>
+
+                {/* Caption */}
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="kicker">IMG_1327 · 2024</span>
+                  <span className="font-mono-tight text-[0.72rem] text-[color:var(--muted)]">
+                    — in situ
+                  </span>
+                </div>
+              </div>
+
+              {/* Stat ledger */}
+              <div
+                className="mt-6 grid grid-cols-3 text-center"
+                style={{ borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)" }}
+              >
+                <div className="py-3" style={{ borderRight: "1px solid var(--rule)" }}>
+                  <div className="font-display text-3xl leading-none text-[color:var(--signal)]">7+</div>
+                  <div className="kicker mt-1.5">Years</div>
+                </div>
+                <div className="py-3" style={{ borderRight: "1px solid var(--rule)" }}>
+                  <div className="font-display text-3xl leading-none">4</div>
+                  <div className="kicker mt-1.5">Posts</div>
+                </div>
+                <div className="py-3">
+                  <div className="font-display text-3xl leading-none">2</div>
+                  <div className="kicker mt-1.5">Certs</div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
+        {/* ── Scroll indicator ── */}
+        <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          transition={{ delay: 1.1, duration: 0.6 }}
           onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+          aria-label="Scroll to experience"
+          className="cursor-pointer hidden md:flex absolute left-10 bottom-4 flex-col items-center gap-2"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-slate-300 dark:border-slate-600 rounded-md flex justify-center pt-2"
-          >
-            <motion.div className="w-1.5 h-1.5 bg-slate-500 dark:bg-slate-400 rounded-sm" />
-          </motion.div>
-        </motion.div>
+          <span className="kicker rotate-180" style={{ writingMode: "vertical-rl" }}>
+            Continue
+          </span>
+          <motion.span
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="w-px h-8"
+            style={{ background: "var(--foreground)" }}
+          />
+        </motion.button>
       </div>
     </section>
   );

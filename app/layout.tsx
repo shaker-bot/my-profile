@@ -4,8 +4,8 @@ import ThemeProvider from "@/components/ThemeProvider";
 import ParticleBackground from "@/components/ParticleBackground";
 
 export const metadata: Metadata = {
-  title: "Abhishek Mathews - Senior Software Engineer",
-  description: "Portfolio and resume of Abhishek Mathews, Senior Software Engineer with 7+ years of experience in cloud infrastructure and full-stack development.",
+  title: "Abhishek Mathews — Staff Engineer, ink & infrastructure",
+  description: "The portfolio & curriculum vitæ of Abhishek Mathews — a Senior Software Engineer building cloud platforms, developer tools, and quietly over-engineered side projects.",
   keywords: ["Abhishek Mathews", "Software Engineer", "AWS", "TypeScript", "Python", "Cloud Engineer"],
   icons: {
     icon: [
@@ -29,14 +29,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,30..100;1,9..144,400..900,30..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="antialiased">
         <ThemeProvider>
+          <div className="ambient-gradient" aria-hidden="true" />
           <ParticleBackground />
-          {children}
+          <div className="grain-overlay" aria-hidden="true" />
+          <div className="relative z-10">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

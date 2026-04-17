@@ -1,101 +1,161 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Cloud, Database, Wrench } from "lucide-react";
 
-const skillCategories = [
-  {
-    title: "Programming Languages",
-    icon: Code2,
-    skills: ["Python", "TypeScript", "Java", "Golang"],
-    gradient: "from-blue-500 to-cyan-500",
-    pill: "bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  },
-  {
-    title: "Cloud Platforms",
-    icon: Cloud,
-    skills: ["Amazon Web Services (AWS)"],
-    gradient: "from-orange-500 to-amber-500",
-    pill: "bg-orange-50 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
-  },
-  {
-    title: "DevOps Tools",
-    icon: Wrench,
-    skills: ["AWS CDK", "Terraform", "Jenkins", "Docker", "Kubernetes"],
-    gradient: "from-emerald-500 to-teal-500",
-    pill: "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  },
-  {
-    title: "Developer Tools",
-    icon: Wrench,
-    skills: ["GitHub", "Cursor", "GitHub Copilot", "Claude Code"],
-    gradient: "from-violet-500 to-indigo-500",
-    pill: "bg-violet-50 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  },
-  {
-    title: "Databases",
-    icon: Database,
-    skills: ["DynamoDB", "MongoDB", "PostgreSQL", "MySQL"],
-    gradient: "from-rose-500 to-pink-500",
-    pill: "bg-rose-50 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
-  },
+type Category = {
+  title: string;
+  skills: string[];
+  glyph: string;
+};
+
+const skillCategories: Category[] = [
+  { title: "Programming Languages", glyph: "{ }",      skills: ["Python", "TypeScript", "Java", "Golang"] },
+  { title: "Cloud Platforms",       glyph: "☁",        skills: ["Amazon Web Services (AWS)"] },
+  { title: "DevOps Tools",          glyph: "⚙",        skills: ["AWS CDK", "Terraform", "Jenkins", "Docker", "Kubernetes"] },
+  { title: "Developer Tools",       glyph: "⌘",        skills: ["GitHub", "Cursor", "GitHub Copilot", "Claude Code"] },
+  { title: "Databases",             glyph: "▤",        skills: ["DynamoDB", "MongoDB", "PostgreSQL", "MySQL"] },
 ];
+
+const allSkillsStrip = skillCategories.flatMap((c) => c.skills);
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 px-4 bg-white dark:bg-slate-800">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
+      style={{ borderTop: "1px solid var(--rule)", background: "var(--surface)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* ── Section head ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="grid grid-cols-12 gap-6 sm:gap-8 mb-10 sm:mb-12 items-end"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Code2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-              Skills & Expertise
+          <div className="col-span-12 md:col-span-7">
+            <div className="kicker mb-3 flex items-center gap-2">
+              § 02 · Technical Inventory
+              <span
+                className="font-mono-tight text-[0.62rem] tracking-[0.18em] px-1.5 py-0.5"
+                style={{ background: "var(--glow)", color: "#14110a" }}
+              >
+                WIP
+              </span>
+            </div>
+            <h2
+              id="skills-heading"
+              className="hd-display text-[2.75rem] sm:text-6xl md:text-7xl text-[color:var(--foreground)]"
+            >
+              Skills &amp; Expertise
             </h2>
-            <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 self-center">
-              WIP
-            </span>
           </div>
-          <div className="w-24 h-1 mx-auto rounded-sm" style={{ background: 'var(--accent)' }}></div>
+          <div className="col-span-12 md:col-span-5 md:text-right">
+            <p className="font-mono-tight text-sm text-[color:var(--muted)] max-w-sm md:ml-auto text-pretty">
+              The tools of the trade — languages, platforms, and the
+              opinionated software I keep close at hand.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, index) => {
-            const Icon = category.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group/card relative bg-slate-50 dark:bg-slate-900 rounded-xl overflow-hidden p-6 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-2"
+        {/* ── Marquee strip ── */}
+        <div
+          className="relative mb-14 overflow-hidden"
+          style={{ borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)" }}
+          aria-hidden="true"
+        >
+          <div className="marquee-track py-3">
+            {[...allSkillsStrip, ...allSkillsStrip].map((s, i) => (
+              <span
+                key={i}
+                className="font-display-italic text-2xl md:text-3xl px-6 text-[color:var(--foreground)] opacity-90"
               >
-                <div className={`absolute top-0 left-0 right-0 h-1 group-hover/card:h-1.5 bg-gradient-to-r ${category.gradient} transition-all duration-200`} />
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${category.gradient} mb-4 transition-transform duration-200 group-hover/card:scale-110`}>
-                  <Icon className="w-6 h-6 text-white" />
+                {s}
+                <span className="text-[color:var(--signal)] ml-6">✦</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Folios grid ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ background: "var(--rule)" }}>
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              viewport={{ once: true }}
+              className="group relative p-6 sm:p-7 md:p-8 transition-colors"
+              style={{ background: "var(--surface)" }}
+            >
+              {/* Folio header */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="kicker">
+                  Folio&nbsp;№ {String(index + 1).padStart(2, "0")}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
-                  {category.title}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className={`font-mono text-xs font-medium px-3 py-1.5 rounded-md ${category.pill}`}
-                    >
+                <span
+                  className="font-display text-2xl text-[color:var(--signal)] leading-none translate-y-[-4px]"
+                  aria-hidden="true"
+                >
+                  {category.glyph}
+                </span>
+              </div>
+
+              <h3 className="font-display text-[1.75rem] md:text-[2rem] leading-[1.05] tracking-[-0.02em] text-[color:var(--foreground)] mb-6">
+                {category.title}
+              </h3>
+
+              <ul className="space-y-2">
+                {category.skills.map((skill, i) => (
+                  <li
+                    key={skill}
+                    className="group/item grid grid-cols-[auto,1fr,auto] items-baseline gap-3 py-1.5 border-b transition-colors"
+                    style={{ borderColor: "var(--rule)" }}
+                  >
+                    <span className="font-mono-tight text-[0.7rem] tracking-[0.18em] text-[color:var(--muted)] tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[color:var(--foreground)] group-hover/item:text-[color:var(--signal)] transition-colors">
                       {skill}
                     </span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+                    <span
+                      className="font-mono-tight text-[0.7rem] text-[color:var(--muted)] opacity-0 group-hover/item:opacity-100 transition-opacity"
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Hover accent bar */}
+              <span
+                className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100"
+                style={{ background: "var(--signal)" }}
+                aria-hidden="true"
+              />
+            </motion.div>
+          ))}
+
+          {/* Filler folio — keeps the grid visually complete on lg */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.45, delay: skillCategories.length * 0.06 }}
+            viewport={{ once: true }}
+            className="hidden lg:flex relative p-8 flex-col justify-between"
+            style={{ background: "var(--surface)" }}
+          >
+            <div className="kicker">Folio&nbsp;— Editor&apos;s&nbsp;Note</div>
+            <p className="font-display-italic text-2xl leading-snug text-[color:var(--foreground)] text-balance">
+              &ldquo;Tools should disappear into the work.
+              The work should be what you remember.&rdquo;
+            </p>
+            <div className="kicker text-right">— a.m.</div>
+          </motion.div>
         </div>
       </div>
     </section>

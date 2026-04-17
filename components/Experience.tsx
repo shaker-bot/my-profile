@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
 
 function calcTenure(period: string): string {
   const parts = period.split(" - ");
@@ -28,7 +27,6 @@ const experiences = [
     period: "09/2022 - 04/2025",
     role: "Senior Software Engineer",
     badge: "Platform & Developer Tools",
-    badgeColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
     achievements: [
       "Led architecting and implementation of high risk issue resolution by creating just-in-time AWS access feature, resulting in fifty percent faster issue resolution time.",
       "Collaborated with team to improve app functionality, leading redesign of Auth and data access and achieving 20% decrease in user complaints.",
@@ -44,7 +42,6 @@ const experiences = [
     period: "07/2021 - 07/2022",
     role: "Senior Software Engineer",
     badge: "Consumer Application",
-    badgeColor: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
     achievements: [
       "Designed and Released Customer-Facing Portal For Purchased Warranty Experience",
       "Helped design and build authentication flow along with the security team",
@@ -59,7 +56,6 @@ const experiences = [
     period: "03/2019 - 07/2021",
     role: "Senior Software Engineer",
     badge: "Cloud Cost & Compliance",
-    badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
     achievements: [
       "Led refactor and implementation of EC2/ECS off-hours solution that optimized cost for AWS resources across thousands of non-production accounts.",
       "Implemented Cloud Custodian policies and visual emails to drive compliance and cost objectives",
@@ -74,7 +70,6 @@ const experiences = [
     period: "06/2018 - 03/2019",
     role: "Cloud Systems Developer",
     badge: "Consulting",
-    badgeColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
     achievements: [
       "Executed Cloud Infrastructure standups for a large Financial Organization",
       "Supported front door tickets and requests to build out one-off resources",
@@ -86,95 +81,119 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 px-4 bg-slate-50 dark:bg-slate-900">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="experience"
+      aria-labelledby="experience-heading"
+      className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
+      style={{ borderTop: "1px solid var(--rule)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* ── Section head ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="grid grid-cols-12 gap-6 sm:gap-8 mb-12 sm:mb-16 items-end"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Briefcase className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <div className="col-span-12 md:col-span-7">
+            <div className="kicker mb-3">§ 01 · Professional Record</div>
+            <h2
+              id="experience-heading"
+              className="hd-display text-[2.75rem] sm:text-6xl md:text-7xl text-[color:var(--foreground)]"
+            >
               Work Experience
             </h2>
           </div>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded-sm"></div>
+          <div className="col-span-12 md:col-span-5 md:text-right">
+            <p className="font-mono-tight text-sm text-[color:var(--muted)] max-w-sm md:ml-auto text-pretty">
+              Four postings. 7+ years. Teams in the double digits, systems
+              in the thousands, coffees in the thousands more.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="space-y-12">
+        {/* ── Entries ── */}
+        <div className="divide-y" style={{ borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)", borderColor: "var(--rule)" }}>
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group/card relative pl-8 border-l-4 border-blue-600 dark:border-blue-400 hover:border-blue-700 dark:hover:border-blue-300 transition-colors duration-200"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
+              viewport={{ once: true, amount: 0.15 }}
+              className="group grid grid-cols-12 gap-5 md:gap-10 py-8 sm:py-10 md:py-14"
+              style={{ borderBottom: "1px solid var(--rule)" }}
             >
-              <div className="absolute w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-sm -left-[10px] top-0 transition-transform duration-200 group-hover/card:scale-125"></div>
+              {/* Index + period */}
+              <div className="col-span-12 md:col-span-3 lg:col-span-3 flex flex-wrap md:flex-col gap-x-4 gap-y-2 md:gap-2 items-start">
+                <div className="font-mono-tight text-[0.72rem] tracking-[0.2em] text-[color:var(--muted)]">
+                  ENTRY № {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="font-mono-tight text-sm text-[color:var(--foreground)] whitespace-nowrap">
+                    {exp.period}
+                  </span>
+                  {calcTenure(exp.period) && (
+                    <span className="kicker">· {calcTenure(exp.period)}</span>
+                  )}
+                </div>
+              </div>
 
-              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {exp.company}
-                        {exp.location && (
-                          <span className="text-lg font-normal text-slate-500 dark:text-slate-400"> • {exp.location}</span>
-                        )}
-                      </h3>
-                      {exp.badge && (
-                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-md ${exp.badgeColor}`}>
-                          {exp.badge}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-xl text-blue-600 dark:text-blue-400 font-semibold">
-                      {exp.role}
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-start md:items-end gap-0.5 shrink-0">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
-                      {exp.period}
-                    </span>
-                    {calcTenure(exp.period) && (
-                      <span className="text-xs text-slate-400 dark:text-slate-500">
-                        {calcTenure(exp.period)}
-                      </span>
+              {/* Core */}
+              <div className="col-span-12 md:col-span-9 lg:col-span-9">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-1">
+                  <h3 className="font-display text-[1.75rem] sm:text-3xl md:text-4xl leading-[1.05] tracking-[-0.02em] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--signal)] text-pretty">
+                    {exp.company}
+                    {exp.location && (
+                      <span className="font-display-italic text-base sm:text-lg md:text-xl text-[color:var(--muted)]"> · {exp.location}</span>
                     )}
-                  </div>
+                  </h3>
                 </div>
 
-                <ul className="space-y-2 mb-4">
+                <p className="font-mono-tight text-sm uppercase tracking-[0.18em] text-[color:var(--signal)] mb-1">
+                  {exp.role}
+                </p>
+
+                {exp.badge && (
+                  <p className="kicker text-[color:var(--muted)] mb-5">
+                    — {exp.badge}
+                  </p>
+                )}
+
+                <ol className="space-y-3 max-w-3xl">
                   {exp.achievements.map((achievement, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 text-slate-700 dark:text-slate-300"
+                      className="grid grid-cols-[auto,1fr] gap-4 text-[0.98rem] leading-relaxed text-[color:var(--foreground)]"
                     >
-                      <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
+                      <span className="font-mono-tight text-[0.72rem] tracking-[0.18em] text-[color:var(--muted)] pt-1.5 tabular-nums">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                       <span>{achievement}</span>
                     </li>
                   ))}
-                </ul>
+                </ol>
 
                 {exp.technologies && (
-                  <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">
+                  <div
+                    className="mt-6 pt-5 flex flex-col md:grid md:grid-cols-[auto,1fr] gap-3 md:gap-4 md:items-start"
+                    style={{ borderTop: "1px dashed var(--rule)" }}
+                  >
+                    <span className="kicker shrink-0 pt-0.5">
                       Technologies Used:
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
+                    </span>
+                    <ul className="flex flex-wrap gap-x-2 gap-y-1.5" aria-label="Technologies used">
                       {exp.technologies.split(",").map((tech) => (
-                        <span
+                        <li
                           key={tech.trim()}
-                          className="font-mono text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-150 cursor-default"
+                          className="font-mono-tight text-xs text-[color:var(--foreground)] px-2.5 py-1 transition-colors hover:text-[color:var(--signal)]"
+                          style={{ border: "1px solid var(--rule)" }}
                         >
                           {tech.trim()}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 )}
               </div>
