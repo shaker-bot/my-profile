@@ -14,10 +14,7 @@ interface Hobby {
   icon: React.ElementType;
   title: string;
   description: string;
-  color: string;
-  bg: string;
-  tagBg: string;
-  tagText: string;
+  glyph: string;
   items: HobbyItem[];
 }
 
@@ -27,14 +24,11 @@ const hobbies: Hobby[] = [
     title: "Video Games",
     description:
       "From RPGs to competitive shooters — always up for a good story or a ranked grind.",
-    color: "from-violet-500 to-purple-600",
-    bg: "bg-violet-50 dark:bg-violet-900/20",
-    tagBg: "bg-violet-100 dark:bg-violet-900/40",
-    tagText: "text-violet-700 dark:text-violet-300",
+    glyph: "▶",
     items: [
       { title: "League of Legends", subtitle: "MOBA · 2009", tag: "Playing" },
-      { title: "Valorant", subtitle: "Tactical FPS · 2020", tag: "Playing" },
-      { title: "Absolum", subtitle: "Roguelite Beat 'em Up · 2025", tag: "Backlog" },
+      { title: "Valorant",          subtitle: "Tactical FPS · 2020", tag: "Playing" },
+      { title: "Absolum",           subtitle: "Roguelite Beat 'em Up · 2025", tag: "Backlog" },
     ],
   },
   {
@@ -42,14 +36,11 @@ const hobbies: Hobby[] = [
     title: "TV Shows",
     description:
       "A sucker for a well-written series. Always mid-rewatch of something and mid-watch of three other things.",
-    color: "from-sky-500 to-cyan-600",
-    bg: "bg-sky-50 dark:bg-sky-900/20",
-    tagBg: "bg-sky-100 dark:bg-sky-900/40",
-    tagText: "text-sky-700 dark:text-sky-300",
+    glyph: "◧",
     items: [
-      { title: "Law & Order: SVU", subtitle: "NBC · 1999", tag: "Watching" },
-      { title: "Young Sherlock", subtitle: "Prime Video · 2026", tag: "Watching" },
-      { title: "Superstore", subtitle: "NBC · 2015", tag: "Completed" },
+      { title: "Law & Order: SVU", subtitle: "NBC · 1999",       tag: "Watching" },
+      { title: "Young Sherlock",   subtitle: "Prime Video · 2026", tag: "Watching" },
+      { title: "Superstore",       subtitle: "NBC · 2015",       tag: "Completed" },
     ],
   },
   {
@@ -57,10 +48,7 @@ const hobbies: Hobby[] = [
     title: "Reading",
     description:
       "Fiction, tech, and everything in between. Currently working through a backlog of sci-fi classics.",
-    color: "from-blue-500 to-indigo-600",
-    bg: "bg-blue-50 dark:bg-blue-900/20",
-    tagBg: "bg-blue-100 dark:bg-blue-900/40",
-    tagText: "text-blue-700 dark:text-blue-300",
+    glyph: "§",
     items: [
       { title: "Book Title", subtitle: "Author · Year", tag: "Reading" },
       { title: "Book Title", subtitle: "Author · Year", tag: "Completed" },
@@ -72,10 +60,7 @@ const hobbies: Hobby[] = [
     title: "Music",
     description:
       "Listening across genres and occasionally picking up a guitar to make noise.",
-    color: "from-purple-500 to-violet-600",
-    bg: "bg-purple-50 dark:bg-purple-900/20",
-    tagBg: "bg-purple-100 dark:bg-purple-900/40",
-    tagText: "text-purple-700 dark:text-purple-300",
+    glyph: "♪",
     items: [
       { title: "Artist / Album", subtitle: "Genre · Year", tag: "On Repeat" },
       { title: "Artist / Album", subtitle: "Genre · Year", tag: "Favorite" },
@@ -87,10 +72,7 @@ const hobbies: Hobby[] = [
     title: "Side Projects",
     description:
       "Building things for fun — tools, experiments, and the occasional over-engineered solution to a simple problem.",
-    color: "from-rose-500 to-pink-600",
-    bg: "bg-rose-50 dark:bg-rose-900/20",
-    tagBg: "bg-rose-100 dark:bg-rose-900/40",
-    tagText: "text-rose-700 dark:text-rose-300",
+    glyph: "⌥",
     items: [
       { title: "Project Name", subtitle: "Tech Stack", tag: "Active" },
       { title: "Project Name", subtitle: "Tech Stack", tag: "Shipped" },
@@ -99,32 +81,10 @@ const hobbies: Hobby[] = [
   },
 ];
 
-// direction: 1 = forward (grid → detail), -1 = back (detail → grid)
 const slideVariants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? 60 : -60,
-    opacity: 0,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
-  exit: (dir: number) => ({
-    x: dir > 0 ? -60 : 60,
-    opacity: 0,
-    transition: { duration: 0.2, ease: "easeIn" },
-  }),
-};
-
-const gridContainer = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const gridItem = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+  enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
+  center: { x: 0, opacity: 1, transition: { duration: 0.35, ease: "easeOut" } },
+  exit: (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0, transition: { duration: 0.25, ease: "easeIn" } }),
 };
 
 const listContainer = {
@@ -134,7 +94,7 @@ const listContainer = {
 
 const listItem = {
   hidden: { opacity: 0, x: -12 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
+  show:   { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
 };
 
 export default function Hobbies() {
@@ -145,41 +105,57 @@ export default function Hobbies() {
     setDirection(1);
     setSelected(hobby);
   };
-
   const goBack = () => {
     setDirection(-1);
     setSelected(null);
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-4 pt-28 pb-20">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Page header — always visible */}
+    <section
+      className="relative min-h-screen px-6 md:px-10 pt-28 md:pt-32 pb-24"
+      style={{ borderTop: "1px solid var(--rule)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* ── Page head ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-14 text-center"
+          transition={{ duration: 0.55 }}
+          className="flex items-center justify-between mb-10 pb-3"
+          style={{ borderBottom: "1px solid var(--rule)" }}
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <h1 className="text-5xl font-bold text-slate-900 dark:text-white">
-              Beyond the Code
-            </h1>
-            <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 self-center">
-              WIP
-            </span>
-          </div>
-          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
-            A few things I enjoy when I&apos;m not in front of a terminal.
-          </p>
+          <span className="kicker">The Weekend Edition</span>
+          <span className="kicker hidden sm:inline">§&nbsp;04 — Hobbies</span>
+          <span
+            className="font-mono-tight text-[0.62rem] tracking-[0.18em] px-1.5 py-0.5"
+            style={{ background: "var(--glow)", color: "#14110a" }}
+          >
+            WIP
+          </span>
         </motion.div>
 
-        {/* Animated view switcher */}
-        <div className="relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.05 }}
+          className="grid grid-cols-12 gap-8 mb-14 items-end"
+        >
+          <div className="col-span-12 md:col-span-8">
+            <h1 className="hd-display text-[3.5rem] sm:text-[5rem] md:text-[6.5rem] text-[color:var(--foreground)]">
+              Beyond the Code
+            </h1>
+          </div>
+          <div className="col-span-12 md:col-span-4 md:text-right">
+            <p className="font-mono-tight text-sm text-[color:var(--muted)] max-w-xs md:ml-auto text-pretty">
+              A few things I enjoy when I&apos;m not in front of a terminal.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── View switcher ── */}
+        <div className="relative">
           <AnimatePresence mode="popLayout" custom={direction}>
             {!selected ? (
-              /* ── Grid view ── */
               <motion.div
                 key="grid"
                 custom={direction}
@@ -189,41 +165,61 @@ export default function Hobbies() {
                 exit="exit"
               >
                 <motion.div
-                  variants={gridContainer}
+                  variants={listContainer}
                   initial="hidden"
                   animate="show"
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
+                  style={{ background: "var(--rule)" }}
                 >
-                  {hobbies.map((hobby) => {
+                  {hobbies.map((hobby, index) => {
                     const Icon = hobby.icon;
                     return (
                       <motion.button
                         key={hobby.title}
-                        variants={gridItem}
+                        variants={listItem}
                         onClick={() => openHobby(hobby)}
-                        className={`group/hobby text-left rounded-xl p-6 ${hobby.bg} border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
+                        className="group relative text-left p-8 transition-colors hover:bg-[color:var(--surface)]"
+                        style={{ background: "var(--background)" }}
                       >
-                        <div
-                          className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${hobby.color} mb-4 shadow transition-transform duration-200 group-hover/hobby:scale-110`}
-                        >
-                          <Icon className="w-6 h-6 text-white" />
+                        <div className="flex items-start justify-between mb-6">
+                          <span className="kicker">
+                            Column&nbsp;№ {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span
+                            className="font-display text-2xl leading-none translate-y-[-3px] text-[color:var(--signal)]"
+                            aria-hidden="true"
+                          >
+                            {hobby.glyph}
+                          </span>
                         </div>
-                        <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-                          {hobby.title}
-                        </h3>
-                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+
+                        <div className="flex items-center gap-3 mb-3">
+                          <Icon className="w-5 h-5 text-[color:var(--muted)]" />
+                          <h3 className="font-display text-[1.9rem] md:text-[2.2rem] leading-[1.02] tracking-[-0.02em] text-[color:var(--foreground)] group-hover:text-[color:var(--signal)] transition-colors">
+                            {hobby.title}
+                          </h3>
+                        </div>
+
+                        <p className="text-[0.95rem] leading-relaxed text-[color:var(--muted)] mb-8 max-w-sm">
                           {hobby.description}
                         </p>
-                        <p className="mt-4 text-xs font-medium text-slate-400 dark:text-slate-500 transition-all duration-200 group-hover/hobby:text-slate-600 dark:group-hover/hobby:text-slate-300 group-hover/hobby:translate-x-1">
-                          Tap to explore →
+
+                        <p className="kicker flex items-center gap-2 transition-colors group-hover:text-[color:var(--signal)]">
+                          Read More
+                          <span className="inline-shift">→</span>
                         </p>
+
+                        <span
+                          className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100"
+                          style={{ background: "var(--signal)" }}
+                          aria-hidden="true"
+                        />
                       </motion.button>
                     );
                   })}
                 </motion.div>
               </motion.div>
             ) : (
-              /* ── Detail view ── */
               <motion.div
                 key={selected.title}
                 custom={direction}
@@ -232,68 +228,86 @@ export default function Hobbies() {
                 animate="center"
                 exit="exit"
               >
-                {/* Back navigation / breadcrumb */}
-                <div className="flex items-center gap-2 mb-8 text-sm text-slate-500 dark:text-slate-400">
+                {/* Breadcrumb */}
+                <div className="flex items-center gap-2 mb-10">
                   <button
                     onClick={goBack}
                     aria-label="Back to all hobbies"
-                    className="group/back inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 font-medium text-slate-700 dark:text-slate-300"
+                    className="group inline-flex items-center gap-2 px-3 py-1.5 font-mono-tight text-xs uppercase tracking-[0.18em] text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors"
+                    style={{ border: "1px solid var(--rule)" }}
                   >
-                    <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover/back:-translate-x-1" />
+                    <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
                     All Hobbies
                   </button>
-                  <span className="text-slate-300 dark:text-slate-600">/</span>
-                  <span className="text-slate-700 dark:text-slate-300 font-medium">
+                  <span className="kicker mx-2">/</span>
+                  <span className="kicker text-[color:var(--foreground)]">
                     {selected.title}
                   </span>
                 </div>
 
-                {/* Hobby header */}
-                <div className="flex items-center gap-4 mb-8">
-                  <div
-                    className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${selected.color} shadow-lg`}
-                  >
-                    <selected.icon className="w-7 h-7 text-white" />
+                {/* Article head */}
+                <div
+                  className="grid grid-cols-12 gap-6 pb-10 mb-10"
+                  style={{ borderBottom: "1px solid var(--rule)" }}
+                >
+                  <div className="col-span-12 md:col-span-2">
+                    <span
+                      className="font-display text-6xl md:text-7xl text-[color:var(--signal)] leading-none"
+                      aria-hidden="true"
+                    >
+                      {selected.glyph}
+                    </span>
                   </div>
-                  <div>
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-                      {selected.title}
+                  <div className="col-span-12 md:col-span-10">
+                    <div className="flex items-center gap-3 mb-2">
+                      <selected.icon className="w-4 h-4 text-[color:var(--muted)]" />
+                      <span className="kicker">Feature · The Weekend Edition</span>
+                    </div>
+                    <h2 className="font-display text-5xl md:text-6xl leading-[0.95] tracking-[-0.03em] text-[color:var(--foreground)]">
+                      <span className="font-display-italic">{selected.title}</span>
                     </h2>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
+                    <p className="mt-4 max-w-xl text-[color:var(--foreground)] text-lg leading-relaxed">
                       {selected.description}
                     </p>
                   </div>
                 </div>
 
-                {/* Item list */}
+                {/* Item ledger */}
                 <motion.div
                   variants={listContainer}
                   initial="hidden"
                   animate="show"
-                  className="space-y-3"
+                  className="divide-y"
+                  style={{
+                    borderTop: "1px solid var(--rule)",
+                    borderBottom: "1px solid var(--rule)",
+                    borderColor: "var(--rule)",
+                  }}
                 >
                   {selected.items.map((hobbyItem, i) => (
                     <motion.div
                       key={i}
                       variants={listItem}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
+                      className="grid grid-cols-[auto,1fr,auto] items-center gap-6 py-5 hover:bg-[color:var(--surface)] transition-colors"
+                      style={{ borderBottom: "1px solid var(--rule)" }}
                     >
-                      <span className="text-xl font-bold text-slate-200 dark:text-slate-700 w-7 shrink-0 text-center select-none tabular-nums">
-                        {i + 1}
+                      <span className="font-mono-tight text-[0.72rem] tracking-[0.18em] text-[color:var(--muted)] w-10 tabular-nums">
+                        {String(i + 1).padStart(2, "0")}
                       </span>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-slate-900 dark:text-white truncate">
+                      <div className="min-w-0">
+                        <p className="font-display text-xl md:text-2xl leading-tight text-[color:var(--foreground)] truncate">
                           {hobbyItem.title}
                         </p>
                         {hobbyItem.subtitle && (
-                          <p className="text-sm text-slate-500 dark:text-slate-400">
+                          <p className="font-mono-tight text-xs text-[color:var(--muted)] mt-0.5">
                             {hobbyItem.subtitle}
                           </p>
                         )}
                       </div>
                       {hobbyItem.tag && (
                         <span
-                          className={`text-xs font-semibold px-2.5 py-1 rounded-md shrink-0 ${selected.tagBg} ${selected.tagText}`}
+                          className="font-mono-tight text-[0.68rem] uppercase tracking-[0.18em] px-2.5 py-1 whitespace-nowrap"
+                          style={{ border: "1px solid var(--rule)", color: "var(--signal)" }}
                         >
                           {hobbyItem.tag}
                         </span>

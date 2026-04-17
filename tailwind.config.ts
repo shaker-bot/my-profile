@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
-        sans:    ['DM Sans', '-apple-system', 'sans-serif'],
+        display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+        sans:    ['Instrument Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
@@ -20,27 +20,22 @@ export default {
         surface:       "var(--surface)",
         "surface-alt": "var(--surface-alt)",
         border:        "var(--border)",
+        rule:          "var(--rule)",
         muted:         "var(--muted)",
         primary:       "var(--primary)",
         accent:        "var(--accent)",
+        signal:        "var(--signal)",
+        glow:          "var(--glow)",
       },
       animation: {
-        'fade-in':       'fadeIn 0.6s ease-in-out',
-        'slide-up':      'slideUp 0.6s ease-out',
-        'slide-in-right':'slideInRight 0.6s ease-out',
+        'fade-in':  'fadeIn 0.6s ease-in-out',
+        'slide-up': 'slideUp 0.6s ease-out',
       },
       keyframes: {
-        fadeIn: {
-          '0%':   { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
+        fadeIn:  { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
         slideUp: {
           '0%':   { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)',    opacity: '1' },
-        },
-        slideInRight: {
-          '0%':   { transform: 'translateX(-20px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)',     opacity: '1' },
         },
       },
     },

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Award } from "lucide-react";
 
 const education = [
   {
@@ -21,97 +20,177 @@ const education = [
 ];
 
 const certifications = [
-  {
-    name: "Certified Solutions Architect Associate",
-    issuer: "AWS",
-  },
-  {
-    name: "Certified SysOps Associate",
-    issuer: "AWS",
-  },
+  { name: "Certified Solutions Architect Associate", issuer: "AWS" },
+  { name: "Certified SysOps Associate",              issuer: "AWS" },
 ];
 
 export default function Education() {
   return (
-    <section id="education" className="py-20 px-4 bg-slate-50 dark:bg-slate-900">
-      <div className="max-w-6xl mx-auto">
-        {/* Education Section */}
+    <section
+      id="education"
+      className="relative py-24 md:py-28 px-6 md:px-10"
+      style={{ borderTop: "1px solid var(--rule)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* ── Section head ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="grid grid-cols-12 gap-8 mb-14 items-end"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <GraduationCap className="w-8 h-8 text-violet-600 dark:text-violet-400" />
-            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <div className="col-span-12 md:col-span-7">
+            <div className="kicker mb-3">§ 03 · Formation &amp; Credentials</div>
+            <h2 className="font-display has-dot text-6xl md:text-7xl leading-[0.9] tracking-[-0.035em] text-[color:var(--foreground)]">
               Education
             </h2>
           </div>
-          <div className="w-24 h-1 bg-violet-600 mx-auto rounded-sm"></div>
+          <div className="col-span-12 md:col-span-5 md:text-right">
+            <p className="font-mono-tight text-sm text-[color:var(--muted)] max-w-sm md:ml-auto text-pretty">
+              Degrees in the field, plus a short ledger of credentials
+              earned in the long shadow of cloud computing.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {education.map((edu, index) => (
+        {/* ── Degree ledger ── */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{
+            borderTop: "1px solid var(--rule)",
+            borderBottom: "1px solid var(--rule)",
+          }}
+        >
+          {education.map((edu, index) => {
+            const [start, end] = edu.date.split(" - ");
+            return (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group/edu relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1 border border-transparent hover:border-violet-200 dark:hover:border-violet-800"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              viewport={{ once: true, amount: 0.2 }}
+              className="group p-8 md:p-10 relative"
+              style={{
+                borderRight: index === 0 ? "1px solid var(--rule)" : "none",
+              }}
             >
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+              <div className="flex items-center justify-between mb-4">
+                <span className="kicker">
+                  Record № {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="font-mono-tight text-xs text-[color:var(--muted)]">
+                  <span>{start}</span>
+                  <span> - </span>
+                  <span>{end}</span>
+                </span>
+              </div>
+
+              <h3 className="font-display text-[2rem] md:text-[2.5rem] leading-[1.02] tracking-[-0.025em] text-[color:var(--foreground)] mb-3">
                 {edu.degree}
               </h3>
-              <p className="text-lg text-violet-600 dark:text-violet-400 font-semibold mb-2">
+
+              <p className="font-mono-tight text-sm uppercase tracking-[0.18em] text-[color:var(--foreground)] mb-1">
                 {edu.institution}
               </p>
-              <p className="text-slate-500 dark:text-slate-400 mb-2">
+              <p className="text-[0.95rem] text-[color:var(--muted)] mb-5">
                 {edu.location}
               </p>
+
               {edu.gpa && (
-                <p className="text-slate-700 dark:text-slate-300 font-medium">
-                  GPA: {edu.gpa}
-                </p>
+                <div
+                  className="inline-flex items-baseline gap-3 pt-4"
+                  style={{ borderTop: "1px dashed var(--rule)" }}
+                >
+                  <span className="kicker">GPA: {edu.gpa}</span>
+                  <span className="font-mono-tight text-[0.7rem] text-[color:var(--muted)]">
+                    / 4.00
+                  </span>
+                </div>
               )}
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
-                {edu.date}
-              </p>
+
+              {/* hover accent */}
+              <span
+                className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100"
+                style={{ background: "var(--signal)" }}
+                aria-hidden="true"
+              />
             </motion.div>
-          ))}
+          );})}
         </div>
 
-        {/* Certifications Section */}
+        {/* ── Certifications ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mt-20 mb-10"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Award className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h2 className="font-display text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-              Certifications
-            </h2>
-          </div>
-          <div className="w-24 h-1 bg-blue-600 mx-auto rounded-sm"></div>
+          <div className="kicker mb-3">§ 03b · Commendations</div>
+          <h2 className="font-display has-dot text-5xl md:text-6xl leading-[0.92] tracking-[-0.035em] text-[color:var(--foreground)]">
+            Certifications
+          </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
           {certifications.map((cert, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.45, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group/cert bg-gradient-to-br from-blue-600 to-violet-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl hover:shadow-blue-600/25 transition-all duration-200 hover:scale-105 hover:-translate-y-1"
+              className="group relative p-7 transition-colors overflow-hidden"
+              style={{
+                border: "1px solid var(--foreground)",
+                background: "var(--foreground)",
+                color: "var(--background)",
+              }}
             >
-              <h3 className="text-xl font-bold mb-2">{cert.name}</h3>
-              <p className="text-blue-100">{cert.issuer}</p>
+              <div className="flex items-center justify-between mb-6">
+                <span
+                  className="font-mono-tight text-[0.68rem] tracking-[0.2em] uppercase"
+                  style={{ color: "color-mix(in oklab, var(--background) 60%, transparent)" }}
+                >
+                  ◆ Certified · {String(index + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className="font-mono-tight text-xs px-2 py-0.5"
+                  style={{
+                    background: "var(--signal)",
+                    color: "#14110a",
+                  }}
+                >
+                  {cert.issuer}
+                </span>
+              </div>
+
+              <h3 className="font-display text-[1.6rem] md:text-[1.85rem] leading-[1.05] tracking-[-0.02em] text-balance">
+                {cert.name}
+              </h3>
+
+              {/* decorative seal */}
+              <svg
+                className="absolute -right-6 -bottom-6 w-32 h-32 opacity-10 pointer-events-none"
+                viewBox="0 0 100 100"
+                aria-hidden="true"
+              >
+                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="4" fill="currentColor" />
+                <g stroke="currentColor" strokeWidth="0.5">
+                  {Array.from({ length: 24 }).map((_, i) => {
+                    const a = (i * 15 * Math.PI) / 180;
+                    const x1 = 50 + 35 * Math.cos(a);
+                    const y1 = 50 + 35 * Math.sin(a);
+                    const x2 = 50 + 45 * Math.cos(a);
+                    const y2 = 50 + 45 * Math.sin(a);
+                    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />;
+                  })}
+                </g>
+              </svg>
             </motion.div>
           ))}
         </div>

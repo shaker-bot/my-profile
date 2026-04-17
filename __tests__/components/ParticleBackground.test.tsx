@@ -16,16 +16,22 @@ jest.mock("framer-motion", () => {
   };
 });
 
-describe("ParticleBackground", () => {
+describe("ParticleBackground (rule-field background)", () => {
   it("renders without crashing", () => {
     const { container } = render(<ParticleBackground />);
     expect(container.firstChild).toBeInTheDocument();
   });
 
-  it("renders 15 particle elements", () => {
+  it("renders four register marks in each corner", () => {
     const { container } = render(<ParticleBackground />);
-    const particles = container.querySelectorAll(".rounded-full");
-    expect(particles.length).toBe(15);
+    const registerMarks = container.querySelectorAll("svg");
+    expect(registerMarks.length).toBe(4);
+  });
+
+  it("renders the colophon signal dot", () => {
+    const { container } = render(<ParticleBackground />);
+    const dots = container.querySelectorAll(".rounded-full");
+    expect(dots.length).toBeGreaterThanOrEqual(1);
   });
 
   it("is fixed-positioned so it does not affect page layout", () => {
@@ -40,9 +46,16 @@ describe("ParticleBackground", () => {
     expect(wrapper.className).toContain("pointer-events-none");
   });
 
-  it("has z-0 so it stays behind page content", () => {
+  it("sits behind content via a low z-index", () => {
     const { container } = render(<ParticleBackground />);
     const wrapper = container.firstChild as HTMLElement;
-    expect(wrapper.className).toContain("z-0");
+    // Decorative layer should have a low stacking context; allow either
+    // inline-style z-index or a tailwind class.
+    const hasLowZ =
+      wrapper.style.zIndex === "1" ||
+      wrapper.style.zIndex === "0" ||
+      wrapper.className.includes("z-0") ||
+      wrapper.className.includes("z-[1]");
+    expect(hasLowZ).toBe(true);
   });
 });

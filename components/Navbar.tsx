@@ -8,9 +8,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const sectionLinks = [
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Education", href: "#education" },
+  { label: "Experience", href: "#experience", num: "01" },
+  { label: "Skills",     href: "#skills",     num: "02" },
+  { label: "Education",  href: "#education",  num: "03" },
 ];
 
 export default function Navbar() {
@@ -51,25 +51,37 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-300 ${
         scrolled
-          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md"
-          : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm"
+          ? "backdrop-blur-md shadow-md"
+          : "backdrop-blur-[2px]"
       }`}
+      style={{
+        background: scrolled
+          ? "color-mix(in oklab, var(--background) 86%, transparent)"
+          : "color-mix(in oklab, var(--background) 55%, transparent)",
+        borderBottom: `1px solid ${scrolled ? "var(--rule)" : "transparent"}`,
+      }}
     >
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
+        {/* ── Logo / Masthead ── */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="group relative font-display text-xl font-extrabold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 tracking-tight"
+          className="group flex items-baseline gap-2 text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors"
         >
-          AM
-          <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 rounded-sm transition-all duration-200 group-hover:w-full" style={{ background: 'var(--accent)' }} />
+          <span className="font-display-italic text-2xl leading-none">
+            AM
+          </span>
+          <span className="hidden sm:inline kicker text-[0.62rem] translate-y-[-1px]">
+            / abhishek&nbsp;mathews
+          </span>
         </button>
 
-        <div className="flex items-center gap-6">
+        {/* ── Section nav ── */}
+        <div className="hidden sm:flex items-center gap-1">
           {isHome
             ? sectionLinks.map((link) => {
                 const id = link.href.slice(1);
@@ -78,20 +90,31 @@ export default function Navbar() {
                   <button
                     key={link.href}
                     onClick={() => scrollTo(link.href)}
-                    className={`group relative text-sm font-medium transition-colors duration-200 hidden sm:block ${
+                    className={`group relative px-3 py-2 transition-colors ${
                       isActive
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                        ? "text-blue-600 text-[color:var(--signal)]"
+                        : "text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
                     }`}
                   >
-                    {link.label}
+                    <span className="flex items-baseline gap-1.5">
+                      <span aria-hidden="true" className="font-mono text-[0.62rem] opacity-60 tracking-widest">
+                        {link.num}
+                      </span>
+                      <span className="font-mono-tight text-[0.82rem] uppercase tracking-[0.14em]">
+                        {link.label}
+                      </span>
+                    </span>
                     {isActive ? (
                       <motion.span
                         layoutId="nav-underline"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-sm"
+                        className="absolute left-3 right-3 bottom-1 h-px"
+                        style={{ background: "var(--signal)" }}
                       />
                     ) : (
-                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
+                      <span
+                        className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
+                        style={{ background: "currentColor" }}
+                      />
                     )}
                   </button>
                 );
@@ -100,48 +123,62 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={`/${link.href}`}
-                  className="group relative text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 hidden sm:block"
+                  className="group relative px-3 py-2 text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors"
                 >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
+                  <span className="flex items-baseline gap-1.5">
+                    <span aria-hidden="true" className="font-mono text-[0.62rem] opacity-60 tracking-widest">{link.num}</span>
+                    <span className="font-mono-tight text-[0.82rem] uppercase tracking-[0.14em]">{link.label}</span>
+                  </span>
+                  <span
+                    className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
+                    style={{ background: "currentColor" }}
+                  />
                 </Link>
               ))}
 
+          <div className="mx-2 h-5 w-px" style={{ background: "var(--rule)" }} aria-hidden="true" />
+
           <Link
             href="/hobbies"
-            className={`group relative text-sm font-medium transition-colors duration-200 hidden sm:block ${
+            className={`group relative px-3 py-2 transition-colors ${
               pathname === "/hobbies"
-                ? "text-blue-600 dark:text-blue-400"
-                : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                ? "text-blue-600 text-[color:var(--signal)]"
+                : "text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
             }`}
           >
-            Hobbies
-            {pathname !== "/hobbies" && (
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 rounded-sm transition-all duration-200 group-hover:w-full" />
+            <span className="flex items-baseline gap-1.5">
+              <span aria-hidden="true" className="font-mono text-[0.62rem] opacity-60 tracking-widest">04</span>
+              <span className="font-mono-tight text-[0.82rem] uppercase tracking-[0.14em]">Hobbies</span>
+            </span>
+            {pathname === "/hobbies" ? (
+              <span className="absolute left-3 right-3 bottom-1 h-px" style={{ background: "var(--signal)" }} />
+            ) : (
+              <span
+                className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
+                style={{ background: "currentColor" }}
+              />
             )}
           </Link>
-
-          <AnimatePresence mode="wait">
-            {mounted && (
-              <motion.button
-                key={theme}
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                exit={{ opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                aria-label="Toggle dark mode"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4 text-yellow-400" />
-                ) : (
-                  <Moon className="w-4 h-4 text-slate-600" />
-                )}
-              </motion.button>
-            )}
-          </AnimatePresence>
         </div>
+
+        {/* ── Theme toggle ── */}
+        <AnimatePresence mode="wait">
+          {mounted && (
+            <motion.button
+              key={theme}
+              initial={{ opacity: 0, rotate: -60 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 60 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="w-9 h-9 flex items-center justify-center rounded-full border transition-colors hover:text-[color:var(--signal)]"
+              style={{ borderColor: "var(--rule)", color: "var(--foreground)" }}
+              aria-label="Toggle dark mode"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
