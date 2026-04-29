@@ -99,20 +99,22 @@ export default function Navbar() {
         Skip to content
       </a>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-10 h-14 flex items-center justify-between gap-2">
-        {/* ── Logo / Masthead ── */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          aria-label="Scroll to top"
-          className="group flex items-baseline gap-2 text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors min-h-[44px]"
-        >
-          <span className="font-display-italic text-2xl leading-none">
-            AM
-          </span>
-          <span className="hidden sm:inline kicker text-[0.62rem] translate-y-[-1px]">
-            / abhishek&nbsp;mathews
-          </span>
-        </button>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-10 h-14 flex items-center gap-2 relative">
+        {/* ── Logo / Masthead (centered) ── */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Scroll to top"
+            className="group flex items-baseline gap-2 text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors min-h-[44px]"
+          >
+            <span className="font-display-italic text-2xl leading-none">
+              AM
+            </span>
+            <span className="hidden sm:inline kicker text-[0.62rem] translate-y-[-1px]">
+              / abhishek&nbsp;mathews
+            </span>
+          </button>
+        </div>
 
         {/* ── Section nav (desktop) ── */}
         <div className="hidden sm:flex items-center gap-1">
@@ -198,7 +200,7 @@ export default function Navbar() {
         </div>
 
         {/* ── Right controls ── */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 ml-auto">
           {/* Theme toggle */}
           <AnimatePresence mode="wait">
             {mounted && (
