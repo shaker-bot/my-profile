@@ -196,7 +196,7 @@ export default function Hero() {
                   <div className="meta mt-1">Years</div>
                 </div>
                 <div className="py-3" style={{ borderRight: "1px solid var(--rule)" }}>
-                  <div className="type-display text-2xl">04</div>
+                  <div className="type-display text-2xl">05</div>
                   <div className="meta mt-1">Roles</div>
                 </div>
                 <div className="py-3">

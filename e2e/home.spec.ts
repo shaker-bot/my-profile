@@ -87,8 +87,9 @@ test.describe("Home page", () => {
   });
 
   test("experience section renders all companies", async ({ page }) => {
+    await expect(page.getByText("Alarm.com", { exact: true })).toBeVisible();
     await expect(page.getByText("Capital One").first()).toBeVisible();
-    await expect(page.getByText("Extend")).toBeVisible();
+    await expect(page.getByText("Extend", { exact: true })).toBeVisible();
     await expect(page.getByText("Cloudreach")).toBeVisible();
   });
 

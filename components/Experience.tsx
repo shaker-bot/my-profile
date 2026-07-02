@@ -23,6 +23,19 @@ function calcTenure(period: string): string {
 
 const experiences = [
   {
+    company: "Alarm.com",
+    location: "Tysons, VA, USA",
+    period: "04/2026 - Present",
+    role: "Senior Software Engineer",
+    badge: "Identity & Access Management",
+    achievements: [
+      "Manage the centralized authentication platform that provides sign-on across Alarm.com applications, as part of the IAM team.",
+      "Administer and extend Keycloak, defining realm and client configuration as code for reviewable, repeatable changes across environments.",
+      "Build platform services and supporting tooling in C#.",
+    ],
+    technologies: "C#, .NET, Keycloak, Configuration-as-Code",
+  },
+  {
     company: "Capital One",
     location: "McLean, VA, USA",
     period: "09/2022 - 04/2025",
@@ -92,7 +105,7 @@ export default function Experience() {
           index="01"
           heading="Work Experience"
           headingId="experience-heading"
-          description="Seven years across platform engineering, cloud cost, and consumer products — the systems and the teams that ship them."
+          description="Identity, platform engineering, cloud cost, and consumer products — the systems and the teams that ship them."
         />
 
         {/* ── Entries ── */}
