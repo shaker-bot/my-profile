@@ -1,13 +1,17 @@
 # Abhishek Mathews - Resume Website
 
-A modern, animated resume website built with Next.js, TypeScript, and Framer Motion.
+A resume website built with Next.js, TypeScript, and Framer Motion, designed as
+a Swiss-modern typographic system ("The Dossier"): Archivo across its width axis
+for display and body, IBM Plex Mono for metadata, hairline rules, indexed
+sections, and a single cobalt accent.
 
 ## Features
 
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Smooth Animations**: Engaging animations using Framer Motion
-- **Modern UI**: Clean, professional design with gradient accents
-- **Dark Mode Support**: Automatic dark mode based on system preferences
+- **Purposeful Motion**: One orchestrated hero entrance, quiet scroll reveals, and hover micro-interactions — no looping effects
+- **Typographic UI**: Bone-paper light theme and ink dark theme driven by CSS variables
+- **Dark Mode Support**: Automatic dark mode based on system preferences, with a manual toggle
+- **Accessible**: Skip link, semantic landmarks, `prefers-reduced-motion` support, and visible focus states
 - **Static Export**: Can be exported as static HTML for easy deployment
 
 ## Getting Started

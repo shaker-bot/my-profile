@@ -72,11 +72,6 @@ describe("Skills", () => {
     expect(screen.getAllByText("Terraform").length).toBeGreaterThan(0);
   });
 
-  it("renders the WIP tag on the section heading", () => {
-    render(<Skills />);
-    expect(screen.getByText("WIP")).toBeInTheDocument();
-  });
-
   it("renders skills as pill badges, not progress bars", () => {
     render(<Skills />);
     expect(screen.getAllByText("Python").length).toBeGreaterThan(0);

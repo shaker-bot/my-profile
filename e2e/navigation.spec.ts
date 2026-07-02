@@ -12,7 +12,7 @@ test.describe("Navigation", () => {
     page,
   }) => {
     await page.goto("/hobbies");
-    await page.getByRole("button", { name: "AM" }).click();
+    await page.getByRole("button", { name: "AM", exact: true }).click();
     // AM button calls scrollTo on hobbies page — URL stays at /hobbies
     await expect(page).toHaveURL(/\/hobbies/);
   });

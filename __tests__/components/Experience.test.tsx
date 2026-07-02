@@ -23,12 +23,21 @@ describe("Experience", () => {
     expect(screen.getByText("Work Experience")).toBeInTheDocument();
   });
 
-  it("renders all four companies", () => {
+  it("renders all five companies", () => {
     render(<Experience />);
     const capitalOneEntries = screen.getAllByText("Capital One");
     expect(capitalOneEntries).toHaveLength(2);
+    expect(screen.getByText("Alarm.com")).toBeInTheDocument();
     expect(screen.getByText("Extend")).toBeInTheDocument();
     expect(screen.getByText("Cloudreach")).toBeInTheDocument();
+  });
+
+  it("renders the current Alarm.com role", () => {
+    render(<Experience />);
+    expect(screen.getByText("04/2026 - Present")).toBeInTheDocument();
+    expect(screen.getByText(/Identity & Access Management/)).toBeInTheDocument();
+    expect(screen.getByText(/centralized authentication platform/i)).toBeInTheDocument();
+    expect(screen.getByText("Keycloak")).toBeInTheDocument();
   });
 
   it("renders the Capital One Platform & Developer Tools period", () => {

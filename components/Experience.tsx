@@ -23,6 +23,19 @@ function calcTenure(period: string): string {
 
 const experiences = [
   {
+    company: "Alarm.com",
+    location: "Tysons, VA, USA",
+    period: "04/2026 - Present",
+    role: "Senior Software Engineer",
+    badge: "Identity & Access Management",
+    achievements: [
+      "Manage the centralized authentication platform that provides sign-on across Alarm.com applications, as part of the IAM team.",
+      "Administer and extend Keycloak, defining realm and client configuration as code for reviewable, repeatable changes across environments.",
+      "Build platform services and supporting tooling in C#.",
+    ],
+    technologies: "C#, .NET, Keycloak, Configuration-as-Code",
+  },
+  {
     company: "Capital One",
     location: "McLean, VA, USA",
     period: "09/2022 - 04/2025",
@@ -86,93 +99,84 @@ export default function Experience() {
       id="experience"
       aria-labelledby="experience-heading"
       className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
-      style={{ borderTop: "1px solid var(--rule)" }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <SectionHeader
-          kicker={<>§ 01 · Professional Record</>}
+          index="01"
           heading="Work Experience"
           headingId="experience-heading"
-          description="Four postings. 7+ years. Teams in the double digits, systems in the thousands, coffees in the thousands more."
-          className="mb-12 sm:mb-16"
+          description="Identity, platform engineering, cloud cost, and consumer products — the systems and the teams that ship them."
         />
 
         {/* ── Entries ── */}
-        <div className="divide-y" style={{ borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)", borderColor: "var(--rule)" }}>
+        <div style={{ borderTop: "1px solid var(--rule)" }}>
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
+              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.2, 0.7, 0.2, 1] }}
               viewport={{ once: true, amount: 0.15 }}
-              className="group grid grid-cols-12 gap-5 md:gap-10 py-8 sm:py-10 md:py-14"
+              className="group grid grid-cols-12 gap-x-8 gap-y-5 py-10 sm:py-12 md:py-14 transition-colors hover:bg-[color:var(--surface)]"
               style={{ borderBottom: "1px solid var(--rule)" }}
             >
-              {/* Index + period */}
-              <div className="col-span-12 md:col-span-3 lg:col-span-3 flex flex-wrap md:flex-col gap-x-4 gap-y-2 md:gap-2 items-start">
-                <div className="font-mono-tight text-[0.72rem] tracking-[0.2em] text-[color:var(--muted)]">
-                  ENTRY № {String(index + 1).padStart(2, "0")}
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="font-mono-tight text-sm text-[color:var(--foreground)] whitespace-nowrap">
-                    {exp.period}
-                  </span>
-                  {calcTenure(exp.period) && (
-                    <span className="kicker">· {calcTenure(exp.period)}</span>
-                  )}
-                </div>
+              {/* Index / period / tenure */}
+              <div className="col-span-12 md:col-span-3 flex flex-wrap md:flex-col gap-x-5 gap-y-1.5 items-baseline md:items-start">
+                <span className="index-num">{String(index + 1).padStart(2, "0")}</span>
+                <span className="mono text-[0.82rem] text-[color:var(--foreground)] whitespace-nowrap">
+                  {exp.period}
+                </span>
+                {calcTenure(exp.period) && (
+                  <span className="meta">· {calcTenure(exp.period)}</span>
+                )}
+                <span className="meta">{exp.location}</span>
               </div>
 
               {/* Core */}
-              <div className="col-span-12 md:col-span-9 lg:col-span-9">
-                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-1">
-                  <h3 className="font-display text-[1.75rem] sm:text-3xl md:text-4xl leading-[1.05] tracking-[-0.02em] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--signal)] text-pretty">
+              <div className="col-span-12 md:col-span-9">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h3 className="type-title text-[1.6rem] sm:text-3xl md:text-[2.1rem] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--accent)]">
                     {exp.company}
-                    {exp.location && (
-                      <span className="font-display-italic text-base sm:text-lg md:text-xl text-[color:var(--muted)]"> · {exp.location}</span>
-                    )}
                   </h3>
+                  {exp.badge && (
+                    <span
+                      className="meta px-2 py-0.5"
+                      style={{ border: "1px solid var(--rule)" }}
+                    >
+                      {exp.badge}
+                    </span>
+                  )}
                 </div>
 
-                <p className="font-mono-tight text-sm uppercase tracking-[0.18em] text-[color:var(--signal)] mb-1">
+                <p className="mono text-[0.8rem] font-medium uppercase tracking-[0.08em] text-[color:var(--accent)] mt-1.5 mb-6">
                   {exp.role}
                 </p>
-
-                {exp.badge && (
-                  <p className="kicker text-[color:var(--muted)] mb-5">
-                    — {exp.badge}
-                  </p>
-                )}
 
                 <ol className="space-y-3 max-w-3xl">
                   {exp.achievements.map((achievement, i) => (
                     <li
                       key={i}
-                      className="grid grid-cols-[auto,1fr] gap-4 text-[0.98rem] leading-relaxed text-[color:var(--foreground)]"
+                      className="grid grid-cols-[auto,1fr] gap-4 text-[0.95rem] leading-relaxed text-[color:var(--foreground)]"
                     >
-                      <span className="font-mono-tight text-[0.72rem] tracking-[0.18em] text-[color:var(--muted)] pt-1.5 tabular-nums">
+                      <span className="mono text-[0.7rem] text-[color:var(--muted)] pt-1 tabular-nums">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span>{achievement}</span>
+                      <span className="text-pretty">{achievement}</span>
                     </li>
                   ))}
                 </ol>
 
                 {exp.technologies && (
                   <div
-                    className="mt-6 pt-5 flex flex-col md:grid md:grid-cols-[auto,1fr] gap-3 md:gap-4 md:items-start"
-                    style={{ borderTop: "1px dashed var(--rule)" }}
+                    className="mt-7 pt-5 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-2 md:gap-6 items-baseline"
+                    style={{ borderTop: "1px solid var(--rule)" }}
                   >
-                    <span className="kicker shrink-0 pt-0.5">
-                      Technologies Used:
-                    </span>
-                    <ul className="flex flex-wrap gap-x-2 gap-y-1.5" aria-label="Technologies used">
+                    <span className="meta shrink-0">Technologies Used:</span>
+                    <ul className="dot-list" aria-label="Technologies used">
                       {exp.technologies.split(",").map((tech) => (
                         <li
                           key={tech.trim()}
-                          className="font-mono-tight text-xs text-[color:var(--foreground)] px-2.5 py-1 transition-colors hover:text-[color:var(--signal)]"
-                          style={{ border: "1px solid var(--rule)" }}
+                          className="mono text-xs text-[color:var(--muted)] transition-colors hover:text-[color:var(--accent)]"
                         >
                           {tech.trim()}
                         </li>

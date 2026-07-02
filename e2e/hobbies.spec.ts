@@ -10,13 +10,13 @@ test.describe("Hobbies page", () => {
   });
 
   test("navbar renders on hobbies page", async ({ page }) => {
-    await expect(page.getByRole("button", { name: "AM" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "AM", exact: true })).toBeVisible();
   });
 
   test("navbar Hobbies link is highlighted as active", async ({ page }) => {
     const hobbiesLink = page.getByRole("link", { name: "Hobbies" });
     await expect(hobbiesLink).toBeVisible();
-    await expect(hobbiesLink).toHaveClass(/text-blue-600/);
+    await expect(hobbiesLink).toHaveAttribute("aria-current", "page");
   });
 
   test("renders hobby category cards", async ({ page }) => {

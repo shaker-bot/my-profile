@@ -7,7 +7,7 @@ test.describe("Home page", () => {
 
   // --- Navbar ---
   test("navbar renders the AM logo button", async ({ page }) => {
-    await expect(page.getByRole("button", { name: "AM" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "AM", exact: true })).toBeVisible();
   });
 
   test("navbar renders section links", async ({ page }) => {
@@ -76,7 +76,7 @@ test.describe("Home page", () => {
   });
 
   test("hero renders the location", async ({ page }) => {
-    await expect(page.getByText("McLean, VA")).toBeVisible();
+    await expect(page.getByText("McLean, VA", { exact: true })).toBeVisible();
   });
 
   // --- Experience ---
@@ -87,8 +87,9 @@ test.describe("Home page", () => {
   });
 
   test("experience section renders all companies", async ({ page }) => {
+    await expect(page.getByText("Alarm.com", { exact: true })).toBeVisible();
     await expect(page.getByText("Capital One").first()).toBeVisible();
-    await expect(page.getByText("Extend")).toBeVisible();
+    await expect(page.getByText("Extend", { exact: true })).toBeVisible();
     await expect(page.getByText("Cloudreach")).toBeVisible();
   });
 
@@ -98,9 +99,9 @@ test.describe("Home page", () => {
   });
 
   test("experience section renders tenure durations", async ({ page }) => {
-    await expect(page.getByText("2 yrs 7 mo")).toBeVisible();
-    await expect(page.getByText("1 yr")).toBeVisible();
-    await expect(page.getByText("9 mo")).toBeVisible();
+    await expect(page.getByText("· 2 yrs 7 mo", { exact: true })).toBeVisible();
+    await expect(page.getByText("· 1 yr", { exact: true })).toBeVisible();
+    await expect(page.getByText("· 9 mo", { exact: true })).toBeVisible();
   });
 
   // --- Skills ---
@@ -110,24 +111,22 @@ test.describe("Home page", () => {
     ).toBeVisible();
   });
 
-  test("skills section has WIP tag", async ({ page }) => {
-    await expect(page.getByText("WIP")).toBeVisible();
-  });
-
   test("skills section renders all category headings", async ({ page }) => {
-    await expect(page.getByText("Programming Languages")).toBeVisible();
-    await expect(page.getByText("Cloud Platforms")).toBeVisible();
-    await expect(page.getByText("DevOps Tools")).toBeVisible();
-    await expect(page.getByText("Developer Tools")).toBeVisible();
-    await expect(page.getByText("Databases")).toBeVisible();
+    const skills = page.locator("#skills");
+    await expect(skills.getByText("Programming Languages")).toBeVisible();
+    await expect(skills.getByText("Cloud Platforms")).toBeVisible();
+    await expect(skills.getByText("DevOps Tools")).toBeVisible();
+    await expect(skills.getByText("Developer Tools", { exact: true })).toBeVisible();
+    await expect(skills.getByText("Databases")).toBeVisible();
   });
 
   test("skills section renders skill pills", async ({ page }) => {
-    await expect(page.getByText("TypeScript").first()).toBeVisible();
-    await expect(page.getByText("Golang")).toBeVisible();
-    await expect(page.getByText("Docker")).toBeVisible();
-    await expect(page.getByText("Kubernetes")).toBeVisible();
-    await expect(page.getByText("DynamoDB")).toBeVisible();
+    const skills = page.locator("#skills");
+    await expect(skills.getByText("TypeScript").first()).toBeVisible();
+    await expect(skills.getByText("Golang")).toBeVisible();
+    await expect(skills.getByText("Docker")).toBeVisible();
+    await expect(skills.getByText("Kubernetes")).toBeVisible();
+    await expect(skills.getByText("DynamoDB", { exact: true })).toBeVisible();
   });
 
   // --- Education ---
@@ -193,6 +192,8 @@ test.describe("Home page", () => {
 
   test("footer renders copyright with current year", async ({ page }) => {
     const year = new Date().getFullYear().toString();
-    await expect(page.getByText(new RegExp(year))).toBeVisible();
+    await expect(
+      page.locator("footer").getByText(new RegExp(year))
+    ).toBeVisible();
   });
 });

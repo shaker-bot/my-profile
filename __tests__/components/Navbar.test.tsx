@@ -132,6 +132,6 @@ describe("Navbar – hobbies page (/hobbies)", () => {
     render(<Navbar />);
     const hobbiesLink = screen.getByRole("link", { name: "Hobbies" });
     expect(hobbiesLink).toHaveAttribute("href", "/hobbies");
-    expect(hobbiesLink.className).toContain("text-blue-600");
+    expect(hobbiesLink).toHaveAttribute("aria-current", "page");
   });
 });

@@ -29,9 +29,16 @@ jest.mock("next/image", () => ({
 }));
 
 describe("Hero", () => {
-  it("renders the full name", () => {
+  it("renders the full name as the page heading", () => {
     render(<Hero />);
-    expect(screen.getByText("Abhishek Mathews")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: /Abhishek Mathews/i })
+    ).toBeInTheDocument();
+  });
+
+  it("renders the designation", () => {
+    render(<Hero />);
+    expect(screen.getByText("Senior Software Engineer")).toBeInTheDocument();
   });
 
   it("renders the profile image with correct alt text", () => {
@@ -71,11 +78,6 @@ describe("Hero", () => {
     render(<Hero />);
     expect(screen.queryByText(/703/)).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /tel:/i })).not.toBeInTheDocument();
-  });
-
-  it("renders the typewriter cursor", () => {
-    render(<Hero />);
-    expect(screen.getByText("|")).toBeInTheDocument();
   });
 
   it("renders the Download Resume CTA linking to Vercel Blob", () => {
