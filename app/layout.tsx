@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
-import ParticleBackground from "@/components/ParticleBackground";
 
 export const metadata: Metadata = {
-  title: "Abhishek Mathews — Staff Engineer, ink & infrastructure",
-  description: "The portfolio & curriculum vitæ of Abhishek Mathews — a Senior Software Engineer building cloud platforms, developer tools, and quietly over-engineered side projects.",
+  title: "Abhishek Mathews — Senior Software Engineer",
+  description: "The portfolio & curriculum vitæ of Abhishek Mathews — a Senior Software Engineer building cloud platforms, developer tools, and full-stack systems that hold up at scale.",
   keywords: ["Abhishek Mathews", "Software Engineer", "AWS", "TypeScript", "Python", "Cloud Engineer"],
   icons: {
     icon: [
@@ -26,21 +25,24 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,30..100;1,9..144,400..900,30..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          href="/fonts/archivo-100-900-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ibm-plex-mono-400-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
       </head>
       <body className="antialiased">
         <ThemeProvider>
-          <div className="ambient-gradient" aria-hidden="true" />
-          <ParticleBackground />
-          <div className="grain-overlay" aria-hidden="true" />
-          <div className="relative z-10">
-            {children}
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HoverAccent } from "./HoverAccent";
 import { SectionHeader } from "./SectionHeader";
 
 const education = [
@@ -32,153 +31,93 @@ export default function Education() {
       id="education"
       aria-labelledby="education-heading"
       className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-10 scroll-mt-20"
-      style={{ borderTop: "1px solid var(--rule)" }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <SectionHeader
-          kicker={<>§ 03 · Formation &amp; Credentials</>}
+          index="03"
           heading="Education"
           headingId="education-heading"
-          headingClassName="font-display has-dot text-[2.75rem] sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.035em] text-[color:var(--foreground)]"
-          description="Degrees in the field, plus a short ledger of credentials earned in the long shadow of cloud computing."
-          className="mb-10 sm:mb-14"
+          description="Two degrees in the field, plus the credentials collected in the long shadow of cloud computing."
         />
 
-        {/* ── Degree ledger ── */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2"
-          style={{
-            borderTop: "1px solid var(--rule)",
-            borderBottom: "1px solid var(--rule)",
-          }}
-        >
-          {education.map((edu, index) => {
-            const [start, end] = edu.date.split(" - ");
-            return (
+        {/* ── Degrees ── */}
+        <div style={{ borderTop: "1px solid var(--rule)" }}>
+          {education.map((edu, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.2, 0.7, 0.2, 1] }}
               viewport={{ once: true, amount: 0.2 }}
-              className={`group p-6 md:p-10 relative ${
-                index === 0
-                  ? "border-b md:border-b-0 md:border-r"
-                  : ""
-              }`}
-              style={{ borderColor: "var(--rule)" }}
+              className="group grid grid-cols-12 gap-x-8 gap-y-4 py-8 sm:py-10 transition-colors hover:bg-[color:var(--surface)]"
+              style={{ borderBottom: "1px solid var(--rule)" }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="kicker">
-                  Record № {String(index + 1).padStart(2, "0")}
+              <div className="col-span-12 md:col-span-3 flex flex-wrap md:flex-col gap-x-5 gap-y-1.5 items-baseline md:items-start">
+                <span className="index-num">{String(index + 1).padStart(2, "0")}</span>
+                <span className="mono text-[0.82rem] text-[color:var(--foreground)] whitespace-nowrap">
+                  {edu.date}
                 </span>
-                <span className="font-mono-tight text-xs text-[color:var(--muted)]">
-                  {start} - {end}
-                </span>
+                <span className="meta">{edu.location}</span>
               </div>
 
-              <h3 className="font-display text-[2rem] md:text-[2.5rem] leading-[1.02] tracking-[-0.025em] text-[color:var(--foreground)] mb-3">
-                {edu.degree}
-              </h3>
-
-              <p className="font-mono-tight text-sm uppercase tracking-[0.18em] text-[color:var(--foreground)] mb-1">
-                {edu.institution}
-              </p>
-              <p className="text-[0.95rem] text-[color:var(--muted)] mb-5">
-                {edu.location}
-              </p>
-
-              {edu.gpa && (
-                <div
-                  className="inline-flex items-baseline gap-3 pt-4"
-                  style={{ borderTop: "1px dashed var(--rule)" }}
-                >
-                  <span className="kicker">GPA: {edu.gpa}</span>
-                  <span className="font-mono-tight text-[0.7rem] text-[color:var(--muted)]">
-                    / 4.00
-                  </span>
-                </div>
-              )}
-
-              <HoverAccent />
+              <div className="col-span-12 md:col-span-9">
+                <h3 className="type-title text-[1.6rem] sm:text-3xl md:text-[2.1rem] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--accent)] mb-1.5">
+                  {edu.degree}
+                </h3>
+                <p className="mono text-[0.8rem] font-medium uppercase tracking-[0.08em] text-[color:var(--muted)]">
+                  {edu.institution}
+                </p>
+                {edu.gpa && (
+                  <p className="mt-4 flex items-baseline gap-2">
+                    <span className="meta">GPA: {edu.gpa}</span>
+                    <span className="mono text-[0.7rem] text-[color:var(--muted)]">/ 4.00</span>
+                  </p>
+                )}
+              </div>
             </motion.div>
-          );})}
+          ))}
         </div>
 
         {/* ── Certifications ── */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
           viewport={{ once: true }}
-          className="mt-16 sm:mt-20 mb-8 sm:mb-10"
+          className="mt-16 sm:mt-20 mb-6 flex items-baseline justify-between gap-4"
         >
-          <div className="kicker mb-3">§ 03b · Commendations</div>
-          <h2
+          <h3
             id="certifications-heading"
-            className="font-display has-dot text-[2.25rem] sm:text-5xl md:text-6xl leading-[0.92] tracking-[-0.035em] text-[color:var(--foreground)]"
+            className="type-display text-[1.75rem] sm:text-4xl text-[color:var(--foreground)]"
           >
             Certifications
-          </h2>
+          </h3>
+          <span className="index-num">03.1</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+        <div style={{ borderTop: "1px solid var(--rule)" }}>
           {certifications.map((cert, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: index * 0.1 }}
+              transition={{ duration: 0.45, delay: index * 0.06, ease: [0.2, 0.7, 0.2, 1] }}
               viewport={{ once: true }}
-              className="group relative p-7 transition-colors overflow-hidden"
-              style={{
-                border: "1px solid var(--foreground)",
-                background: "var(--foreground)",
-                color: "var(--background)",
-              }}
+              className="group grid grid-cols-12 gap-x-8 gap-y-2 py-5 sm:py-6 items-baseline transition-colors hover:bg-[color:var(--surface)]"
+              style={{ borderBottom: "1px solid var(--rule)" }}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="col-span-12 md:col-span-3 flex items-baseline gap-5">
+                <span className="index-num">{String(index + 1).padStart(2, "0")}</span>
                 <span
-                  className="font-mono-tight text-[0.68rem] tracking-[0.2em] uppercase"
-                  style={{ color: "color-mix(in oklab, var(--background) 60%, transparent)" }}
-                >
-                  ◆ Certified · {String(index + 1).padStart(2, "0")}
-                </span>
-                <span
-                  className="font-mono-tight text-xs px-2 py-0.5"
-                  style={{
-                    background: "var(--signal)",
-                    color: "#14110a",
-                  }}
+                  className="mono text-[0.7rem] font-medium px-2 py-0.5"
+                  style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
                 >
                   {cert.issuer}
                 </span>
               </div>
-
-              <h3 className="font-display text-[1.6rem] md:text-[1.85rem] leading-[1.05] tracking-[-0.02em] text-balance">
+              <p className="col-span-12 md:col-span-9 type-title text-lg sm:text-xl text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--accent)]">
                 {cert.name}
-              </h3>
-
-              {/* decorative seal */}
-              <svg
-                className="absolute -right-6 -bottom-6 w-32 h-32 opacity-10 pointer-events-none"
-                viewBox="0 0 100 100"
-                aria-hidden="true"
-              >
-                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="4" fill="currentColor" />
-                <g stroke="currentColor" strokeWidth="0.5">
-                  {Array.from({ length: 24 }).map((_, i) => {
-                    const a = (i * 15 * Math.PI) / 180;
-                    const x1 = 50 + 35 * Math.cos(a);
-                    const y1 = 50 + 35 * Math.sin(a);
-                    const x2 = 50 + 45 * Math.cos(a);
-                    const y2 = 50 + 45 * Math.sin(a);
-                    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />;
-                  })}
-                </g>
-              </svg>
+              </p>
             </motion.div>
           ))}
         </div>

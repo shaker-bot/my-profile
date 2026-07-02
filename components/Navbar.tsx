@@ -75,43 +75,45 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -60, opacity: 0 }}
+      initial={{ y: -56, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
       aria-label="Primary"
       className={`fixed top-0 left-0 right-0 z-50 transition-[background,border,backdrop-filter] duration-300 ${
-        scrolled
-          ? "backdrop-blur-md shadow-md"
-          : "backdrop-blur-[2px]"
+        scrolled ? "backdrop-blur-md shadow-md" : ""
       }`}
       style={{
         background: scrolled || menuOpen
           ? "color-mix(in oklab, var(--background) 92%, transparent)"
-          : "color-mix(in oklab, var(--background) 55%, transparent)",
+          : "transparent",
         borderBottom: `1px solid ${scrolled || menuOpen ? "var(--rule)" : "transparent"}`,
       }}
     >
+      {/* Registration bar */}
+      <div className="h-[3px]" style={{ background: "var(--accent)" }} aria-hidden="true" />
+
       <a
         href="#main-content"
-        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-2 focus-visible:z-[60] focus-visible:px-3 focus-visible:py-1.5 focus-visible:font-mono-tight focus-visible:text-xs focus-visible:uppercase focus-visible:tracking-[0.18em]"
-        style={{ background: "var(--signal)", color: "var(--background)" }}
+        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-2 focus-visible:z-[60] focus-visible:px-3 focus-visible:py-1.5 focus-visible:font-mono focus-visible:text-xs focus-visible:uppercase focus-visible:tracking-[0.08em]"
+        style={{ background: "var(--accent)", color: "var(--accent-ink)" }}
       >
         Skip to content
       </a>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-10 h-14 flex items-center justify-between gap-2">
-        {/* ── Logo / Masthead ── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 md:px-10 h-14 flex items-center justify-between gap-2">
+        {/* ── Monogram ── */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          aria-label="Scroll to top"
-          className="group flex items-center gap-2 text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors min-h-[44px]"
+          title="Back to top"
+          className="group flex items-center gap-3 min-h-[44px] text-[color:var(--foreground)]"
         >
-          <span className="font-display-italic text-2xl leading-none">
+          <span
+            className="mono text-[0.8rem] font-medium px-2 py-1 leading-none transition-colors group-hover:text-[color:var(--accent-ink)] group-hover:bg-[color:var(--accent)]"
+            style={{ border: "1px solid var(--foreground)" }}
+          >
             AM
           </span>
-          <span className="hidden sm:inline kicker text-[0.62rem]">
-            / abhishek&nbsp;mathews
-          </span>
+          <span className="hidden md:inline meta" aria-hidden="true">Abhishek Mathews</span>
         </button>
 
         {/* ── Section nav (desktop) ── */}
@@ -127,15 +129,15 @@ export default function Navbar() {
                     aria-current={isActive ? "location" : undefined}
                     className={`group relative px-3 py-2 transition-colors ${
                       isActive
-                        ? "text-blue-600 text-[color:var(--signal)]"
-                        : "text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                        ? "text-[color:var(--accent)]"
+                        : "text-[color:var(--foreground)] hover:text-[color:var(--accent)]"
                     }`}
                   >
                     <span className="flex items-baseline gap-1.5">
-                      <span aria-hidden="true" className="font-mono text-[0.62rem] opacity-60 tracking-widest">
+                      <span aria-hidden="true" className="mono text-[0.62rem] opacity-60">
                         {link.num}
                       </span>
-                      <span className="font-mono-tight text-[0.82rem] uppercase tracking-[0.14em]">
+                      <span className="mono text-[0.78rem] uppercase tracking-[0.08em]">
                         {link.label}
                       </span>
                     </span>
@@ -143,7 +145,7 @@ export default function Navbar() {
                       <motion.span
                         layoutId="nav-underline"
                         className="absolute left-3 right-3 bottom-1 h-px"
-                        style={{ background: "var(--signal)" }}
+                        style={{ background: "var(--accent)" }}
                       />
                     ) : (
                       <span
@@ -158,11 +160,11 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={`/${link.href}`}
-                  className="group relative px-3 py-2 text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors"
+                  className="group relative px-3 py-2 text-[color:var(--foreground)] hover:text-[color:var(--accent)] transition-colors"
                 >
                   <span className="flex items-baseline gap-1.5">
-                    <span aria-hidden="true" className="font-mono text-[0.62rem] opacity-60 tracking-widest">{link.num}</span>
-                    <span className="font-mono-tight text-[0.82rem] uppercase tracking-[0.14em]">{link.label}</span>
+                    <span aria-hidden="true" className="mono text-[0.62rem] opacity-60">{link.num}</span>
+                    <span className="mono text-[0.78rem] uppercase tracking-[0.08em]">{link.label}</span>
                   </span>
                   <span
                     className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
@@ -171,23 +173,21 @@ export default function Navbar() {
                 </Link>
               ))}
 
-          <div className="mx-2 h-5 w-px" style={{ background: "var(--rule)" }} aria-hidden="true" />
-
           <Link
             href="/hobbies"
             aria-current={pathname === "/hobbies" ? "page" : undefined}
             className={`group relative px-3 py-2 transition-colors ${
               pathname === "/hobbies"
-                ? "text-blue-600 text-[color:var(--signal)]"
-                : "text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                ? "text-[color:var(--accent)]"
+                : "text-[color:var(--foreground)] hover:text-[color:var(--accent)]"
             }`}
           >
             <span className="flex items-baseline gap-1.5">
-              <span aria-hidden="true" className="font-mono text-[0.62rem] opacity-60 tracking-widest">04</span>
-              <span className="font-mono-tight text-[0.82rem] uppercase tracking-[0.14em]">Hobbies</span>
+              <span aria-hidden="true" className="mono text-[0.62rem] opacity-60">04</span>
+              <span className="mono text-[0.78rem] uppercase tracking-[0.08em]">Hobbies</span>
             </span>
             {pathname === "/hobbies" ? (
-              <span className="absolute left-3 right-3 bottom-1 h-px" style={{ background: "var(--signal)" }} />
+              <span className="absolute left-3 right-3 bottom-1 h-px" style={{ background: "var(--accent)" }} />
             ) : (
               <span
                 className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
@@ -209,8 +209,8 @@ export default function Navbar() {
                 exit={{ opacity: 0, rotate: 60 }}
                 transition={{ duration: 0.25 }}
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-11 h-11 flex items-center justify-center rounded-full border transition-colors hover:text-[color:var(--signal)]"
-                style={{ borderColor: "var(--rule)", color: "var(--foreground)" }}
+                className="w-11 h-11 flex items-center justify-center transition-colors hover:text-[color:var(--accent)]"
+                style={{ color: "var(--foreground)" }}
                 aria-label="Toggle dark mode"
               >
                 {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -225,8 +225,8 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav-panel"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden w-11 h-11 flex items-center justify-center rounded-full border transition-colors hover:text-[color:var(--signal)]"
-            style={{ borderColor: "var(--rule)", color: "var(--foreground)" }}
+            className="sm:hidden w-11 h-11 flex items-center justify-center transition-colors hover:text-[color:var(--accent)]"
+            style={{ color: "var(--foreground)" }}
           >
             {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -264,24 +264,21 @@ export default function Navbar() {
                           aria-current={isActive ? "location" : undefined}
                           className={`w-full flex items-baseline justify-between py-4 min-h-[44px] transition-colors ${
                             isActive
-                              ? "text-[color:var(--signal)]"
-                              : "text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                              ? "text-[color:var(--accent)]"
+                              : "text-[color:var(--foreground)] hover:text-[color:var(--accent)]"
                           }`}
                           style={{ borderBottom: "1px solid var(--rule)" }}
                         >
                           <span className="flex items-baseline gap-3">
-                            <span aria-hidden="true" className="font-mono-tight text-[0.72rem] opacity-60 tracking-[0.2em]">
+                            <span aria-hidden="true" className="mono text-[0.68rem] opacity-60">
                               {link.num}
                             </span>
-                            <span className="font-display text-xl leading-none">
+                            <span className="type-title text-xl leading-none">
                               {link.label}
                             </span>
                           </span>
-                          <span
-                            aria-hidden="true"
-                            className="font-mono-tight text-[0.72rem] tracking-[0.18em] uppercase"
-                          >
-                            {isActive ? "Reading" : "Jump →"}
+                          <span aria-hidden="true" className="meta">
+                            {isActive ? "Here" : "Jump →"}
                           </span>
                         </button>
                       </li>
@@ -292,20 +289,18 @@ export default function Navbar() {
                       <Link
                         href={`/${link.href}`}
                         onClick={() => setMenuOpen(false)}
-                        className="w-full flex items-baseline justify-between py-4 min-h-[44px] text-[color:var(--foreground)] hover:text-[color:var(--signal)] transition-colors"
+                        className="w-full flex items-baseline justify-between py-4 min-h-[44px] text-[color:var(--foreground)] hover:text-[color:var(--accent)] transition-colors"
                         style={{ borderBottom: "1px solid var(--rule)" }}
                       >
                         <span className="flex items-baseline gap-3">
-                          <span aria-hidden="true" className="font-mono-tight text-[0.72rem] opacity-60 tracking-[0.2em]">
+                          <span aria-hidden="true" className="mono text-[0.68rem] opacity-60">
                             {link.num}
                           </span>
-                          <span className="font-display text-xl leading-none">
+                          <span className="type-title text-xl leading-none">
                             {link.label}
                           </span>
                         </span>
-                        <span aria-hidden="true" className="font-mono-tight text-[0.72rem] tracking-[0.18em] uppercase">
-                          Jump →
-                        </span>
+                        <span aria-hidden="true" className="meta">Jump →</span>
                       </Link>
                     </li>
                   ))}
@@ -316,19 +311,15 @@ export default function Navbar() {
                   aria-current={pathname === "/hobbies" ? "page" : undefined}
                   className={`w-full flex items-baseline justify-between py-4 min-h-[44px] transition-colors ${
                     pathname === "/hobbies"
-                      ? "text-[color:var(--signal)]"
-                      : "text-[color:var(--foreground)] hover:text-[color:var(--signal)]"
+                      ? "text-[color:var(--accent)]"
+                      : "text-[color:var(--foreground)] hover:text-[color:var(--accent)]"
                   }`}
                 >
                   <span className="flex items-baseline gap-3">
-                    <span aria-hidden="true" className="font-mono-tight text-[0.72rem] opacity-60 tracking-[0.2em]">
-                      04
-                    </span>
-                    <span className="font-display text-xl leading-none">
-                      Hobbies
-                    </span>
+                    <span aria-hidden="true" className="mono text-[0.68rem] opacity-60">04</span>
+                    <span className="type-title text-xl leading-none">Hobbies</span>
                   </span>
-                  <span aria-hidden="true" className="font-mono-tight text-[0.72rem] tracking-[0.18em] uppercase">
+                  <span aria-hidden="true" className="meta">
                     {pathname === "/hobbies" ? "Here" : "Visit →"}
                   </span>
                 </Link>

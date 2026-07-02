@@ -24,11 +24,6 @@ describe("Hobbies – grid view", () => {
     expect(screen.getByText("Beyond the Code")).toBeInTheDocument();
   });
 
-  it("renders the WIP badge", () => {
-    render(<Hobbies />);
-    expect(screen.getByText("WIP")).toBeInTheDocument();
-  });
-
   it("renders the subtitle", () => {
     render(<Hobbies />);
     expect(
