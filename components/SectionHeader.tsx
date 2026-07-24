@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { RegMark } from "./hud";
 
 type Props = {
   index: string;
   heading: ReactNode;
   headingId: string;
   description: ReactNode;
+  /** Flavor readout shown on the module strip, e.g. "LOGGED". */
+  status?: string;
   className?: string;
 };
 
@@ -16,6 +19,7 @@ export function SectionHeader({
   heading,
   headingId,
   description,
+  status = "NOMINAL",
   className = "mb-12 sm:mb-16",
 }: Props) {
   return (
@@ -26,12 +30,21 @@ export function SectionHeader({
       viewport={{ once: true }}
       className={className}
     >
+      {/* ── Module strip ── */}
       <div
-        className="flex items-baseline justify-between gap-4 pb-3 mb-8 sm:mb-10"
+        className="flex items-center justify-between gap-4 pb-3 mb-8 sm:mb-10"
         style={{ borderBottom: "1px solid var(--rule)" }}
       >
-        <span className="index-num">{index}</span>
-        <span className="meta hidden sm:inline">Abhishek Mathews — CV</span>
+        <span className="flex items-center gap-3">
+          <RegMark />
+          <span className="index-num">MODULE {index}</span>
+        </span>
+        <span className="flex items-center gap-3">
+          <span className="meta hidden sm:inline">
+            STATUS: <span style={{ color: "var(--online)" }}>{status}</span>
+          </span>
+          <RegMark />
+        </span>
       </div>
 
       <div className="grid grid-cols-12 gap-x-8 gap-y-5 items-end">

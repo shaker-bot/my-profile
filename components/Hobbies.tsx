@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Music, Code, Gamepad2, Tv, ArrowLeft } from "lucide-react";
+import { Corners, RegMark } from "./hud";
 
 interface HobbyItem {
   title: string;
@@ -75,6 +76,26 @@ const hobbies: Hobby[] = [
   },
 ];
 
+/* Status semantics for tag chips: running / done / queued. */
+const LIVE_TAGS = ["Playing", "Watching", "Reading", "On Repeat", "Active"];
+const DONE_TAGS = ["Completed", "Shipped", "Favorite"];
+
+function tagStyle(tag: string): React.CSSProperties {
+  if (LIVE_TAGS.includes(tag)) {
+    return {
+      borderColor: "color-mix(in oklab, var(--online) 55%, var(--rule))",
+      color: "var(--online)",
+    };
+  }
+  if (DONE_TAGS.includes(tag)) {
+    return { borderColor: "var(--rule)", color: "var(--muted)" };
+  }
+  return {
+    borderColor: "color-mix(in oklab, var(--accent) 45%, var(--rule))",
+    color: "var(--accent)",
+  };
+}
+
 const slideVariants = {
   enter: (dir: number) => ({ x: dir > 0 ? 48 : -48, opacity: 0 }),
   center: { x: 0, opacity: 1, transition: { duration: 0.35, ease: "easeOut" } },
@@ -110,16 +131,22 @@ export default function Hobbies() {
       className="relative min-h-screen px-5 sm:px-6 md:px-10 pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-24"
     >
       <div className="max-w-6xl mx-auto">
-        {/* ── Index strip ── */}
+        {/* ── Module strip ── */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
-          className="flex items-baseline justify-between gap-4 pb-3 mb-8 sm:mb-10"
+          className="flex items-center justify-between gap-4 pb-3 mb-8 sm:mb-10"
           style={{ borderBottom: "1px solid var(--rule)" }}
         >
-          <span className="index-num">04</span>
-          <span className="meta">Off Hours</span>
+          <span className="flex items-center gap-3">
+            <RegMark />
+            <span className="index-num">MODULE 04</span>
+          </span>
+          <span className="flex items-center gap-3">
+            <span className="meta">Off-Duty</span>
+            <RegMark />
+          </span>
         </motion.div>
 
         {/* ── Page head ── */}
@@ -160,8 +187,7 @@ export default function Hobbies() {
                   variants={listContainer}
                   initial="hidden"
                   animate="show"
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
-                  style={{ background: "var(--rule)", border: "1px solid var(--rule)" }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                 >
                   {hobbies.map((hobby, index) => {
                     const Icon = hobby.icon;
@@ -171,15 +197,16 @@ export default function Hobbies() {
                         variants={listItem}
                         onClick={() => openHobby(hobby)}
                         aria-label={`Read more about ${hobby.title}`}
-                        className="group relative flex flex-col text-left p-6 sm:p-8 min-h-[44px] transition-colors hover:bg-[color:var(--surface)] focus-visible:bg-[color:var(--surface)]"
-                        style={{ background: "var(--background)" }}
+                        className="hud-panel armable group relative flex flex-col text-left p-6 sm:p-7 min-h-[44px]"
                       >
-                        <div className="flex items-baseline justify-between mb-8">
+                        <Corners />
+
+                        <div className="flex items-center justify-between mb-8">
                           <span className="index-num">
-                            {String(index + 1).padStart(2, "0")}
+                            SLOT {String(index + 1).padStart(2, "0")}
                           </span>
                           <Icon
-                            className="w-4 h-4 text-[color:var(--muted)] translate-y-0.5"
+                            className="w-4 h-4 text-[color:var(--muted)] transition-colors group-hover:text-[color:var(--accent)]"
                             aria-hidden="true"
                           />
                         </div>
@@ -200,12 +227,15 @@ export default function Hobbies() {
                     );
                   })}
 
-                  {/* Filler cell keeps the hairline grid complete on lg */}
+                  {/* Expansion slot keeps the bay symmetrical on lg */}
                   <div
                     aria-hidden="true"
-                    className="hidden lg:flex p-8 items-end"
-                    style={{ background: "var(--background)" }}
+                    className="hidden lg:flex flex-col justify-between p-6 sm:p-7"
+                    style={{ border: "1px dashed var(--border)" }}
                   >
+                    <span className="index-num" style={{ color: "var(--muted-2)" }}>
+                      SLOT 06
+                    </span>
                     <span className="meta">— and whatever ships next</span>
                   </div>
                 </motion.div>
@@ -244,7 +274,7 @@ export default function Hobbies() {
                   <div className="col-span-12 md:col-span-8">
                     <div className="flex items-center gap-3 mb-3">
                       <selected.icon className="w-4 h-4 text-[color:var(--muted)]" aria-hidden="true" />
-                      <span className="meta">Feature</span>
+                      <span className="meta">Log Entry</span>
                     </div>
                     <h2 className="type-display text-[2.25rem] sm:text-5xl md:text-6xl text-[color:var(--foreground)]">
                       {selected.title}
@@ -285,8 +315,8 @@ export default function Hobbies() {
                       </div>
                       {hobbyItem.tag && (
                         <span
-                          className="meta px-2.5 py-1 whitespace-nowrap text-[color:var(--accent)]"
-                          style={{ border: "1px solid var(--rule)" }}
+                          className="chip whitespace-nowrap uppercase tracking-[0.08em]"
+                          style={tagStyle(hobbyItem.tag)}
                         >
                           {hobbyItem.tag}
                         </span>

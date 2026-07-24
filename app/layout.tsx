@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
+import SystemBackdrop from "@/components/SystemBackdrop";
 
 export const metadata: Metadata = {
   title: "Abhishek Mathews — Senior Software Engineer",
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0b1014" },
+    { media: "(prefers-color-scheme: light)", color: "#e9ecee" },
+  ],
 };
 
 export default function RootLayout({
@@ -39,9 +47,17 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        <link
+          rel="preload"
+          href="/fonts/ibm-plex-mono-500-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="antialiased">
         <ThemeProvider>
+          <SystemBackdrop />
           {children}
         </ThemeProvider>
       </body>
