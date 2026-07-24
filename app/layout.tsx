@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import SystemBackdrop from "@/components/SystemBackdrop";
+import BackToTop from "@/components/BackToTop";
 
 export const metadata: Metadata = {
   title: "Abhishek Mathews — Senior Software Engineer",
@@ -59,6 +60,7 @@ export default function RootLayout({
         <ThemeProvider>
           <SystemBackdrop />
           {children}
+          <BackToTop />
         </ThemeProvider>
       </body>
     </html>

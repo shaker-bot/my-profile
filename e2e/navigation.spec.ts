@@ -48,4 +48,30 @@ test.describe("Navigation", () => {
     await page.getByRole("button", { name: "Education" }).click();
     await expect(page.locator("#education")).toBeInViewport({ ratio: 0.1 });
   });
+
+  test("back to top button appears after scrolling and returns to top", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    const btn = page.getByRole("button", { name: /scroll back to top/i });
+    await expect(btn).toBeHidden();
+
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.body.scrollHeight / 2, behavior: "instant" })
+    );
+    await expect(btn).toBeVisible();
+
+    // Must be docked inside the viewport (fixed), not sitting in page flow
+    const viewport = page.viewportSize()!;
+    const box = (await btn.boundingBox())!;
+    expect(box.y).toBeGreaterThan(0);
+    expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
+    expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
+
+    await btn.click();
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY), { timeout: 10_000 })
+      .toBeLessThan(50);
+    await expect(btn).toBeHidden();
+  });
 });
