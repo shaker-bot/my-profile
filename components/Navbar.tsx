@@ -6,6 +6,7 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { StatusDot } from "./hud";
 
 const sectionLinks = [
   { label: "Experience", href: "#experience", num: "01" },
@@ -13,8 +14,33 @@ const sectionLinks = [
   { label: "Education",  href: "#education",  num: "03" },
 ];
 
+/* Local console clock, rendered only after mount to stay hydration-safe. */
+function Clock() {
+  const [now, setNow] = useState<string>(() =>
+    new Date().toLocaleTimeString("en-GB", { hour12: false })
+  );
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setNow(new Date().toLocaleTimeString("en-GB", { hour12: false })),
+      1000
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <span
+      aria-hidden="true"
+      className="mono text-[0.7rem] tabular-nums text-[color:var(--muted)] hidden lg:inline"
+    >
+      {now}
+    </span>
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,8 +51,14 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(window.scrollY / max, 1) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -89,8 +121,21 @@ export default function Navbar() {
         borderBottom: `1px solid ${scrolled || menuOpen ? "var(--rule)" : "transparent"}`,
       }}
     >
-      {/* Registration bar */}
-      <div className="h-[3px]" style={{ background: "var(--accent)" }} aria-hidden="true" />
+      {/* Scroll telemetry — the registration bar doubles as a progress gauge */}
+      <div
+        className="h-[3px]"
+        style={{ background: "color-mix(in oklab, var(--accent) 22%, transparent)" }}
+        aria-hidden="true"
+      >
+        <div
+          className="h-full origin-left"
+          style={{
+            background: "var(--accent)",
+            transform: `scaleX(${progress})`,
+            boxShadow: "0 0 10px var(--glow)",
+          }}
+        />
+      </div>
 
       <a
         href="#main-content"
@@ -101,7 +146,7 @@ export default function Navbar() {
       </a>
 
       <div className="max-w-6xl mx-auto px-5 sm:px-6 md:px-10 h-14 flex items-center justify-between gap-2">
-        {/* ── Monogram ── */}
+        {/* ── Callsign ── */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           title="Back to top"
@@ -137,7 +182,7 @@ export default function Navbar() {
                       <span aria-hidden="true" className="mono text-[0.62rem] opacity-60">
                         {link.num}
                       </span>
-                      <span className="mono text-[0.78rem] uppercase tracking-[0.08em]">
+                      <span className="mono text-[0.78rem] uppercase tracking-[0.1em]">
                         {link.label}
                       </span>
                     </span>
@@ -145,7 +190,7 @@ export default function Navbar() {
                       <motion.span
                         layoutId="nav-underline"
                         className="absolute left-3 right-3 bottom-1 h-px"
-                        style={{ background: "var(--accent)" }}
+                        style={{ background: "var(--accent)", boxShadow: "0 0 8px var(--glow)" }}
                       />
                     ) : (
                       <span
@@ -164,7 +209,7 @@ export default function Navbar() {
                 >
                   <span className="flex items-baseline gap-1.5">
                     <span aria-hidden="true" className="mono text-[0.62rem] opacity-60">{link.num}</span>
-                    <span className="mono text-[0.78rem] uppercase tracking-[0.08em]">{link.label}</span>
+                    <span className="mono text-[0.78rem] uppercase tracking-[0.1em]">{link.label}</span>
                   </span>
                   <span
                     className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
@@ -184,10 +229,13 @@ export default function Navbar() {
           >
             <span className="flex items-baseline gap-1.5">
               <span aria-hidden="true" className="mono text-[0.62rem] opacity-60">04</span>
-              <span className="mono text-[0.78rem] uppercase tracking-[0.08em]">Hobbies</span>
+              <span className="mono text-[0.78rem] uppercase tracking-[0.1em]">Hobbies</span>
             </span>
             {pathname === "/hobbies" ? (
-              <span className="absolute left-3 right-3 bottom-1 h-px" style={{ background: "var(--accent)" }} />
+              <span
+                className="absolute left-3 right-3 bottom-1 h-px"
+                style={{ background: "var(--accent)", boxShadow: "0 0 8px var(--glow)" }}
+              />
             ) : (
               <span
                 className="absolute left-3 right-3 bottom-1 h-px scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"
@@ -197,8 +245,17 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ── Right controls ── */}
-        <div className="flex items-center gap-1">
+        {/* ── Telemetry + controls ── */}
+        <div className="flex items-center gap-3">
+          {mounted && <Clock />}
+          <span
+            aria-hidden="true"
+            className="hidden md:flex items-center gap-2 meta"
+          >
+            <StatusDot />
+            <span style={{ color: "var(--online)" }}>Online</span>
+          </span>
+
           {/* Theme toggle */}
           <AnimatePresence mode="wait">
             {mounted && (

@@ -1,17 +1,20 @@
 # Abhishek Mathews - Resume Website
 
 A resume website built with Next.js, TypeScript, and Framer Motion, designed as
-a Swiss-modern typographic system ("The Dossier"): Archivo across its width axis
-for display and body, IBM Plex Mono for metadata, hairline rules, indexed
-sections, and a single cobalt accent.
+a mission-control console ("Control Plane") for a career in cloud infrastructure
+and identity systems: Archivo compressed to its condensed width for display type,
+IBM Plex Mono carrying all instrumentation, amber phosphor on deep console ink
+(dark, default) and a drafting-paper light theme.
 
 ## Features
 
+- **Console Backdrop**: Fixed blueprint grid, range rings, radar sweep, and film grain — pure CSS, no requests
+- **System Graphics**: A self-drawing system topology (SYS.MAP) with a live auth path, HUD corner brackets, a portrait viewfinder with scan sweep, and rotating certification stamps
+- **Scroll Telemetry**: The navbar registration bar doubles as a scroll progress gauge, and the experience log's timeline rail fills as you read
+- **Purposeful Motion**: A power-on hero entrance, quiet scroll reveals, a specialties ticker, and hover micro-interactions — all frozen under `prefers-reduced-motion`
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Purposeful Motion**: One orchestrated hero entrance, quiet scroll reveals, and hover micro-interactions — no looping effects
-- **Typographic UI**: Bone-paper light theme and ink dark theme driven by CSS variables
-- **Dark Mode Support**: Automatic dark mode based on system preferences, with a manual toggle
-- **Accessible**: Skip link, semantic landmarks, `prefers-reduced-motion` support, and visible focus states
+- **Dark Mode Support**: Dark-first console theme with a daylight-ops light theme, driven by CSS variables with a manual toggle
+- **Accessible**: Skip link, semantic landmarks, decorative chrome kept `aria-hidden`, and visible focus states
 - **Static Export**: Can be exported as static HTML for easy deployment
 
 ## Getting Started

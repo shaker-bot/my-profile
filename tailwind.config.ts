@@ -23,6 +23,8 @@ export default {
         muted:         "var(--muted)",
         primary:       "var(--primary)",
         accent:        "var(--accent)",
+        "accent-ink":  "var(--accent-ink)",
+        online:        "var(--online)",
         signal:        "var(--signal)",
       },
     },

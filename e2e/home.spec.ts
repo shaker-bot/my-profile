@@ -35,7 +35,7 @@ test.describe("Home page", () => {
 
   test("hero renders the bio text", async ({ page }) => {
     await expect(
-      page.getByText(/7\+ years of experience/i)
+      page.getByText(/8\+ years of experience/i)
     ).toBeVisible();
   });
 

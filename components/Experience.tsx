@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { SectionHeader } from "./SectionHeader";
+import { Corners, StatusDot } from "./hud";
 
 function calcTenure(period: string): string {
   const parts = period.split(" - ");
@@ -93,7 +95,43 @@ const experiences = [
   },
 ];
 
+/*
+  Drives the timeline rail's amber fill from scroll position: the fill
+  tracks how far the viewport's midpoint has descended through the log.
+*/
+function useTimelineProgress(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      if (rect.height <= 0) return;
+      const passed = Math.min(
+        Math.max(window.innerHeight * 0.55 - rect.top, 0),
+        rect.height
+      );
+      el.style.setProperty("--tl-progress", String(passed / rect.height));
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ref]);
+}
+
 export default function Experience() {
+  const logRef = useRef<HTMLDivElement>(null);
+  useTimelineProgress(logRef);
+
   return (
     <section
       id="experience"
@@ -105,88 +143,109 @@ export default function Experience() {
           index="01"
           heading="Work Experience"
           headingId="experience-heading"
+          status="Logged"
           description="Identity, platform engineering, cloud cost, and consumer products — the systems and the teams that ship them."
         />
 
-        {/* ── Entries ── */}
-        <div style={{ borderTop: "1px solid var(--rule)" }}>
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.2, 0.7, 0.2, 1] }}
-              viewport={{ once: true, amount: 0.15 }}
-              className="group grid grid-cols-12 gap-x-8 gap-y-5 py-10 sm:py-12 md:py-14 transition-colors hover:bg-[color:var(--surface)]"
-              style={{ borderBottom: "1px solid var(--rule)" }}
-            >
-              {/* Index / period / tenure */}
-              <div className="col-span-12 md:col-span-3 flex flex-wrap md:flex-col gap-x-5 gap-y-1.5 items-baseline md:items-start">
-                <span className="index-num">{String(index + 1).padStart(2, "0")}</span>
-                <span className="mono text-[0.82rem] text-[color:var(--foreground)] whitespace-nowrap">
-                  {exp.period}
-                </span>
-                {calcTenure(exp.period) && (
-                  <span className="meta">· {calcTenure(exp.period)}</span>
-                )}
-                <span className="meta">{exp.location}</span>
-              </div>
+        {/* ── Deployment log ── */}
+        <div ref={logRef} className="relative">
+          {/* Rail with scroll-driven fill */}
+          <div className="tl-rail hidden md:block" aria-hidden="true">
+            <div className="tl-fill" />
+          </div>
 
-              {/* Core */}
-              <div className="col-span-12 md:col-span-9">
-                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                  <h3 className="type-title text-[1.6rem] sm:text-3xl md:text-[2.1rem] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--accent)]">
-                    {exp.company}
-                  </h3>
-                  {exp.badge && (
-                    <span
-                      className="meta px-2 py-0.5"
-                      style={{ border: "1px solid var(--rule)" }}
-                    >
-                      {exp.badge}
-                    </span>
-                  )}
-                </div>
+          <div className="space-y-6 sm:space-y-8">
+            {experiences.map((exp, index) => {
+              const isActive = exp.period.endsWith("Present");
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05, ease: [0.2, 0.7, 0.2, 1] }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  className="relative md:pl-12"
+                >
+                  {/* Rail node */}
+                  <span
+                    className={`tl-node hidden md:block ${isActive ? "tl-node--active" : ""}`}
+                    aria-hidden="true"
+                  />
 
-                <p className="mono text-[0.8rem] font-medium uppercase tracking-[0.08em] text-[color:var(--accent)] mt-1.5 mb-6">
-                  {exp.role}
-                </p>
+                  <div className="hud-panel armable group p-6 sm:p-8 md:p-10">
+                    <Corners />
 
-                <ol className="space-y-3 max-w-3xl">
-                  {exp.achievements.map((achievement, i) => (
-                    <li
-                      key={i}
-                      className="grid grid-cols-[auto,1fr] gap-4 text-[0.95rem] leading-relaxed text-[color:var(--foreground)]"
-                    >
-                      <span className="mono text-[0.7rem] text-[color:var(--muted)] pt-1 tabular-nums">
-                        {String(i + 1).padStart(2, "0")}
+                    {/* Log line */}
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 mb-5">
+                      <span className="index-num">
+                        LOG {String(index + 1).padStart(2, "0")}
                       </span>
-                      <span className="text-pretty">{achievement}</span>
-                    </li>
-                  ))}
-                </ol>
-
-                {exp.technologies && (
-                  <div
-                    className="mt-7 pt-5 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-2 md:gap-6 items-baseline"
-                    style={{ borderTop: "1px solid var(--rule)" }}
-                  >
-                    <span className="meta shrink-0">Technologies Used:</span>
-                    <ul className="dot-list" aria-label="Technologies used">
-                      {exp.technologies.split(",").map((tech) => (
-                        <li
-                          key={tech.trim()}
-                          className="mono text-xs text-[color:var(--muted)] transition-colors hover:text-[color:var(--accent)]"
+                      <span className="mono text-[0.82rem] text-[color:var(--foreground)] whitespace-nowrap">
+                        {exp.period}
+                      </span>
+                      {calcTenure(exp.period) && (
+                        <span className="meta">· {calcTenure(exp.period)}</span>
+                      )}
+                      <span className="meta">{exp.location}</span>
+                      {isActive && (
+                        <span
+                          className="chip ml-auto"
+                          style={{
+                            borderColor: "color-mix(in oklab, var(--online) 55%, var(--rule))",
+                            color: "var(--online)",
+                          }}
                         >
-                          {tech.trim()}
+                          <StatusDot />
+                          Active
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                      <h3 className="type-title text-[1.6rem] sm:text-3xl md:text-[2.1rem] text-[color:var(--foreground)] transition-colors group-hover:text-[color:var(--accent)]">
+                        {exp.company}
+                      </h3>
+                      {exp.badge && <span className="chip meta">{exp.badge}</span>}
+                    </div>
+
+                    <p className="mono text-[0.8rem] font-medium uppercase tracking-[0.1em] text-[color:var(--accent)] mt-1.5 mb-6">
+                      {exp.role}
+                    </p>
+
+                    <ol className="space-y-3 max-w-3xl">
+                      {exp.achievements.map((achievement, i) => (
+                        <li
+                          key={i}
+                          className="grid grid-cols-[auto,1fr] gap-4 text-[0.95rem] leading-relaxed text-[color:var(--foreground)]"
+                        >
+                          <span className="mono text-[0.7rem] text-[color:var(--muted)] pt-1 tabular-nums">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-pretty">{achievement}</span>
                         </li>
                       ))}
-                    </ul>
+                    </ol>
+
+                    {exp.technologies && (
+                      <div
+                        className="mt-7 pt-5 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-3 md:gap-6 items-baseline"
+                        style={{ borderTop: "1px solid var(--rule)" }}
+                      >
+                        <span className="meta shrink-0">Technologies Used:</span>
+                        <ul className="flex flex-wrap gap-1.5" aria-label="Technologies used">
+                          {exp.technologies.split(",").map((tech) => (
+                            <li key={tech.trim()} className="chip text-[color:var(--muted)]">
+                              {tech.trim()}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
