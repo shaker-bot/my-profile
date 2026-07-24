@@ -48,7 +48,7 @@ describe("Hero", () => {
 
   it("renders the bio paragraph", () => {
     render(<Hero />);
-    expect(screen.getByText(/7\+ years of experience/i)).toBeInTheDocument();
+    expect(screen.getByText(/8\+ years of experience/i)).toBeInTheDocument();
   });
 
   it("renders the email contact link", () => {

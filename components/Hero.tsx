@@ -139,7 +139,7 @@ export default function Hero() {
           <div className="col-span-12 lg:col-span-7">
             <motion.div {...fadeUp(0.4)}>
               <p className="text-lg sm:text-xl md:text-[1.375rem] leading-relaxed text-[color:var(--foreground)] max-w-2xl text-pretty">
-                A Senior Software Engineer with 7+ years of experience leading the
+                A Senior Software Engineer with 8+ years of experience leading the
                 design and delivery of high-impact systems — specializing in cloud
                 infrastructure, DevOps, and full-stack development that has to
                 actually work at scale.
@@ -232,7 +232,7 @@ export default function Hero() {
                 style={{ borderTop: "1px solid var(--rule)", borderBottom: "1px solid var(--rule)" }}
               >
                 <div className="py-3" style={{ borderRight: "1px solid var(--rule)" }}>
-                  <div className="led text-2xl text-[color:var(--accent)]">07+</div>
+                  <div className="led text-2xl text-[color:var(--accent)]">08+</div>
                   <div className="meta mt-1">Years</div>
                 </div>
                 <div className="py-3" style={{ borderRight: "1px solid var(--rule)" }}>
