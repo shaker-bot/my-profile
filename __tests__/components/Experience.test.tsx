@@ -35,8 +35,8 @@ describe("Experience", () => {
   it("renders the current Alarm.com role", () => {
     render(<Experience />);
     expect(screen.getByText("04/2026 - Present")).toBeInTheDocument();
-    expect(screen.getByText(/Identity & Access Management/)).toBeInTheDocument();
-    expect(screen.getByText(/centralized authentication platform/i)).toBeInTheDocument();
+    expect(screen.getByText(/Platform IAM/)).toBeInTheDocument();
+    expect(screen.getByText(/Auth0 headless authentication flow/i)).toBeInTheDocument();
     expect(screen.getByText("Keycloak")).toBeInTheDocument();
   });
 
