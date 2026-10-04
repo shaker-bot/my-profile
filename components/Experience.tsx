@@ -29,13 +29,13 @@ const experiences = [
     location: "Tysons, VA, USA",
     period: "04/2026 - Present",
     role: "Senior Software Engineer",
-    badge: "Identity & Access Management",
+    badge: "Platform IAM",
     achievements: [
-      "Manage the centralized authentication platform that provides sign-on across Alarm.com applications, as part of the IAM team.",
-      "Administer and extend Keycloak, defining realm and client configuration as code for reviewable, repeatable changes across environments.",
-      "Build platform services and supporting tooling in C#.",
+      "Led the initial POC for an Auth0 headless authentication flow, integrating it with Alarm.com's internal Keycloak OIDC broker server.",
+      "Authored knowledge base documentation on authentication and authorization flows to onboard incoming software engineers.",
+      "Led the migration of credential data to a new team-owned database, enabling newly released APIs to authenticate against it.",
     ],
-    technologies: "C#, .NET, Keycloak, Configuration-as-Code",
+    technologies: "C#, .NET, Auth0, Keycloak, OIDC, Configuration-as-Code",
   },
   {
     company: "Capital One",
